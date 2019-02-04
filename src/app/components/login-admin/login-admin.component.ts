@@ -30,5 +30,11 @@ export class LoginAdminComponent implements OnInit {
     this.router.navigate(['/mainmenu']);
   }
 
-
+  restorePassword(email){
+    debugger;
+    this.authenticationService.restorePassword(email).subscribe(res=>{
+      debugger;
+      console.log(res);
+    },err=>console.log(err));
+  }
 }
