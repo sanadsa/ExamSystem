@@ -1,0 +1,32 @@
+<form [formGroup]="questionForm">
+  <div formGroupName="question">
+    <div class="formGroup">
+      <label for="questionType">Question Type</label>
+      <select #selectedType formControlName="questionType" id="questionType" (change)="setIsSingle()" class="form-control">
+        <option  *ngFor="let type of questionType" [value]="type">{{type}}</option>
+      </select>
+    </div>
+    <div class="formGroup">
+      <label for="questionText">Question Text</label>
+      <input type="text" formControlName="questionText" id="questionText" class="form-control" />
+    </div>
+    <div class="formGroup">
+      <label for="belowQuestion">Text Below Question</label>
+      <input type="text" formControlName="belowQuestion" id="belowQuestion" class="form-control" />
+    </div>
+    <hr>
+    <div class="formGroup">
+      <label for="possibleAnswers">Possible Answers</label>
+      <div *ngIf="isSingle">
+        <input type="text" formControlName="possibleAnswers" id="possibleAnswers" class="form-control" />
+        <input type="radio">
+      </div>
+      <div *ngIf="!isSingle">
+        <input type="text" formControlName="possibleAnswers" id="possibleAnswers" class="form-control" />
+        <input type="checkbox">
+      </div>
+    </div>
+    <div><label for=""></label></div>
+    <div><label for=""></label></div>
+  </div>
+</form>

@@ -11,13 +11,15 @@ import { AppComponent } from './app.component';
 import { LoginAdminComponent } from './components/login-admin/login-admin.component';
 import { RegisterAdminComponent } from './components/register-admin/register-admin.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { QuestionFormComponent } from './components/question-form/question-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginAdminComponent,
     RegisterAdminComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    QuestionFormComponent
   ],
   imports: [
     BrowserModule,
