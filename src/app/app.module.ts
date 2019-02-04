@@ -4,8 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginAdminComponent } from './components/login-admin/login-admin.component';
@@ -27,8 +25,6 @@ import { QuestionFormComponent } from './components/question-form/question-form.
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
-    
-
   ],
   providers: [],
   bootstrap: [AppComponent]

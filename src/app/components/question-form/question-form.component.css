@@ -1,0 +1,15 @@
+.possible-answers {
+    display: flex;
+    flex-direction: column;
+}
+
+.answers-layout {
+    display: flex;    
+}
+
+.question {
+    margin: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+}

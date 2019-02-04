@@ -1,32 +1,65 @@
 <form [formGroup]="questionForm">
-  <div formGroupName="question">
+  <div formGroupName="question" class="col-sm-5">
+    <!-- Field: {{question.Field}} -->
     <div class="formGroup">
-      <label for="questionType">Question Type</label>
+      <label for="questionType">Question Type: </label>
       <select #selectedType formControlName="questionType" id="questionType" (change)="setIsSingle()" class="form-control">
-        <option  *ngFor="let type of questionType" [value]="type">{{type}}</option>
+        <option  *ngFor="let type of keys()" [selected]="type" [value]="type">{{type}}</option>
       </select>
     </div>
     <div class="formGroup">
-      <label for="questionText">Question Text</label>
+      <label for="questionText">Question Text: </label>
       <input type="text" formControlName="questionText" id="questionText" class="form-control" />
     </div>
     <div class="formGroup">
-      <label for="belowQuestion">Text Below Question</label>
+      <label for="belowQuestion">Text Below Question: </label>
       <input type="text" formControlName="belowQuestion" id="belowQuestion" class="form-control" />
     </div>
     <hr>
     <div class="formGroup">
-      <label for="possibleAnswers">Possible Answers</label>
-      <div *ngIf="isSingle">
-        <input type="text" formControlName="possibleAnswers" id="possibleAnswers" class="form-control" />
-        <input type="radio">
-      </div>
-      <div *ngIf="!isSingle">
-        <input type="text" formControlName="possibleAnswers" id="possibleAnswers" class="form-control" />
-        <input type="checkbox">
+      <label for="possibleAnswers">Possible Answers: </label>
+      <div class="possible-answers">
+        <div>
+          <input type="text" formControlName="possibleAnswers" id="possibleAnswer1" class="form-control" />
+          <input *ngIf="isSingle" type="radio" name="questionType">
+          <input *ngIf="!isSingle" type="checkbox">
+        </div>
+        <br/>
+        <div>
+          <input type="text" formControlName="possibleAnswers" id="possibleAnswer2" class="form-control" />
+          <input *ngIf="isSingle" type="radio" name="questionType">
+          <input *ngIf="!isSingle" type="checkbox">
+        </div>
+        <br/>
+        <div>
+          <input type="text" formControlName="possibleAnswers" id="possibleAnswer3" class="form-control" />
+          <input *ngIf="isSingle" type="radio" name="questionType">
+          <input *ngIf="!isSingle" type="checkbox">
+        </div>
+        <br/>
+        <div>
+          <input type="text" formControlName="possibleAnswers" id="possibleAnswer4" class="form-control" />
+          <input *ngIf="isSingle" type="radio" name="questionType">
+          <input *ngIf="!isSingle" type="checkbox">
+        </div>
       </div>
     </div>
-    <div><label for=""></label></div>
-    <div><label for=""></label></div>
+    <div class=answers-layout>
+      <label for="">Answers Layout: </label>
+      <div>
+        <input type="radio" name="layoutChoice">
+        <label for="">Vertical</label>
+      </div>
+      <div>
+        <input type="radio" name="layoutChoice">
+        <label for="">Horizontal</label>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <label for="">Tags: </label>
+      <input type="text" id="tags">
+    </div>
   </div>
+  <input type="submit">
 </form>
