@@ -14,4 +14,9 @@ export class AuthenticationService {
   restorePassword(email):Observable<any> {
     return this.http.get('http://localhost:8000/api/RestorePassword/' + email);
   }
+
+  updatePassword(user:any){
+    debugger;
+    return this.http.post('http://localhost:8000/api/UpdatePassword/',JSON.stringify(user));
+  }
 }

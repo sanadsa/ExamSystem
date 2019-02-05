@@ -12,6 +12,7 @@ import { LoginAdminComponent } from './components/login-admin/login-admin.compon
 import { RegisterAdminComponent } from './components/register-admin/register-admin.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { QuestionFormComponent } from './components/question-form/question-form.component';
+import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { QuestionFormComponent } from './components/question-form/question-form.
     LoginAdminComponent,
     RegisterAdminComponent,
     MainMenuComponent,
-    QuestionFormComponent
+    QuestionFormComponent,
+    RestorePasswordComponent
   ],
   imports: [
     BrowserModule,
