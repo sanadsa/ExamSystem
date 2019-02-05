@@ -1,10 +1,10 @@
-<form [formGroup]="questionForm">
+<form [formGroup]="questionForm" (ngSubmit)="createQuestion()">
   <div formGroupName="question" class="col-sm-5">
     <!-- Field: {{question.Field}} -->
     <div class="formGroup">
       <label for="questionType">Question Type: </label>
       <select #selectedType formControlName="questionType" id="questionType" (change)="setIsSingle()" class="form-control">
-        <option  *ngFor="let type of keys()" [selected]="type" [value]="type">{{type}}</option>
+        <option *ngFor="let type of keys()" [selected]="type" [value]="type">{{type}}</option>
       </select>
     </div>
     <div class="formGroup">
@@ -61,5 +61,5 @@
       <input type="text" id="tags">
     </div>
   </div>
-  <input type="submit">
+  <button type="submit">Submit</button>
 </form>
