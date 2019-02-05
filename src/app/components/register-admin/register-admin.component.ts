@@ -20,7 +20,7 @@ export class RegisterAdminComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      email:['',Validators.required],
+      email: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       birthdate: ['', Validators.required],
@@ -37,11 +37,12 @@ export class RegisterAdminComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-    this.router.navigate(['/login']);
-    // call sevice save register
+    this.authenticationService.register(this.registerForm.value).subscribe(registeration => {
+      this.router.navigate(['/login']);
+    }, err => console.log(err));
   }
 
-  get f(){return this.registerForm.controls;}
+  get f() { return this.registerForm.controls; }
 
 }
 

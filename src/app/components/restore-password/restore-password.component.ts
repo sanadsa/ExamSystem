@@ -17,6 +17,7 @@ export class RestorePasswordComponent implements OnInit {
   emailByUrl: BehaviorSubject<any>
   restorePasswordForm: FormGroup
   submitted: boolean
+
   constructor(private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
@@ -37,12 +38,13 @@ export class RestorePasswordComponent implements OnInit {
   }
 
   updatePassword() {
-    debugger;
     this.submitted = true;
     if (this.restorePasswordForm.invalid) {
       return;
     }
+    
     this.authenticationService.updatePassword(this.restorePasswordForm.value).subscribe(res => {
+      alert('password Changed');
       this.router.navigate(['/login']);
     }, err => { console.log(err); })
   }
