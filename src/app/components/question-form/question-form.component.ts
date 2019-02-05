@@ -32,7 +32,7 @@ export class QuestionFormComponent implements OnInit {
 
   setIsSingle() {
     const choice = this.selectedType.nativeElement.value;
-    this.isSingle = (choice === this.keys()[0]) ? true : false;
+    this.isSingle = (choice === this.keys()[1]) ? true : false;
   }
 
 }
