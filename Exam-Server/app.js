@@ -14,8 +14,8 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-var listener = app.listen(8000, () => {
-    console.log('zubi is running on: ' + listener.address().port);
+app.listen(8000, () => {
+    console.log('server ba avir');
 });
 
 app.use('/api', questionRouter);
