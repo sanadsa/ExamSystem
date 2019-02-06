@@ -1,3 +1,4 @@
+import { QuestionFormComponent } from './components/question-form/question-form.component';
 import { QuestionListComponent } from './components/question-list/question-list.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginAdminComponent },
   { path: 'restorePassword', component: RestorePasswordComponent },
   { path: 'questionList', component: QuestionListComponent },
+  { path: 'editQuestion', component: QuestionFormComponent },
 
   { path: '**', redirectTo: '' }
 

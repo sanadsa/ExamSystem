@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Question } from 'src/app/models/question';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'question',
@@ -9,7 +10,7 @@ import { Question } from 'src/app/models/question';
 export class QuestionComponent implements OnInit {
   @Input()
   question: Question;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -18,4 +19,8 @@ export class QuestionComponent implements OnInit {
     return keys.slice(keys.length / 2);
   }
 
+  navToEdit() {
+    debugger;
+    this.router.navigate(['/editQuestion', { question: JSON.stringify(this.question)  }]);
+  }
 }
