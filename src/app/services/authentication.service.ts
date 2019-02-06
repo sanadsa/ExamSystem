@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject} from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 
 
@@ -9,7 +11,12 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient) { }
+  private currentUserSubject: BehaviorSubject<any>;
+  public currentProfile: Observable<any>;
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentProfile = this.currentUserSubject.asObservable();
+   }
 
   restorePassword(email): Observable<any> {
     return this.http.get('http://localhost:8000/api/restorePassword/' + email);
@@ -20,10 +27,22 @@ export class AuthenticationService {
   }
 
   login(email: string, password: string) {
-    return this.http.get('http://localhost:8000/api/login/' + email + '/' + password);
+    return this.http.get('http://localhost:8000/api/login/' + email + '/' + password).pipe(
+      map(user => {
+        if (user) {
+          debugger;
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currentUserSubject.next(user);
+        }
+      }));
   }
 
   register(user: any) {
     return this.http.post('http://localhost:8000/api/register/', user);
+  }
+
+  logout(){
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
   }
 }
