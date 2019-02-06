@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { QuestionService } from './../../services/question.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -19,7 +20,7 @@ export class QuestionFormComponent implements OnInit {
       possibleAnswers: new FormControl
     })
   });
-  submitted:boolean;
+  submitted: boolean;
   isSingle = true;
   question: Question;
   questionType = eQuestionType;
@@ -28,9 +29,14 @@ export class QuestionFormComponent implements OnInit {
     return keys.slice(keys.length / 2);
   }
 
-  constructor(private questionService: QuestionService) { }
+  constructor(private questionService: QuestionService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      let jsonObj: any = JSON.parse(params.get('question')); // string to generic object first
+      let jsonToQuestion: Question = <Question>jsonObj;
+      this.question = jsonToQuestion;
+    });
   }
 
   setIsSingle() {
@@ -38,7 +44,7 @@ export class QuestionFormComponent implements OnInit {
     this.isSingle = (choice === this.keys()[1]) ? true : false;
   }
 
-  createQuestion(){
+  createQuestion() {
     var ob = {
       Title: 'second',
       QuestionType: 'Multiple',
@@ -49,7 +55,7 @@ export class QuestionFormComponent implements OnInit {
 
     this.questionService.addQuestion(ob).subscribe(question => {
       alert('success');
-    },err=>console.log(err));
+    }, err => console.log(err));
     // this.submitted = true;
     // if(this.questionForm.invalid){
     //   return;

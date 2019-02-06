@@ -12,10 +12,10 @@ import { map } from 'rxjs/operators';
 export class AuthenticationService {
 
   private currentUserSubject: BehaviorSubject<any>;
-  public currentProfile: Observable<any>;
+  public currentUser: Observable<any>;
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentProfile = this.currentUserSubject.asObservable();
+    this.currentUser = this.currentUserSubject.asObservable();
    }
 
   restorePassword(email): Observable<any> {

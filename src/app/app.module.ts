@@ -11,6 +11,8 @@ import { RegisterAdminComponent } from './components/register-admin/register-adm
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { QuestionFormComponent } from './components/question-form/question-form.component';
 import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
+import { QuestionListComponent } from './components/question-list/question-list.component';
+import { QuestionComponent } from './components/question/question.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { RestorePasswordComponent } from './components/restore-password/restore-
     RegisterAdminComponent,
     MainMenuComponent,
     QuestionFormComponent,
-    RestorePasswordComponent
+    RestorePasswordComponent,
+    QuestionListComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,

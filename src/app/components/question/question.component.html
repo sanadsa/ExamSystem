@@ -1,0 +1,13 @@
+<div class="question">
+  <div>{{question.ID}}</div>|
+  <div>{{question.Field}}</div>|
+  <div>{{question.Text}}</div>|
+  <div>{{question.LastUpdate.toString()}}</div>|
+  <div>Single</div>|
+  <div>{{question.Tags}}</div>
+  <div class="question-operations">
+    <button>Show</button>
+    <button (click)="navToEdit()">Edit</button>
+    <button>Delete</button>
+  </div>
+</div>
