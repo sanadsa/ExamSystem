@@ -1,6 +1,5 @@
 export class Question {
     constructor(
-    public ID: number,
     public Field: String,
     public Type: eQuestionType,
     public Text: String,
