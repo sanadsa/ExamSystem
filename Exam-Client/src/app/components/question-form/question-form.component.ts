@@ -1,3 +1,4 @@
+import { ConstantFields } from './../../helpers/common-constants';
 import { ActivatedRoute } from '@angular/router';
 import { QuestionService } from './../../services/question.service';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
@@ -19,6 +20,7 @@ export class QuestionFormComponent implements OnInit {
       possibleAnswers: new FormControl
     })
   });
+  constantFields: ConstantFields;
   quesForm: FormGroup;
   submitted: boolean;
   isSingle = true;
@@ -26,7 +28,7 @@ export class QuestionFormComponent implements OnInit {
   questionType = eQuestionType;
   keys(): Array<string> {
     const keys = Object.keys(this.questionType);
-    return keys.slice(keys.length / 2);
+    return keys.slice(keys.length / 2).reverse();
   }
 
   addAnswer() {
@@ -44,7 +46,9 @@ export class QuestionFormComponent implements OnInit {
 
   constructor(private questionService: QuestionService,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder) { 
+      this.constantFields = new ConstantFields();
+    }
 
   ngOnInit() {
     this.quesForm = this.formBuilder.group({
@@ -59,7 +63,7 @@ export class QuestionFormComponent implements OnInit {
 
   setIsSingle() {
     const choice = this.selectedType.nativeElement.value;
-    this.isSingle = (choice === this.keys()[1]) ? true : false;
+    this.isSingle = (choice === this.keys()[0]) ? true : false;
   }
 
   createQuestion() {
@@ -70,7 +74,7 @@ export class QuestionFormComponent implements OnInit {
       Active: false,
       LastUpdate: new Date(),
     }
-    console.log(test.Title + ' ' + test.QuestionContent);
+    console.log(test.Title + ' ' + test.QuestionContent+ ' ' +test.QuestionType+ ' ' +test.LastUpdate);
     var ob = {
       Title: 'second',
       QuestionType: 'Multiple',
