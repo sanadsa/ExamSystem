@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class QuestionListComponent implements OnInit {
   number = [1,2,3,4,5];
-  questionsList : Array<Question>;
+  @Input() questionsList : Array<Question>;
 
   constructor(private router: Router) { 
     this.questionsList = new Array<Question>();

@@ -1,2 +1,62 @@
+<h1>New Test</h1>
+<form>
+    <div>
+        Field of study: {{category}}
+    </div>
+    <div>
+        Language :
+        <select>
+            <option>English</option>
+            <option>Hebrew</option>
+        </select>
+    </div>
+    <div>
+        Test Type : <input type="text">
+    </div>
+    <div>
+        Test Name : <input type="text">
+    </div>
+    <div>
+        Passing Grade : <input type="text">
+    </div>
+    <div>
+        Show correct answers after submission <input type="checkbox">Show
+    </div>
+    <div>
+        Header : <textarea></textarea>
+    </div>
+    <div>
+        Message to show on success : <textarea></textarea>
+    </div>
+    <div>
+        Message to show on Failure : <textarea></textarea>
+    </div>
+    <div>
+        Certificate template: <select></select>
+    </div>
 
-{{category}}
+    <br>
+    <hr>
+    <div>
+        Select the Questions that you want to include in the test
+    </div>
+
+    <div>
+        <div>
+            Filter by tags or content : <input type="text">
+        </div>
+        <div>
+            <button (click)="selectAllFiltered()">Select All Filtered</button>
+        </div>
+    </div>
+ 
+    <div *ngFor="let question of questionsList">
+        <question [question]="question"></question>
+    </div>
+    <div>
+        <button (click)="getQuestions()">Show more Questions</button>
+    </div>
+<div>
+    The test will include x questions
+</div>
+</form>
