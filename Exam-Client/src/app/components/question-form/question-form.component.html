@@ -84,6 +84,54 @@
                 <button type="submit">Submit</button>
               </form>
         </div>
+<form [formGroup]="questionForm" (ngSubmit)="createQuestion()">
+  <div formGroupName="question" class="col-sm-5">
+    <!-- Field: {{question.Field}} -->
+    <div class="formGroup">
+      <label for="questionType">Question Type: </label>
+      <select #selectedType formControlName="questionType" id="questionType" (change)="setIsSingle()" class="form-control">
+        <option *ngFor="let type of keys()" [value]="type">{{type}}</option>
+      </select>
+    </div>
+    <div class="formGroup">
+      <label for="questionText">Question Text: </label>
+      <input type="text" formControlName="questionText" id="questionText" class="form-control" />
+    </div>
+    <div class="formGroup">
+      <label for="belowQuestion">Text Below Question: </label>
+      <input type="text" formControlName="belowQuestion" id="belowQuestion" class="form-control" />
+    </div>
+    <hr>
+    <form [formGroup]="quesForm">
+      <label for="possibleAnswers">Possible Answers: </label>
+      <div formArrayName="answers" >
+        <button (click)="addAnswer()">Add new answer</button>
+        <div *ngFor="let answer of quesForm.get('answers').controls; let i=index" class="answers-layout">
+          <div><h5>Answer {{i+1}}: </h5></div>
+          <!-- <div [formGroupName]="i"> -->
+            <button *ngIf="quesForm.get('answers').controls.length > 2" (click)="removeAnswer(i)">X</button>
+            <input formControlName="answer" />
+            <input *ngIf="isSingle && selectedType.value == constantFields.SingleChoice" type="radio" name="questionType">
+            <input *ngIf="!isSingle" type="checkbox">
+          <!-- </div> -->
+        </div>
+      </div>
+    </form>
+    <div class=answers-layout>
+      <label for="">Answers Layout: </label>
+      <div>
+        <input type="radio" name="layoutChoice">
+        <label>Vertical</label>
+      </div>
+      <div>
+        <input type="radio" name="layoutChoice">
+        <label>Horizontal</label>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <label for="">Tags: </label>
+      <input type="text" id="tags">
     </div>
 </div>
 
