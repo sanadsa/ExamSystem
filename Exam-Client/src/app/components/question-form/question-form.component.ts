@@ -1,9 +1,8 @@
 import { ActivatedRoute } from '@angular/router';
 import { QuestionService } from './../../services/question.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Question, eQuestionType } from 'src/app/models/question';
-import { post } from 'selenium-webdriver/http';
 
 @Component({
   selector: 'app-question-form',
@@ -20,6 +19,7 @@ export class QuestionFormComponent implements OnInit {
       possibleAnswers: new FormControl
     })
   });
+  quesForm: FormGroup;
   submitted: boolean;
   isSingle = true;
   question: Question;
@@ -29,9 +29,27 @@ export class QuestionFormComponent implements OnInit {
     return keys.slice(keys.length / 2);
   }
 
-  constructor(private questionService: QuestionService, private route: ActivatedRoute) { }
+  addAnswer() {
+    const control = <FormArray>this.quesForm.controls.answers;
+    control.push(
+      this.formBuilder.group({
+        answer: [''],
+      })
+    )
+  }
+  removeAnswer(i: number) {
+    const control = <FormArray>this.quesForm.controls.answers;
+    control.removeAt(i);
+  }
+
+  constructor(private questionService: QuestionService,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.quesForm = this.formBuilder.group({
+      answers: this.formBuilder.array([['','']])
+    });
     this.route.paramMap.subscribe(params => {
       let jsonObj: any = JSON.parse(params.get('question')); // string to generic object first
       let jsonToQuestion: Question = <Question>jsonObj;
@@ -45,6 +63,14 @@ export class QuestionFormComponent implements OnInit {
   }
 
   createQuestion() {
+    var test = {
+      Title: this.questionForm.get('question.questionText').value,
+      QuestionType: this.questionForm.get('question.questionType').value,
+      QuestionContent: this.questionForm.get('question.belowQuestion').value,
+      Active: false,
+      LastUpdate: new Date(),
+    }
+    console.log(test.Title + ' ' + test.QuestionContent);
     var ob = {
       Title: 'second',
       QuestionType: 'Multiple',
@@ -53,9 +79,9 @@ export class QuestionFormComponent implements OnInit {
       LastUpdate: new Date()
     };
 
-    this.questionService.addQuestion(ob).subscribe(question => {
-      alert('success');
-    }, err => console.log(err));
+    // this.questionService.addQuestion(ob).subscribe(question => {
+    //   alert('success');
+    // }, err => console.log(err));
     // this.submitted = true;
     // if(this.questionForm.invalid){
     //   return;

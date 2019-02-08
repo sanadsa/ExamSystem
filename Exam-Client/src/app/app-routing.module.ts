@@ -16,8 +16,12 @@ const routes: Routes = [
   { path: 'restorePassword', component: RestorePasswordComponent },
   { path: 'questionList', component: QuestionListComponent },
   { path: 'editQuestion', component: QuestionFormComponent },
+<<<<<<< HEAD
   { path: 'testsList', component: TestListComponent },
   { path: 'testForm', component: TestFormComponent },
+=======
+  { path: 'addQuestion', component: QuestionFormComponent },
+>>>>>>> 753f792cf80c48c3a36ecbbd1d9e0e7c244f951c
 
   { path: '**', redirectTo: '' }
 

@@ -11,10 +11,17 @@ export class AppComponent {
   currentUser: any = {}
   constructor(private authenticationService: AuthenticationService,
     private router: Router) {
+<<<<<<< HEAD
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     if (!this.currentUser) {
       this.router.navigate(['/login']);
     }
+=======
+    // this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    // if (!this.currentUser) {
+    //   this.router.navigate(['/login']);
+    // }
+>>>>>>> 753f792cf80c48c3a36ecbbd1d9e0e7c244f951c
   }
 
   logout() {
