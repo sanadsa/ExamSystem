@@ -13,6 +13,9 @@ import { QuestionFormComponent } from './components/question-form/question-form.
 import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
 import { QuestionListComponent } from './components/question-list/question-list.component';
 import { QuestionComponent } from './components/question/question.component';
+import { TestComponent } from './components/test/test.component';
+import { TestListComponent } from './components/test-list/test-list.component';
+import { TestFormComponent } from './components/test-form/test-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { QuestionComponent } from './components/question/question.component';
     QuestionFormComponent,
     RestorePasswordComponent,
     QuestionListComponent,
-    QuestionComponent
+    QuestionComponent,
+    TestComponent,
+    TestListComponent,
+    TestFormComponent
   ],
   imports: [
     BrowserModule,

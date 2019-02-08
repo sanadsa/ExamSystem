@@ -30,7 +30,6 @@ export class AuthenticationService {
     return this.http.get('http://localhost:8000/api/login/' + email + '/' + password).pipe(
       map(user => {
         if (user) {
-          debugger;
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
         }

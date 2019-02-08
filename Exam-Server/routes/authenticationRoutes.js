@@ -3,9 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 var nodemailer = require('nodemailer');
 var router = express.Router();
-var mainDB = require('../DAL/dbRepository')
-
-
+var mainDB = require('../DAL/dbRepository');
 
 router.get('/restorePassword/:email', function (req, res) {
     const email = req.params['email'];
@@ -13,31 +11,43 @@ router.get('/restorePassword/:email', function (req, res) {
     res.send({ name: email });
 });
 
-
-
 router.post('/updatePassword', function (req, res) {
     console.log(req.body);
-    res.send({ name: req.body.password });
+    
+    mainDB.updatePassword(req.body,function(respone,err){
+        if (respone) {
+            res.status(200).send(req.body);
+        }else{
+            res.status(400).send(err);
+        }
+    });
 });
 
-
-
-router.get('/api/login/:email/:password', function (req, res) {
+router.get('/login/:email/:password', function (req, res) {
     const email = req.params['email'];
     const password = req.params['password'];
-    console.log(email);
-    var result = mainDB.login(email, password);
-    // var user = {
-    //     email: email,
-    //     password: password
-    // }
-    // console.log(user);
-    //res.send(JSON.stringify(user));
+    mainDB.login(email, password, function (result, err) {
+        if (err) {
+            console.log(err);
+            res.status(400).send(err);
+        } else {
+            var user = {
+                email: email,
+                password: password
+            }
+            res.status(200).send(JSON.stringify(user));
+        }
+    });
 });
 
-router.post('/api/register', function (req, res) {
-    console.log(req.body);
-    res.send('register okk');
+router.post('/register', function (req, res) {
+    mainDB.register(req.body, function (result, err) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            res.status(200).send();
+        }
+    });
 });
 
 function restorePassword(email) {

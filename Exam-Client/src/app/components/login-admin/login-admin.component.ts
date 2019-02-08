@@ -16,8 +16,8 @@ export class LoginAdminComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,
-    private authenticationService:AuthenticationService,
-    private router:Router) { }
+    private authenticationService: AuthenticationService,
+    private router: Router) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -31,16 +31,16 @@ export class LoginAdminComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.authenticationService.login(this.loginForm.value.email,this.loginForm.value.password) .pipe(first()).subscribe(data=>{
+    this.authenticationService.login(this.loginForm.value.email, this.loginForm.value.password).pipe(first()).subscribe(data => {
       this.router.navigate(['/mainmenu']);
-    },err =>console.log(err));
+    }, err => alert('email or the password is not correct'));
   }
 
-  restorePassword(email){
+  restorePassword(email) {
     debugger;
-    this.authenticationService.restorePassword(email).subscribe(res=>{
+    this.authenticationService.restorePassword(email).subscribe(res => {
       debugger;
       console.log(res);
-    },err=>console.log(err));
+    }, err => console.log(err));
   }
 }

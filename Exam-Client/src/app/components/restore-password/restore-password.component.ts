@@ -38,12 +38,18 @@ export class RestorePasswordComponent implements OnInit {
   }
 
   updatePassword() {
+    debugger;
     this.submitted = true;
     if (this.restorePasswordForm.invalid) {
       return;
     }
+    const admin = {
+      email:this.currentemail,
+      password:this.restorePasswordForm.value.password
+    }
+    console.log(admin);
     
-    this.authenticationService.updatePassword(this.restorePasswordForm.value).subscribe(res => {
+    this.authenticationService.updatePassword(admin).subscribe(res => {
       alert('password Changed');
       this.router.navigate(['/login']);
     }, err => { console.log(err); })

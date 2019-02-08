@@ -11,11 +11,10 @@ export class AppComponent {
   currentUser: any = {}
   constructor(private authenticationService: AuthenticationService,
     private router: Router) {
-      debugger;
-    // this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    // if (!this.currentUser) {
-    //   this.router.navigate(['/login']);
-    // }
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    if (!this.currentUser) {
+      this.router.navigate(['/login']);
+    }
   }
 
   logout() {

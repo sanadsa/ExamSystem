@@ -1,5 +1,6 @@
 var express = require('express');
 var questionRouter = require('./routes/questionRoutes');
+var usersRouter = require('./routes/authenticationRoutes');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -18,4 +19,5 @@ app.listen(8000, () => {
     console.log('server ba avir');
 });
 
-app.use('/api', questionRouter);
+//app.use('/api', questionRouter);
+app.use('/api',usersRouter);

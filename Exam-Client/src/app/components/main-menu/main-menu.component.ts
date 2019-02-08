@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-menu',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainMenuComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('category') test: ElementRef;
+  studyFields: any[] = ['Development', 'QA', 'Automation'];
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  routeToManageTest(category) {
+    this.router.navigate(['/testsList', { category: category }]);
   }
 
 }

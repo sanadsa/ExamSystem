@@ -1,6 +1,12 @@
-choose a field of study <select><option>1</option><option>2</option></select>
+<div>
+    Choose a field of study
+    <select #category>
+        <option selected="item" *ngFor="let item of studyFields">{{item}}</option>
+    </select>
+</div>
+
 <button [routerLink]="['/questionList']">Manage Questions</button>
-<button>Manage Tests</button>
+<button (click)="routeToManageTest(category.value)">Manage Tests</button>
 <button>Reports</button>
 
 <router-outlet></router-outlet>

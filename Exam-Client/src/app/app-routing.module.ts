@@ -6,6 +6,8 @@ import { RegisterAdminComponent } from './components/register-admin/register-adm
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { LoginAdminComponent } from './components/login-admin/login-admin.component';
 import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
+import { TestListComponent } from './components/test-list/test-list.component';
+import { TestFormComponent } from './components/test-form/test-form.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterAdminComponent },
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: 'restorePassword', component: RestorePasswordComponent },
   { path: 'questionList', component: QuestionListComponent },
   { path: 'editQuestion', component: QuestionFormComponent },
+  { path: 'testsList', component: TestListComponent },
+  { path: 'testForm', component: TestFormComponent },
 
   { path: '**', redirectTo: '' }
 
