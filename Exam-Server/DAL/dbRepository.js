@@ -60,18 +60,19 @@ class DBContext {
         });
 
     }
-    executeInDB(callback) {
-        console.log(callback);
-        var req = dbPool.request();
-        console.log(req);
-        // req.input("FName", sql.NVarChar(50), "Jerry");
-        req.execute("spQuestions_GetAll", (err, data) => {
+    addQuestion(question, callback) {
+        var request = dbPool.request();
+        request.input('Title', sql.VarChar(50), question.Title);
+        request.input('QuestionType', sql.VarChar(50), question.QuestionType);
+        request.input('QuestionContent', sql.VarChar(50), question.QuestionContent);
+        request.input('Active', sql.Bit, false);
+        request.input('LastUpdate', sql.Date, new Date());
+
+        request.execute('spQuestions_INSERT').then(function (req, err) {
             if (err) {
-                console.log("error", "Execution error calling 'spQuestions_GetAll'");
-            }
-            else {
-                console.log(data.recordset);
-                callback(data.recordset);
+                callback(null, { message: 'Error occured while inserting question' })
+            } else {
+                callback(req);
             }
         });
     }

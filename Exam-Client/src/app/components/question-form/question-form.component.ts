@@ -1,5 +1,5 @@
 import { ConstantFields } from './../../helpers/common-constants';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from './../../services/question.service';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -33,6 +33,7 @@ export class QuestionFormComponent implements OnInit {
 
   constructor(private questionService: QuestionService,
     private route: ActivatedRoute,
+    private router: Router,
     private fb: FormBuilder) {
     this.constantFields = new ConstantFields();
   }
@@ -90,15 +91,15 @@ export class QuestionFormComponent implements OnInit {
       LastUpdate: new Date(),
     }
     console.log(questionToAdd.Title + ' ' + questionToAdd.QuestionContent + ' ' + questionToAdd.QuestionType + ' ' + questionToAdd.LastUpdate);
-
-    this.questionService.addQuestion(questionToAdd).subscribe(question => {
-      console.log(question.toString())
-      alert('success');
-    }, err => console.log(err));
     this.submitted = true;
     if (this.questionForm.invalid) {
       return;
     }
+
+    this.questionService.addQuestion(questionToAdd).subscribe(question => {
+      alert('success');
+      this.router.navigate(['/login']);
+    }, err => console.log(err));
   }
 
 }
