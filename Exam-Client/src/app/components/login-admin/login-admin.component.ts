@@ -28,6 +28,7 @@ export class LoginAdminComponent implements OnInit {
   }
 
   login() {
+    debugger;
     if (this.loginForm.invalid) {
       return;
     }

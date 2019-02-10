@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()" accept-charset="UTF-8" role="form">
+<!-- <form [formGroup]="loginForm" (ngSubmit)="login()" accept-charset="UTF-8" role="form">
     <div class="form-group">
       <label for="email">Email</label>
       <input #e type="text" formControlName="email" class="form-control" />
@@ -15,10 +15,38 @@
     </div>
   
 </form>
-<button [routerLink]="['/register']">Register</button>
+<button [routerLink]="['/register']">Register</button> -->
 
-<!-- 
-<section class="login-block">
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoZaBtYMekhYsOAly-QdWx7cvpS53NvqwWJ8CWbkAU5dsmcLYK"
+        id="icon" alt="User Icon" />
+    </div>
+    <h3>Exams System</h3>
+
+
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="login()" accept-charset="UTF-8" role="form">
+      <input #email type="text" formControlName="email" class="fadeIn second" placeholder="email">
+      <input type="password" class="fadeIn third" placeholder="password">
+      <input type="submit" class="fadeIn fourth" value="Sign In">
+      <a class="underlineHover" href="#" (click)="restorePassword(email.value)">Forgot you password?</a>
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" [routerLink]="['/register']">Register</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- <section class="login-block">
   <div class="container">
     <div class="row">
       <div class="col-md-4 login-sec">
@@ -38,13 +66,17 @@
           <div class="form-check">
             <label class="form-check-label">
               <input type="checkbox" class="form-check-input">
-              <small>Remember Me</small>
+              <small>Forgot password</small>
             </label>
-            <button type="submit" class="btn btn-login float-right">Submit</button>
+            <button type="submit" class="btn btn-login float-right">Sign In</button>
           </div>
 
         </form>
-        <div class="copy-text">Created with <i class="fa fa-heart"></i> by <a href="http://grafreez.com">Grafreez.com</a></div>
+
+        <div>
+            <button type="submit" class="btn btn-login float-right">Sign In</button>
+
+        </div>
       </div>
       <div class="col-md-8 banner-sec">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
