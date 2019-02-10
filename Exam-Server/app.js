@@ -19,5 +19,5 @@ app.listen(8000, () => {
     console.log('server ba avir');
 });
 
-//app.use('/api', questionRouter);
+app.use('/apiQuestion', questionRouter);
 app.use('/api',usersRouter);

@@ -1,16 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ConstantFields } from '../helpers/common-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService {
-
-  constructor(private http: HttpClient) { }
+  constFields: ConstantFields;
+  constructor(private http: HttpClient) { 
+    this.constFields = new ConstantFields();
+  }
 
   addQuestion(question) {
     debugger;
-    return this.http.post('http://localhost:8000/api/createQuestion', question);
+    return this.http.post(this.constFields.addQuestion, question);
+  }
+
+  getQuestions(field) {
+    debugger;
+    return this.http.get(this.constFields.getQuestions + field);
   }
 }

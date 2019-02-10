@@ -13,10 +13,16 @@ router.post('/createQuestion', function (req, res) {
     });
 });
 
-router.get('/questions', function (req, res, next) {
-    mainDB.getQuestions(data => {
-        res.json(data);
-    })
+router.get('/getQuestions/:field', function (req, res) {
+    const field = req.params['field'];
+    mainDB.getQuestions(field, function (result, err) {
+        if (err) {
+            console.log(err);
+            res.status(400).send(err);
+        } else {
+            res.status(200).send(result);
+        }
+    });
 });
 
 router.get('/tests', function (req, res, next) {
