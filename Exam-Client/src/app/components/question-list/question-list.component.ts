@@ -16,15 +16,15 @@ export class QuestionListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.questionsList.push(
-      new Question('didos', eQuestionType.SingleChoice, 'some text', 'some text below', null, eAnswerLayout.Horizontal, new Date('1996|20|05'), ['fds','fsf']),
-      new Question('kusayev', eQuestionType.SingleChoice, 'some text', 'some text below', null, eAnswerLayout.Horizontal, new Date('2018|20|05'), ['fds','fsf']),
-      new Question('omer', eQuestionType.SingleChoice, 'some text', 'some text below', null, eAnswerLayout.Horizontal, new Date('2018|20|05'), ['fds','fsf'])
-    )
+    // this.questionsList.push(
+    //   new Question('didos', eQuestionType.SingleChoice, 'some text', 'some text below', null, eAnswerLayout.Horizontal, new Date('1996|20|05'), ['fds','fsf']),
+    //   new Question('kusayev', eQuestionType.SingleChoice, 'some text', 'some text below', null, eAnswerLayout.Horizontal, new Date('2018|20|05'), ['fds','fsf']),
+    //   new Question('omer', eQuestionType.SingleChoice, 'some text', 'some text below', null, eAnswerLayout.Horizontal, new Date('2018|20|05'), ['fds','fsf'])
+    // )
   }
 
-  navToAddQuestion() {
-    this.router.navigate(['/addQuestion', { question: JSON.stringify(new Question('',eQuestionType.SingleChoice, '', '', [], eAnswerLayout.Horizontal, new Date(), []))  }]);
-  }
+  // navToAddQuestion() {
+  //   this.router.navigate(['/addQuestion', { question: JSON.stringify(new Question('',eQuestionType.SingleChoice, '', '', [], eAnswerLayout.Horizontal, new Date(), []))  }]);
+  // }
 
 }

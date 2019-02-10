@@ -1,12 +1,13 @@
-<div class="question">
-  <div>{{question.Field}}</div>|
-  <div>{{question.Text}}</div>|
-  <div>{{question.LastUpdate.toString()}}</div>|
-  <div>Single</div>|
+<div (click)="test(this.question)" class="question">
+  <div>{{question.Title}}</div>
+  <div>{{question.QuestionType}}</div>
+  <div>{{question.LastUpdate | date:'yyyy-MM-dd'}}</div>
+  <div># of Tests</div>|
   <div>{{question.Tags}}</div>
   <div class="question-operations">
-    <button>Show</button>
-    <button (click)="navToEdit()">Edit</button>
-    <button>Delete</button>
+    <button >Show</button>
+    <button *ngIf="testForm" (click)="navToEdit()">Edit</button>
+    <button *ngIf="testForm">Delete</button>
   </div>
 </div>
+

@@ -1,25 +1,14 @@
-export class Question {
-    constructor(
-    public Field: String,
-    public Type: eQuestionType,
-    public Text: String,
-    public TextBelow: String,
-    public PossibleAnswers: String[],
-    public AnswerLayout: eAnswerLayout,
-    public LastUpdate: Date,
-    public Tags: String[]
-    ){}
+export interface Question {
+    Id?: number;
+    Field: String;
+    QuestionType: eQuestionType;
+    Title: String;
+    QuestionContent: String;
+    LastUpdate: Date;
+    PossibleAnswers: String[];
+    AnswerLayout: eAnswerLayout;
+    Tags: String[];
 }
-// export interface Question {
-//     ID: number;
-//     Field: String;
-//     Type: eQuestionType;
-//     Text: String;
-//     TextBelow: String;
-//     PossibleAnswers: String[];
-//     AnswerLayout: eAnswerLayout;
-//     Tags: String[];
-// }
 
 export enum eQuestionType {
     MultipleSelection,

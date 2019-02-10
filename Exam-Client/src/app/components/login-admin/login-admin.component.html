@@ -33,7 +33,7 @@
     <!-- Login Form -->
     <form [formGroup]="loginForm" (ngSubmit)="login()" accept-charset="UTF-8" role="form">
       <input #email type="text" formControlName="email" class="fadeIn second" placeholder="email">
-      <input type="password" class="fadeIn third" placeholder="password">
+      <input type="password" class="fadeIn third" formControlName="password" placeholder="password">
       <input type="submit" class="fadeIn fourth" value="Sign In">
       <a class="underlineHover" href="#" (click)="restorePassword(email.value)">Forgot you password?</a>
     </form>

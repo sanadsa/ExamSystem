@@ -28,11 +28,11 @@ export class LoginAdminComponent implements OnInit {
   }
 
   login() {
-    debugger;
     if (this.loginForm.invalid) {
       return;
     }
     this.authenticationService.login(this.loginForm.value.email, this.loginForm.value.password).pipe(first()).subscribe(data => {
+      debugger;
       this.router.navigate(['/mainmenu']);
     }, err => alert('email or the password is not correct'));
   }

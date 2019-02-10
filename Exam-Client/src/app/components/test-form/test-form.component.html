@@ -11,10 +11,10 @@
         </select>
     </div>
     <div>
-        Test Type : <input type="text">
+        Test Name : <input type="text">
     </div>
     <div>
-        Test Name : <input type="text">
+        Email From: <input type="text">
     </div>
     <div>
         Passing Grade : <input type="text">
@@ -31,32 +31,32 @@
     <div>
         Message to show on Failure : <textarea></textarea>
     </div>
-    <div>
-        Certificate template: <select></select>
-    </div>
-
     <br>
     <hr>
     <div>
         Select the Questions that you want to include in the test
     </div>
 
-    <div>
+    <div style="display: flex;
+    justify-content: space-between;">
         <div>
-            Filter by tags or content : <input type="text">
+            Filter by tags : <input [(ngModel)]="filterBy" name="filterBy"  type="text" (ngModelChange)="filterByTags()">
         </div>
         <div>
             <button (click)="selectAllFiltered()">Select All Filtered</button>
         </div>
     </div>
+    <br>
+    <hr>
  
-    <div *ngFor="let question of questionsList">
-        <question [question]="question"></question>
+    <div *ngFor="let question of questionsFilteredList">
+        <question [testform]="testform" [question]="question" (onSelectQuestion)="addQuestion($event)"></question>
     </div>
     <div>
         <button (click)="getQuestions()">Show more Questions</button>
     </div>
-<div>
-    The test will include x questions
+<div style="display: flex;
+justify-content: center;">
+    The test will include {{selectedQuestions.length}} questions
 </div>
 </form>

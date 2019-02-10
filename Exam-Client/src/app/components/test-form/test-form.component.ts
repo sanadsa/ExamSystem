@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question';
+
 
 @Component({
   selector: 'app-test-form',
@@ -9,20 +10,64 @@ import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question'
 })
 export class TestFormComponent implements OnInit {
   category: string;
+  testform: boolean = true;
+  // qustion1: Question = {
+  //   id: 1,
+  //   field: this.category,
+  //   type: eQuestionType.SingleChoice,
+  //   content: 'What is the DOM?',
+  //   textBelow: '',
+  //   possibleAnswers: [''],
+  //   answerLayout: eAnswerLayout.Vertical,
+  //   tags: ['javascript', 'advanced'],
+  //   lastUpdate: new Date()
+  // }
+  // qustion2: Question = {
+  //   id: 2,
+  //   field: this.category,
+  //   type: eQuestionType.SingleChoice,
+  //   content: 'Sanad?',
+  //   textBelow: '',
+  //   possibleAnswers: [''],
+  //   answerLayout: eAnswerLayout.Vertical,
+  //   tags: ['javascript'],
+  //   lastUpdate: new Date()
 
-  questionsList:Question[]=[]
-  constructor(private route:ActivatedRoute) { }
+  // }
+
+  questionsList: Question[] = [];
+  questionsFilteredList: Question[] = [];
+  selectedQuestions: Question[] = [];
+  filterBy: string
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params=>{
+    this.route.paramMap.subscribe(params => {
       this.category = params.get('category');
     })
+    // this.questionsList.push(this.qustion1);
+    // this.questionsList.push(this.qustion2);
+    this.questionsFilteredList = this.questionsList;
+  }
 
-    this.questionsList.push(
-      new Question('didos', eQuestionType.SingleChoice, 'some text', 'some text below', null, eAnswerLayout.Horizontal, new Date('1996|20|05'), ['fds','fsf']),
-      new Question('kusayev', eQuestionType.SingleChoice, 'some text', 'some text below', null, eAnswerLayout.Horizontal, new Date('2018|20|05'), ['fds','fsf']),
-      new Question('omer', eQuestionType.SingleChoice, 'some text', 'some text below', null, eAnswerLayout.Horizontal, new Date('2018|20|05'), ['fds','fsf'])
-    )
+  filterByTags() {
+    // this.questionsFilteredList = this.questionsList.filter(q => q.content.toUpperCase().includes(this.filterBy.toUpperCase()));
+    //  this.questionsFilteredList= this.questionsList.filter(q => q.tags.forEach(t => {
+    //    t.toUpperCase().includes(this.filterBy.toUpperCase());
+    //  }));
+  }
+
+  addQuestion(data) {
+    var dataExist = this.selectedQuestions.find(q => q.Id == data.id);
+    if (!dataExist) {
+      this.selectedQuestions.push(data);
+    } 
+  }
+
+  selectAllFiltered(){
+    this.questionsFilteredList.forEach(q=>{
+      this.addQuestion(q);
+    });    
   }
 
 }

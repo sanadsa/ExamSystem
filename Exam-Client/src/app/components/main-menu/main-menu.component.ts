@@ -19,4 +19,5 @@ export class MainMenuComponent implements OnInit {
     this.router.navigate(['/testsList', { category: category }]);
   }
 
+
 }
