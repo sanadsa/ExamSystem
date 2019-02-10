@@ -1,137 +1,63 @@
-
 <div class="container">
-    <div class="row">
-        <div class="col-md-4 offset-4">
-            <form [formGroup]="questionForm" (ngSubmit)="createQuestion()">
-                <div formGroupName="question" >
-                  <!-- Field: {{question.Field}} -->
-                  <div class="formGroup">
-                    <label for="questionType">Question Type: </label>
-                    <select #selectedType formControlName="questionType" id="questionType" (change)="setIsSingle()" class="form-control">
-                      <option *ngFor="let type of keys()" [selected]="type" [value]="type">{{type}}</option>
-                    </select>
-                  </div>
-                  <div class="formGroup">
-                    <label for="questionText">Question Text: </label>
-                    <input type="text" formControlName="questionText" id="questionText" class="form-control" />
-                  </div>
-                  <div class="formGroup">
-                    <label for="belowQuestion">Text Below Question: </label>
-                    <input type="text" formControlName="belowQuestion" id="belowQuestion" class="form-control" />
-                  </div>
-                  <hr>
-                  <form [formGroup]="quesForm">
-                    <label for="possibleAnswers">Possible Answers: </label>
-                    <div formArrayName="answers" class="possible-answers">
-                      <div *ngFor="let answer of quesForm.get('answers').controls; let i=index">
-                        <h3>Answer {{i+1}}: </h3>
-                        <div [formGroupName]="i">
-                          <button *ngIf="quesForm.get('answers').controls.length > 2" (click)="removeAnswer(i)">X</button>
-                          <input formControlName="answer" />
-                          <input *ngIf="isSingle" type="radio" name="questionType">
-                          <input *ngIf="!isSingle" type="checkbox">
-                        </div>
-                      </div>
-                      <button (click)="addAnswer()">
-                        Add new answer
-                      </button>
-                    </div>
-                  </form>
-                  <!-- 
-                    <div class="possible-answers">
-                      <div>
-                        <input type="text" formControlName="possibleAnswers" id="possibleAnswer1" class="form-control" />
-                        <input *ngIf="isSingle" type="radio" name="questionType">
-                        <input *ngIf="!isSingle" type="checkbox">
-                      </div>
-                      <br/>
-                      <div>
-                        <input type="text" formControlName="possibleAnswers" id="possibleAnswer2" class="form-control" />
-                        <input *ngIf="isSingle" type="radio" name="questionType">
-                        <input *ngIf="!isSingle" type="checkbox">
-                      </div>
-                      <br/>
-                      <div>
-                        <input type="text" formControlName="possibleAnswers" id="possibleAnswer3" class="form-control" />
-                        <input *ngIf="isSingle" type="radio" name="questionType">
-                        <input *ngIf="!isSingle" type="checkbox">
-                      </div>
-                      <br/>
-                      <div>
-                        <input type="text" formControlName="possibleAnswers" id="possibleAnswer4" class="form-control" />
-                        <input *ngIf="isSingle" type="radio" name="questionType">
-                        <input *ngIf="!isSingle" type="checkbox">
-                      </div>
-                    </div>
-                  </div> -->
-                  <div class=answers-layout>
-                    <label for="">Answers Layout: </label>
-                    <div>
-                      <input type="radio" name="layoutChoice">
-                      <label>Vertical</label>
-                    </div>
-                    <div>
-                      <input type="radio" name="layoutChoice">
-                      <label>Horizontal</label>
-                    </div>
-                  </div>
-                  <hr>
-                  <div>
-                    <label for="">Tags: </label>
-                    <input type="text" id="tags">
-                  </div>
+  <div class="row">
+    <div class="col-lg-1 col-centered">
+      <form [formGroup]="questionForm" (ngSubmit)="createQuestion()">
+        <div formGroupName="question">
+          <!-- Field: {{question.Field}} -->
+          <div class="formGroup">
+            <label for="questionType">Question Type: </label>
+            <select #selectedType formControlName="questionType" id="questionType" (change)="setIsSingle()" class="form-control">
+              <option *ngFor="let type of keys()" [value]="type">{{type}}</option>
+            </select>
+            <div *ngIf="questionTypeF.touched && questionTypeF.invalid" class="alert alert-danger">Type is required</div>
+          </div>
+          <div class="formGroup">
+            <label for="questionText">Question Text: </label>
+            <input type="text" formControlName="questionText" id="questionText" class="form-control" />
+            <div *ngIf="questionText.touched && questionText.invalid" class="alert alert-danger">Question text is
+              required</div>
+          </div>
+          <div class="formGroup">
+            <label for="belowQuestion">Text Below Question: </label>
+            <input  formControlName="belowQuestion" id="belowQuestion" class="form-control" />
+            <div *ngIf="belowQuestion.touched && belowQuestion.invalid" class="alert alert-danger">Content required</div>
+          </div>
+          <hr>
+          <form [formGroup]="quesForm">
+            <div formArrayName="answers">
+              <label for="possibleAnswers">Possible Answers: </label>
+              <button (click)="addAnswer()">Add new answer</button>
+              <div *ngFor="let ans of answers['controls']; let i=index" class="answers-layout">
+                <label>Answer {{i+1}}</label>
+                <button *ngIf="answers['controls'].length > 2" (click)="removeAnswer(i)">X</button>
+                <div [formGroupName]="i">
+                  <input type="text" formControlName="answer" class="form-control">
                 </div>
-                <button type="submit">Submit</button>
-              </form>
+                <input *ngIf="isSingle && selectedType.value == constantFields.SingleChoice" type="radio" name="questionType">
+                <input *ngIf="!isSingle" type="checkbox">
+              </div>
+              <div *ngIf="answers['controls'].touched " class="alert alert-danger">Answers is required</div>
+            </div>
+          </form>
+          <div class="answers-layout">
+            <label for="">Answers Layout: </label>
+            <div>
+              <input type="radio" name="layoutChoice">
+              <label>Vertical</label>
+            </div>
+            <div>
+              <input type="radio" name="layoutChoice">
+              <label>Horizontal</label>
+            </div>
+          </div>
+          <hr>
+          <div>
+            <label for="">Tags: </label>
+            <input type="text" id="tags">
+          </div>
         </div>
-<form [formGroup]="questionForm" (ngSubmit)="createQuestion()">
-  <div formGroupName="question" class="col-sm-5">
-    <!-- Field: {{question.Field}} -->
-    <div class="formGroup">
-      <label for="questionType">Question Type: </label>
-      <select #selectedType formControlName="questionType" id="questionType" (change)="setIsSingle()" class="form-control">
-        <option *ngFor="let type of keys()" [value]="type">{{type}}</option>
-      </select>
+        <button type="submit">Submit</button>
+      </form>
     </div>
-    <div class="formGroup">
-      <label for="questionText">Question Text: </label>
-      <input type="text" formControlName="questionText" id="questionText" class="form-control" />
-    </div>
-    <div class="formGroup">
-      <label for="belowQuestion">Text Below Question: </label>
-      <input type="text" formControlName="belowQuestion" id="belowQuestion" class="form-control" />
-    </div>
-    <hr>
-    <form [formGroup]="quesForm">
-      <label for="possibleAnswers">Possible Answers: </label>
-      <div formArrayName="answers" >
-        <button (click)="addAnswer()">Add new answer</button>
-        <div *ngFor="let answer of quesForm.get('answers').controls; let i=index" class="answers-layout">
-          <div><h5>Answer {{i+1}}: </h5></div>
-          <!-- <div [formGroupName]="i"> -->
-            <button *ngIf="quesForm.get('answers').controls.length > 2" (click)="removeAnswer(i)">X</button>
-            <input formControlName="answer" />
-            <input *ngIf="isSingle && selectedType.value == constantFields.SingleChoice" type="radio" name="questionType">
-            <input *ngIf="!isSingle" type="checkbox">
-          <!-- </div> -->
-        </div>
-      </div>
-    </form>
-    <div class=answers-layout>
-      <label for="">Answers Layout: </label>
-      <div>
-        <input type="radio" name="layoutChoice">
-        <label>Vertical</label>
-      </div>
-      <div>
-        <input type="radio" name="layoutChoice">
-        <label>Horizontal</label>
-      </div>
-    </div>
-    <hr>
-    <div>
-      <label for="">Tags: </label>
-      <input type="text" id="tags">
-    </div>
+  </div>
 </div>
-
