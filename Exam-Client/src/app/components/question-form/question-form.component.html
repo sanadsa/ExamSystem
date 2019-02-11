@@ -3,7 +3,7 @@
     <div class="col-lg-1 col-centered">
       <form [formGroup]="questionForm" (ngSubmit)="createQuestion()">
         <div formGroupName="question">
-          <!-- Field: {{question.Field}} -->
+          Field: {{question.Field}}
           <div class="formGroup">
             <label for="questionType">Question Type: </label>
             <select #selectedType formControlName="questionType" id="questionType" (change)="setIsSingle()" class="form-control">
@@ -19,7 +19,7 @@
           </div>
           <div class="formGroup">
             <label for="belowQuestion">Text Below Question: </label>
-            <input  formControlName="belowQuestion" id="belowQuestion" class="form-control" />
+            <input formControlName="belowQuestion" id="belowQuestion" class="form-control" />
             <div *ngIf="belowQuestion.touched && belowQuestion.invalid" class="alert alert-danger">Content required</div>
           </div>
           <hr>

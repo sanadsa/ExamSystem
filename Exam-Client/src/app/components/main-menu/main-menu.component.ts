@@ -19,5 +19,7 @@ export class MainMenuComponent implements OnInit {
     this.router.navigate(['/testsList', { category: category }]);
   }
 
-
+  routeToQuestions(category) {
+    this.router.navigate(['/questionList', { category: category }]);
+  }
 }
