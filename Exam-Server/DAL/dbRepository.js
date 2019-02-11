@@ -49,13 +49,34 @@ class DBContext {
         request.input('Password', sql.VarChar(150), hashpassword);
         request.input('Email', sql.VarChar(50), admin.email);
         request.execute('spAdmins_UpdatePassword').then(function (req, err) {
+            if (err) {
+                callback(null, { message: 'Error occured while creation test' })
+            } else {
+                callback(req);
+            }
+        });
+
+    }
+
+    createTest(test,callback){
+        var request = dbPool.request();
+        request.input('Language', sql.VarChar(50), test.Language);
+        request.input('TestName', sql.VarChar(50), test.TestName);
+        request.input('Instructions', sql.VarChar(50), test.Instructions);
+        request.input('Time', sql.Int, test.Time);
+        request.input('OwnerEmail', sql.VarChar(50), test.OwnerEmail);
+        request.input('PassingGrade', sql.Int, test.PassingGrade);
+        request.input('ReviewAnswers', sql.Bit, test.ReviewAnswers);
+        request.input('ReviewAnswers', sql.Bit, test.ReviewAnswers);
+        request.input('LastUpdate', sql.Date, test.LastUpdate);
+        request.input('DiplomeURL', sql.VarChar(50), test.DiplomeURL);
+        request.execute('spTests_Insert').then(function (req, err) {
             if (req) {
                 callback(req);
             } else if (err) {
                 callback(null, { message: 'Error occured ' })
             }
         });
-
     }
 
     /**

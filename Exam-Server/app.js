@@ -1,6 +1,8 @@
 var express = require('express');
 var questionRouter = require('./routes/questionRoutes');
-var usersRouter = require('./routes/authenticationRoutes');
+var authenticationRouter = require('./routes/authenticationRoutes');
+var testRouter = require('./routes/testRoutes');
+
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -20,4 +22,5 @@ app.listen(8000, () => {
 });
 
 app.use('/api/Question', questionRouter);
-app.use('/api/Users',usersRouter);
+app.use('/api/Authentication', authenticationRouter);
+app.use('/api/Tests', testRouter);

@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question';
+import { QuestionService } from 'src/app/services/question.service';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { TestService } from 'src/app/services/test.service';
 
 
 @Component({
@@ -10,43 +13,71 @@ import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question'
 })
 export class TestFormComponent implements OnInit {
   category: string;
-  testform: boolean = true;
-  // qustion1: Question = {
-  //   id: 1,
-  //   field: this.category,
-  //   type: eQuestionType.SingleChoice,
-  //   content: 'What is the DOM?',
-  //   textBelow: '',
-  //   possibleAnswers: [''],
-  //   answerLayout: eAnswerLayout.Vertical,
-  //   tags: ['javascript', 'advanced'],
-  //   lastUpdate: new Date()
-  // }
-  // qustion2: Question = {
-  //   id: 2,
-  //   field: this.category,
-  //   type: eQuestionType.SingleChoice,
-  //   content: 'Sanad?',
-  //   textBelow: '',
-  //   possibleAnswers: [''],
-  //   answerLayout: eAnswerLayout.Vertical,
-  //   tags: ['javascript'],
-  //   lastUpdate: new Date()
-
-  // }
+  isTestform: boolean = true;
+  testForm: FormGroup;
+  submitted: boolean;
+  languages: string[] = ['Hebrew', 'English'];
+  qustion1: Question = {
+    Id: 1,
+    Field: this.category,
+    QuestionType: eQuestionType.SingleChoice,
+    QuestionContent: '',
+    Title: 'What is the DOM?',
+    PossibleAnswers: [''],
+    AnswerLayout: eAnswerLayout.Vertical,
+    Tags: ['javascript', 'advanced'],
+    LastUpdate: new Date()
+  }
+  qustion2: Question = {
+    Id: 2,
+    Field: this.category,
+    QuestionType: eQuestionType.SingleChoice,
+    QuestionContent: '',
+    Title: 'What are Zubi?',
+    PossibleAnswers: [''],
+    AnswerLayout: eAnswerLayout.Vertical,
+    Tags: ['javascript'],
+    LastUpdate: new Date()
+  }
+  qustion3: Question = {
+    Id: 3,
+    Field: this.category,
+    QuestionType: eQuestionType.SingleChoice,
+    QuestionContent: '',
+    Title: 'Kiki Do you Love me ?',
+    PossibleAnswers: [''],
+    AnswerLayout: eAnswerLayout.Vertical,
+    Tags: ['typescript'],
+    LastUpdate: new Date()
+  }
 
   questionsList: Question[] = [];
   questionsFilteredList: Question[] = [];
   selectedQuestions: Question[] = [];
   filterBy: string
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+    private questionService: QuestionService,
+    private formBuilder: FormBuilder,
+    private testSerive: TestService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.category = params.get('category');
     })
-    // this.questionsList.push(this.qustion1);
-    // this.questionsList.push(this.qustion2);
+
+    this.testForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      emailFrom: ['', Validators.required],
+      passingGrade: ['', Validators.required],
+      instructions: ['', Validators.required],
+      msgSuccess: ['', Validators.required],
+      msgFailure: ['', Validators.required],
+      language: new FormControl()
+    });
+
+    this.questionsList.push(this.qustion1);
+    this.questionsList.push(this.qustion2);
+    this.questionsList.push(this.qustion3);
     this.questionsFilteredList = this.questionsList;
   }
 
@@ -61,13 +92,26 @@ export class TestFormComponent implements OnInit {
     var dataExist = this.selectedQuestions.find(q => q.Id == data.id);
     if (!dataExist) {
       this.selectedQuestions.push(data);
-    } 
+    }
   }
 
-  selectAllFiltered(){
-    this.questionsFilteredList.forEach(q=>{
+  selectAllFiltered() {
+    this.questionsFilteredList.forEach(q => {
       this.addQuestion(q);
-    });    
+    });
   }
+
+  createTest() {
+    debugger;
+    this.submitted = true;
+    if (this.testForm.invalid) {
+      return;
+    }
+    // this.testSerive.addTest(this.testForm.value).subscribe(test => {
+    //   alert('succes');
+    // }, err => alert(err));
+  }
+
+  get f() { return this.testForm.controls; }
 
 }
