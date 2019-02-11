@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mainDB = require('../DAL/dbRepository')
+var mainDB = require('../DAL/dbRepository');
 
 router.post('/createQuestion', function (req, res) {
     console.log(req.body);

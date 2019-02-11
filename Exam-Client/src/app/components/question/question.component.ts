@@ -11,7 +11,7 @@ export class QuestionComponent implements OnInit {
   @Input()
   question: Question;
   constructor(private router: Router) { }
-  @Input() testform:boolean;
+  @Input() isTestform:boolean;
   @Output() onSelectQuestion:EventEmitter<any>=new EventEmitter();
   ngOnInit() {
   }

@@ -1,35 +1,58 @@
 <h1>New Test</h1>
-<form>
+<form [formGroup]="testForm" (ngSubmit)="createTest()">
     <div>
         Field of study: {{category}}
     </div>
     <div>
         Language :
-        <select>
-            <option>English</option>
-            <option>Hebrew</option>
+        <select formControlName="language">
+            <option selected="language" *ngFor="let language of languages">{{language}}</option>
         </select>
     </div>
-    <div>
-        Test Name : <input type="text">
+    <div class="form-group">
+        <label>Test name</label>
+        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required"> Name is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Email From</label>
+        <input type="text" formControlName="emailFrom" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.emailFrom.errors }" />
+        <div *ngIf="submitted && f.emailFrom.errors" class="invalid-feedback">
+            <div *ngIf="f.emailFrom.errors.required"> Email is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Passing Grade</label>
+        <input type="text" formControlName="passingGrade" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.passingGrade.errors }" />
+        <div *ngIf="submitted && f.passingGrade.errors" class="invalid-feedback">
+            <div *ngIf="f.passingGrade.errors.required"> Passing grade is required</div>
+        </div>
     </div>
     <div>
-        Email From: <input type="text">
+        Show correct answers after submission <input  type="checkbox">Show
     </div>
-    <div>
-        Passing Grade : <input type="text">
+    <div class="form-group">
+        <label>Instructions: </label>
+        <textarea  formControlName="instructions" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.instructions.errors }"></textarea>
+        <div *ngIf="submitted && f.instructions.errors" class="invalid-feedback">
+            <div *ngIf="f.instructions.errors.required"> Header is required</div>
+        </div>
     </div>
-    <div>
-        Show correct answers after submission <input type="checkbox">Show
+    <div class="form-group">
+        <label>Message to show on success: </label>
+        <textarea  formControlName="msgSuccess" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.msgSuccess.errors }"></textarea>
+        <div *ngIf="submitted && f.msgSuccess.errors" class="invalid-feedback">
+            <div *ngIf="f.msgSuccess.errors.required"> Message success is required</div>
+        </div>
     </div>
-    <div>
-        Header : <textarea></textarea>
-    </div>
-    <div>
-        Message to show on success : <textarea></textarea>
-    </div>
-    <div>
-        Message to show on Failure : <textarea></textarea>
+    <div class="form-group">
+        <label>Message to show on Failure: </label>
+        <textarea  formControlName="msgFailure" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.msgFailure.errors }"></textarea>
+        <div *ngIf="submitted && f.msgFailure.errors" class="invalid-feedback">
+            <div *ngIf="f.msgFailure.errors.required"> Message failure is required</div>
+        </div>
     </div>
     <br>
     <hr>
@@ -39,24 +62,31 @@
 
     <div style="display: flex;
     justify-content: space-between;">
-        <div>
-            Filter by tags : <input [(ngModel)]="filterBy" name="filterBy"  type="text" (ngModelChange)="filterByTags()">
-        </div>
+        <!-- <div>
+            Filter by tags : <input [(ngModel)]="filterBy" name="filterBy" type="text" (ngModelChange)="filterByTags()">
+        </div> -->
         <div>
             <button (click)="selectAllFiltered()">Select All Filtered</button>
         </div>
     </div>
     <br>
     <hr>
- 
+
     <div *ngFor="let question of questionsFilteredList">
-        <question [testform]="testform" [question]="question" (onSelectQuestion)="addQuestion($event)"></question>
+        <question [isTestform]="isTestform" [question]="question" (onSelectQuestion)="addQuestion($event)"></question>
     </div>
     <div>
         <button (click)="getQuestions()">Show more Questions</button>
     </div>
-<div style="display: flex;
+    <div style="display: flex;
 justify-content: center;">
-    The test will include {{selectedQuestions.length}} questions
-</div>
+        The test will include {{selectedQuestions.length}} questions
+    </div>
+    <br>
+    <hr>
+
+    <div style="display: flex;
+    justify-content: center;">
+<button type="submit">Save</button>
+    </div>
 </form>
