@@ -75,8 +75,7 @@ class DBContext {
             if (err) {
                 callback(null, { message: 'Error occured while inserting question' })
             } else {
-                console.log(req);
-                callback(req);
+                callback(req.returnValue);
             }
         });
     }

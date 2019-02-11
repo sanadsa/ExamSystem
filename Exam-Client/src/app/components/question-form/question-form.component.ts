@@ -91,15 +91,19 @@ export class QuestionFormComponent implements OnInit {
       LastUpdate: new Date(),
       Field: this.question.Field
     }
+    var arrayControl =this.quesForm.get('answer') as FormArray;
+    var item = arrayControl.at(1);
+    console.log(item);
     this.submitted = true;
     if (this.questionForm.invalid) {
       return;
     }
 
-    this.questionService.addQuestion(questionToAdd).subscribe(question => {
-      console.log(question);
-      this.router.navigate([this.constantFields.questionsListRoute, { category: this.question.Field }]);
-    }, err => console.log(err));
+    // this.questionService.addQuestion(questionToAdd).subscribe(questionId => {
+    //   console.log(questionId);
+    //   // To Do : Add answers to db
+    //   this.router.navigate([this.constantFields.questionsListRoute, { category: this.question.Field }]);
+    // }, err => console.log(err));
   }
 
 }
