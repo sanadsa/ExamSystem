@@ -81,15 +81,15 @@ class DBContext {
      * get all questions
      * @param {*} callback 
      */
-    getQuestions(callback) {
+    getQuestions(field, callback) {
         var req = dbPool.request();
-
-        req.execute("spQuestions_GetAll", (err, data) => {
+        req.input('Field', sql.NVarChar(50), field);
+        request.execute('spQuestions_GetByField').then(function (req, err) {
             if (err) {
-                throw new Error("Exec error calling 'spQuestions_GetAll'");
+                callback(null, { message: "Exec error calling 'spQuestions_GetAll'" })
+            } else {
+                callback(req.recordset);
             }
-
-            callback(data.recordset);
         });
     }
 
