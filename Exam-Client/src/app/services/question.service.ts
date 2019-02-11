@@ -16,6 +16,10 @@ export class QuestionService {
     return this.http.post(this.constFields.addQuestion, question);
   }
 
+  addAnswer(ans) {
+    return this.http.post(this.constFields.addAnswer, ans);
+  }
+
   getQuestions(field): Observable<any> {
     return this.http.get(this.constFields.getQuestions + field);
   }

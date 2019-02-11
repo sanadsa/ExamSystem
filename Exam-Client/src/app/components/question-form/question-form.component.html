@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-1 col-centered">
+    <div class="col-lg-6 col-centered">
       <form [formGroup]="questionForm" (ngSubmit)="createQuestion()">
         <div formGroupName="question">
           Field: {{question.Field}}
@@ -23,7 +23,7 @@
             <div *ngIf="belowQuestion.touched && belowQuestion.invalid" class="alert alert-danger">Content required</div>
           </div>
           <hr>
-          <form [formGroup]="quesForm">
+          <form [formGroup]="answerForm">
             <div formArrayName="answers">
               <label for="possibleAnswers">Possible Answers: </label>
               <button (click)="addAnswer()">Add new answer</button>
@@ -32,6 +32,8 @@
                 <button *ngIf="answers['controls'].length > 2" (click)="removeAnswer(i)">X</button>
                 <div [formGroupName]="i">
                   <input type="text" formControlName="answer" class="form-control">
+                  <div *ngIf="answers['controls'][i].touched && answers['controls'][i].invalid" class="alert alert-danger">Answer text is
+                      required</div>
                 </div>
                 <input *ngIf="isSingle && selectedType.value == constantFields.SingleChoice" type="radio" name="questionType">
                 <input *ngIf="!isSingle" type="checkbox">
@@ -56,7 +58,7 @@
             <input type="text" id="tags">
           </div>
         </div>
-        <button type="submit">Submit</button>
+        <button [disabled]="!questionForm.valid || !quesForm.valid" class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
   </div>
