@@ -2,16 +2,13 @@ var sql = require("mssql");
 var config = require("./dbconfig");
 var bcrypt = require('bcryptjs');
 
-
 const dbPool = new sql.ConnectionPool(config, err => {
     if (err) {
-        //   logger.log("error", "Can't create DB pool " + err + " stack:" + err.stack);
-        console.log(err)
+        console.log('dbPool Error: ' + err);
     }
 });
 
 class DBContext {
-
     login(email, password, callback) {
         var request = dbPool.request();
         request.input('Email', sql.VarChar(50), email);
@@ -60,18 +57,25 @@ class DBContext {
         });
 
     }
+
+    /**
+     * Add question to db
+     * @param {*response function} callback 
+     */
     addQuestion(question, callback) {
         var request = dbPool.request();
         request.input('Title', sql.VarChar(50), question.Title);
         request.input('QuestionType', sql.VarChar(50), question.QuestionType);
         request.input('QuestionContent', sql.VarChar(50), question.QuestionContent);
         request.input('Active', sql.Bit, false);
-        request.input('LastUpdate', sql.Date, new Date());
+        request.input('LastUpdate', sql.Date, question.LastUpdate);
+        request.input('Field', sql.NVarChar(50), question.Field);
 
         request.execute('spQuestions_INSERT').then(function (req, err) {
             if (err) {
                 callback(null, { message: 'Error occured while inserting question' })
             } else {
+                console.log(req);
                 callback(req);
             }
         });
@@ -82,9 +86,11 @@ class DBContext {
      * @param {*} callback 
      */
     getQuestions(field, callback) {
+        console.log('in db repo ');
+        console.log('field: ' + field);
         var req = dbPool.request();
         req.input('Field', sql.NVarChar(50), field);
-        request.execute('spQuestions_GetByField').then(function (req, err) {
+        req.execute('spQuestions_GetByField').then(function (req, err) {
             if (err) {
                 callback(null, { message: "Exec error calling 'spQuestions_GetAll'" })
             } else {

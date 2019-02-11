@@ -38,7 +38,7 @@ export class QuestionFormComponent implements OnInit {
     this.constantFields = new ConstantFields();
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.route.paramMap.subscribe(params => {
       let jsonObj: any = JSON.parse(params.get('question'));
       let jsonToQuestion: Question = <Question>jsonObj;
@@ -89,16 +89,16 @@ export class QuestionFormComponent implements OnInit {
       QuestionContent: this.questionForm.get('question.belowQuestion').value,
       Active: false,
       LastUpdate: new Date(),
+      Field: this.question.Field
     }
-    console.log(questionToAdd.Title + ' ' + questionToAdd.QuestionContent + ' ' + questionToAdd.QuestionType + ' ' + questionToAdd.LastUpdate);
     this.submitted = true;
     if (this.questionForm.invalid) {
       return;
     }
 
     this.questionService.addQuestion(questionToAdd).subscribe(question => {
-      alert('success');
-      this.router.navigate(['/login']);
+      console.log(question);
+      this.router.navigate([this.constantFields.questionsListRoute, { category: this.question.Field }]);
     }, err => console.log(err));
   }
 

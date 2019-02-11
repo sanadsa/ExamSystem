@@ -13,12 +13,10 @@ export class QuestionService {
   }
 
   addQuestion(question) {
-    debugger;
     return this.http.post(this.constFields.addQuestion, question);
   }
 
-  getQuestions(field) {
-    debugger;
+  getQuestions(field): Observable<any> {
     return this.http.get(this.constFields.getQuestions + field);
   }
 }
