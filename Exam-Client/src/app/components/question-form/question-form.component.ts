@@ -91,7 +91,7 @@ export class QuestionFormComponent implements OnInit {
       LastUpdate: new Date(),
       Field: this.question.Field
     }
-    var arrayControl =this.quesForm.get('answer') as FormArray;
+    var arrayControl = this.quesForm.get('answers') as FormArray;
     var item = arrayControl.at(1);
     console.log(item);
     this.submitted = true;
