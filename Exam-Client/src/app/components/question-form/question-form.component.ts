@@ -103,6 +103,7 @@ export class QuestionFormComponent implements OnInit {
       this.questionId = <string>questionId;
       console.log('question id: ' + questionId);
       for (let ansControl of this.answers['controls']) {
+        
         var answer = {
           QuestionId: questionId,
           CorrectAnswer: false,
