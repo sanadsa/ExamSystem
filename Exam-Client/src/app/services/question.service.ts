@@ -17,6 +17,7 @@ export class QuestionService {
   }
 
   addAnswer(ans) {
+    debugger;
     return this.http.post(this.constFields.addAnswer, ans);
   }
 

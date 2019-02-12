@@ -13,3 +13,5 @@ router.post('/createTest', function (req, res) {
         }
     });
 });
+
+module.exports = router;

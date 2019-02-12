@@ -3,11 +3,23 @@ var router = express.Router();
 var mainDB = require('../DAL/dbRepository');
 
 router.post('/createQuestion', function (req, res) {
-    console.log(req.body);
     mainDB.addQuestion(req.body, function (result, err) {
         if (err) {
             res.status(400).send(err);
         } else {
+            res.status(200).send(result.returnValue.toString());
+        }
+    });
+});
+
+router.post('/createAnswer', function (req, res) {
+    console.log('in ans route: ');
+    console.log(req.body);
+    mainDB.addAnswer(req.body, function (result, err) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            console.log('in ans route');
             res.status(200).send();
         }
     });

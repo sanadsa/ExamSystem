@@ -20,7 +20,8 @@ export class QuestionFormComponent implements OnInit {
     })
   });
   answerForm = new FormGroup({
-    answers: new FormArray([
+    answers: new FormArray([this.initAnswers(),this.initAnswers()]),
+    answersIsCorrect: new FormArray([
       this.initAnswers(),
       this.initAnswers()
     ])
@@ -30,6 +31,7 @@ export class QuestionFormComponent implements OnInit {
   isSingle = true;
   question: Question;
   questionType = eQuestionType;
+  questionId: string;
 
   constructor(private questionService: QuestionService,
     private route: ActivatedRoute,
@@ -45,7 +47,7 @@ export class QuestionFormComponent implements OnInit {
       this.question = jsonToQuestion;
     });
   }
-  
+
   keys(): Array<string> {
     const keys = Object.keys(this.questionType);
     return keys.slice(keys.length / 2).reverse();
@@ -96,25 +98,21 @@ export class QuestionFormComponent implements OnInit {
     if (this.questionForm.invalid) {
       return;
     }
-
-    if (this.answers['controls'][0].value.answer == '') {
-      console.log('zero answers');
-    } else {
-      this.questionService.addQuestion(questionToAdd).subscribe(questionId => {
-        console.log('question id: ' + questionId);
-        for (let ansControl of this.answers['controls']) {
-          var answer = {
-            QuestionId: questionId,
-            CorrectAnswer: false,
-            Info: ansControl.value.answer
-          }
-          this.questionService.addAnswer(answer).subscribe(response => {
-
-          }, ansErr => console.log(ansErr));
+    this.questionService.addQuestion(questionToAdd).subscribe(questionId => {
+      debugger;
+      this.questionId = <string>questionId;
+      console.log('question id: ' + questionId);
+      for (let ansControl of this.answers['controls']) {
+        var answer = {
+          QuestionId: questionId,
+          CorrectAnswer: false,
+          Info: ansControl.value.answer
         }
-      }, err => console.log(err));
-      this.router.navigate([this.constantFields.questionsListRoute, { category: this.question.Field }]);
-    }
-  }
+        this.questionService.addAnswer(answer).subscribe(response => {
 
+        }, ansErr => console.log(ansErr));
+      }
+      this.router.navigate([this.constantFields.questionsListRoute, { category: this.question.Field }]);
+    }, err => console.log(err));
+  }
 }

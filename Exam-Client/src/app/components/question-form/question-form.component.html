@@ -36,7 +36,7 @@
                       required</div>
                 </div>
                 <input *ngIf="isSingle && selectedType.value == constantFields.SingleChoice" type="radio" name="questionType">
-                <input *ngIf="!isSingle" type="checkbox">
+                <input *ngIf="!isSingle" type="checkbox" name="questionType">
               </div>
               <div *ngIf="answers['controls'].touched " class="alert alert-danger">Answers is required</div>
             </div>
@@ -58,7 +58,7 @@
             <input type="text" id="tags">
           </div>
         </div>
-        <button [disabled]="!questionForm.valid || !quesForm.valid" class="btn btn-primary" type="submit">Submit</button>
+        <button [disabled]="!questionForm.valid || !answerForm.valid" class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
   </div>

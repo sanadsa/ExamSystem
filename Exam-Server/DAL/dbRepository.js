@@ -16,7 +16,7 @@ class DBContext {
             if (bcrypt.compareSync(password, req.recordset[0].Password)) {
                 callback(req.recordset[0].Email);
             } else {
-                console.log("error", "Execution error calling 'spQuestions_GetAll'");
+                console.log("error", "Execution error calling 'spAdmins_login'");
                 callback(null, { message: 'Failed connection' });
             }
         });
@@ -58,7 +58,7 @@ class DBContext {
 
     }
 
-    createTest(test,callback){
+    createTest(test, callback) {
         var request = dbPool.request();
         request.input('Language', sql.VarChar(50), test.Language);
         request.input('TestName', sql.VarChar(50), test.TestName);
@@ -94,9 +94,30 @@ class DBContext {
 
         request.execute('spQuestions_INSERT').then(function (req, err) {
             if (err) {
-                callback(null, { message: 'Error occured while inserting question' })
+                callback(null, { message: "Execution error calling 'spQuestions_INSERT'" })
             } else {
-                callback(req.returnValue);
+                callback(req);
+            }
+        });
+    }
+
+    /**
+     * Add answer to db
+     * @param {*response function} callback 
+     */
+    addAnswer(answer, callback) {
+        console.log('ans in repo: ' + answer.QuestionId);
+        var request = dbPool.request();
+        request.input('QuestionId', sql.Int, answer.QuestionId);
+        request.input('CorrectAnswer', sql.Bit, answer.CorrectAnswer);
+        request.input('Info', sql.VarChar(50), answer.Info);
+
+        request.execute('spAnswers_Insert').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Execution error calling 'spAnswers_Insert'" })
+            } else {
+                console.log('add ans in db: ' + req);
+                callback(req);
             }
         });
     }
