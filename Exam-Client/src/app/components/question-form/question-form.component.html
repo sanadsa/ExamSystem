@@ -6,10 +6,12 @@
           Field: {{question.Field}}
           <div class="formGroup">
             <label for="questionType">Question Type: </label>
-            <select #selectedType formControlName="questionType" id="questionType" (change)="setIsSingle()" class="form-control">
+            <select #selectedType formControlName="questionType" id="questionType" (change)="setIsSingle()"
+              class="form-control">
               <option *ngFor="let type of keys()" [value]="type">{{type}}</option>
             </select>
-            <div *ngIf="questionTypeF.touched && questionTypeF.invalid" class="alert alert-danger">Type is required</div>
+            <div *ngIf="questionTypeF.touched && questionTypeF.invalid" class="alert alert-danger">Type is required
+            </div>
           </div>
           <div class="formGroup">
             <label for="questionText">Question Text: </label>
@@ -20,7 +22,8 @@
           <div class="formGroup">
             <label for="belowQuestion">Text Below Question: </label>
             <input formControlName="belowQuestion" id="belowQuestion" class="form-control" />
-            <div *ngIf="belowQuestion.touched && belowQuestion.invalid" class="alert alert-danger">Content required</div>
+            <div *ngIf="belowQuestion.touched && belowQuestion.invalid" class="alert alert-danger">Content required
+            </div>
           </div>
           <hr>
           <form [formGroup]="answerForm">
@@ -30,15 +33,17 @@
               <div *ngFor="let ans of answers['controls']; let i=index" class="answers-layout">
                 <label>Answer {{i+1}}</label>
                 <button *ngIf="answers['controls'].length > 2" (click)="removeAnswer(i)">X</button>
-                <div [formGroupName]="i">
-                  <input type="text" formControlName="answer" class="form-control">
-                  <div *ngIf="answers['controls'][i].touched && answers['controls'][i].invalid" class="alert alert-danger">Answer text is
-                      required</div>
+                <div [formGroupName]="i" style="display: flex">
+                  <input type="text" formControlName="Info" class="form-control">
+                  <div *ngIf="answers['controls'][i].touched && answers['controls'][i].invalid"
+                    class="alert alert-danger">required</div>
+                  <input formControlName="IsCorrect" *ngIf="!isSingle" type="checkbox" name="IsCorrect"
+                    style="margin-left: 5px;">
+                  <input formControlName="IsCorrect"
+                    *ngIf="isSingle && selectedType.value == constantFields.SingleChoice" type="radio" name="IsCorrect"
+                    style="margin-left: 5px;">
                 </div>
-                <input *ngIf="isSingle && selectedType.value == constantFields.SingleChoice" type="radio" name="questionType">
-                <input *ngIf="!isSingle" type="checkbox" name="questionType">
               </div>
-              <div *ngIf="answers['controls'].touched " class="alert alert-danger">Answers is required</div>
             </div>
           </form>
           <div class="answers-layout">
@@ -58,7 +63,8 @@
             <input type="text" id="tags">
           </div>
         </div>
-        <button [disabled]="!questionForm.valid || !answerForm.valid" class="btn btn-primary" type="submit">Submit</button>
+        <button [disabled]="!questionForm.valid || !answerForm.valid" class="btn btn-primary"
+          type="submit">Submit</button>
       </form>
     </div>
   </div>

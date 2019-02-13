@@ -20,11 +20,7 @@ export class QuestionFormComponent implements OnInit {
     })
   });
   answerForm = new FormGroup({
-    answers: new FormArray([this.initAnswers(),this.initAnswers()]),
-    answersIsCorrect: new FormArray([
-      this.initAnswers(),
-      this.initAnswers()
-    ])
+    answers: new FormArray([this.initAnswers(), this.initAnswers()]),
   });
   constantFields: ConstantFields;
   submitted: boolean;
@@ -56,19 +52,37 @@ export class QuestionFormComponent implements OnInit {
   get answers() {
     return this.answerForm.get('answers') as FormArray;
   }
+
+  get answersContent() {
+    return this.answers.get('answer') as FormArray
+  }
+
   get answer() {
     return this.answers.get('answer');
   }
   initAnswers() {
+    // return this.fb.group({
+    //   answer: this.fb.array([
+    //     this.initAns()
+    //   ])
+    // });
     return this.fb.group({
-      answer: ['', Validators.required]
+      Info: ['', Validators.required],
+      IsCorrect: [false]
+    });
+  }
+  initAns() {
+    return this.fb.group({
+      Info: ['', Validators.required],
+      IsCorrect: [false, Validators.required]
     });
   }
   addAnswer() {
-    this.answers.push(this.initAnswers())
+    this.answers.push(this.initAnswers());
   }
   removeAnswer(index) {
     this.answers.removeAt(index);
+    //this.answersContent.removeAt(index);
   }
   get questionTypeF() {
     return this.questionForm.get('question').get('questionType');
@@ -85,7 +99,7 @@ export class QuestionFormComponent implements OnInit {
     this.isSingle = (choice === this.keys()[0]) ? true : false;
   }
 
-  createQuestion() {
+  createQuestion() {    
     var questionToAdd = {
       Title: this.questionForm.get('question.questionText').value,
       QuestionType: this.questionForm.get('question.questionType').value,
@@ -94,6 +108,7 @@ export class QuestionFormComponent implements OnInit {
       LastUpdate: new Date(),
       Field: this.question.Field
     }
+
     this.submitted = true;
     if (this.questionForm.invalid) {
       return;
@@ -102,15 +117,13 @@ export class QuestionFormComponent implements OnInit {
       debugger;
       this.questionId = <string>questionId;
       console.log('question id: ' + questionId);
-      for (let ansControl of this.answers['controls']) {
-        
+      for (let ansControl of this.answers['controls']) {        
         var answer = {  
           QuestionId: questionId,
-          CorrectAnswer: false,
-          Info: ansControl.value.answer
+          CorrectAnswer: ansControl.value.IsCorrect,
+          Info: ansControl.value.Info
         }
         this.questionService.addAnswer(answer).subscribe(response => {
-
         }, ansErr => console.log(ansErr));
       }
       this.router.navigate([this.constantFields.questionsListRoute, { category: this.question.Field }]);
