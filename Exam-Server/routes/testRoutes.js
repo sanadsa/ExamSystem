@@ -3,15 +3,21 @@ var router = express.Router();
 var mainDB = require('../DAL/dbRepository');
 
 router.post('/createTest', function (req, res) {
-    console.log(req.body);
-    
-    mainDB.createTest(req.body,function(respone,err){
+    mainDB.createTest(req.body, function (respone, err) {
         if (respone) {
-            res.status(200).send(req.body);
-        }else{
-            res.status(400).send(err);
+            const testId= respone;
+            mainDB.addQuestionsToTest(req.body.questions, testId, function (result, err) {
+                if (result) {
+                    res.sendStatus(200).send(req.body);
+                } else {
+                    res.sendStatus(400).send(err);
+                }
+            });
+        } else {
+            res.sendStatus(400).send(err);
         }
     });
 });
+
 
 module.exports = router;

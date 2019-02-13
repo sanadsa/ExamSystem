@@ -9,6 +9,6 @@ export class TestService {
   constructor(private http:HttpClient) { }
 
   addTest(test){
-    return this.http.post('',test);
+    return this.http.post('http://localhost:8000/api/Tests/createTest',test);
   }
 }
