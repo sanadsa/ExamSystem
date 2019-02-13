@@ -1,5 +1,27 @@
 <div style="display:flex;justify-content: center;">
-  <h1 style="margin-right: 15px;">Available Tests for</h1><h1 style="color:orange">{{category}}</h1>
+  <h1 style="margin-right: 15px;">Available Tests for</h1><h1 style="color:orange">{{field}}</h1>
 </div>
-<button [routerLink]="['/testForm',{category:category}]" >Create New Test</button>
-<app-test></app-test>
+<div>
+  <div style="display: flex;
+  justify-content: space-around;">
+      <div>
+          Filter by tags : <input [(ngModel)]="filterBy" name="filterBy" type="text" (ngModelChange)="filterByTags()">
+      </div>
+      <div>
+          <button type="button" (click)="selectAllFiltered()">Select All Filtered</button>
+      </div>
+  </div>
+</div>
+<br>
+<div *ngFor="let test of tests">
+  <app-test [test]="test"></app-test>
+</div>
+<hr>
+<div style="display:flex;justify-content:space-between;">
+  <div>
+<button>Back</button>
+  </div>
+  <div>
+    <button [routerLink]="['/testForm',{field:field}]" >Create New Test</button>
+  </div>
+</div>

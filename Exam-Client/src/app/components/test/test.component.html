@@ -1,3 +1,22 @@
-<p>
-  test works!
-</p>
+<div style="display:flex;justify-content:space-around;">
+  <div>
+    {{test.ID}}
+  </div>
+  <div>
+    {{test.TestName}}
+  </div>
+  <div>
+      {{test.LastUpdate | date:'yyyy-MM-dd'}}
+  </div>
+  <div>
+      {{test.NumOfQuestions}}
+  </div>
+  <div>
+    <button>
+      Edit
+    </button>
+  </div>
+  <div style="color:green">
+    Active
+  </div>
+</div>

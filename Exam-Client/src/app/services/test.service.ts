@@ -11,4 +11,8 @@ export class TestService {
   addTest(test){
     return this.http.post('http://localhost:8000/api/Tests/createTest',test);
   }
+
+  getTestsByField(field){
+    return this.http.get('http://localhost:8000/api/Tests/getTestsByField/' + field)
+  }
 }

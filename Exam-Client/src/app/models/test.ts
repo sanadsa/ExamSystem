@@ -1,4 +1,5 @@
 export interface Test{
+    ID?:number;
     Language?:string;
     TestName?:string;
     Instructions?:string;
@@ -8,4 +9,6 @@ export interface Test{
     ReviewAnswers?:boolean;
     LastUpdate?:Date;
     DiplomeURL?:string;
+    Field?:string;
+    NumOfQuestions?:number;
 }

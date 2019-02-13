@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TestService } from 'src/app/services/test.service';
+import { Test } from 'src/app/models/test';
 
 @Component({
   selector: 'app-test-list',
@@ -8,13 +10,19 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TestListComponent implements OnInit {
 
-  category:string;
-  constructor(private route:ActivatedRoute) { }
+  field: string;
+  tests: Test[] = [];
+  constructor(private route: ActivatedRoute, private testSerive: TestService) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params=>{
-      this.category = params.get('category');
+    this.route.paramMap.subscribe(params => {
+      this.field = params.get('field');
+    });
+    this.testSerive.getTestsByField(this.field).subscribe((tests:Test[]) => {
+      debugger;
+      this.tests = tests;
     })
+
   }
 
 }
