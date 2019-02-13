@@ -1,12 +1,12 @@
 <div>
     Choose a field of study
-    <select #category>
-        <option selected="item" *ngFor="let item of studyFields">{{item}}</option>
+    <select #field>
+        <option selected="field" *ngFor="let field of studyFields">{{field}}</option>
     </select>
 </div>
 
-<button (click)="routeToQuestions(category.value)">Manage Questions</button>
-<button (click)="routeToManageTest(category.value)">Manage Tests</button>
+<button (click)="routeToQuestions(field.value)">Manage Questions</button>
+<button (click)="routeToManageTest(field.value)">Manage Tests</button>
 <button>Reports</button>
 
 <router-outlet></router-outlet>

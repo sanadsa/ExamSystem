@@ -8,18 +8,18 @@ import { Router } from '@angular/router';
 })
 export class MainMenuComponent implements OnInit {
 
-  @ViewChild('category') test: ElementRef;
+  @ViewChild('field') field: ElementRef;
   studyFields: any[] = ['Development', 'QA', 'Automation'];
   constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
-  routeToManageTest(category) {
-    this.router.navigate(['/testsList', { category: category }]);
+  routeToManageTest(field) {
+    this.router.navigate(['/testsList', { field: field }]);
   }
 
-  routeToQuestions(category) {
-    this.router.navigate(['/questionList', { category: category }]);
+  routeToQuestions(field) {
+    this.router.navigate(['/questionList', { field: field }]);
   }
 }

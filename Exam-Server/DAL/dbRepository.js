@@ -78,23 +78,33 @@ class DBContext {
         });
     }
 
-    addQuestionsToTest(questions, testId, callback) {
+    getTestsByField(field,callback){
         var request = dbPool.request();
-        request.input('TestId', sql.Int, testId);
+        request.input('Field', sql.NVarChar(50), field);
+        request.execute('spTests_GetByField').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Execution error calling 'spTests_GetByField'" })
+            } else {
+                console.log(req.recordset);
+                
+                callback(req.recordset);
+            }
+        });
+    }
+
+    addQuestionsToTest(questions, testId, callback) {
         for (let index = 0; index < questions.length; index++) {
+            var request = dbPool.request();
+            request.input('TestId', sql.Int, testId);
             request.input('QuestionId', sql.Int, questions[index]);
-            request.execute('spQuestionForTest_Insert').then(function (req, err) {
-                if (req) {
-                    console.log(req);
-                    continue;
-                } else if (err) {
-                    console.log('zubidsadas');
-                    callback(null, { message: 'Error occured ' })
-                }
+            request.execute('spQuestionForTest_Insert').then(function (test) {
+               continue;
+            }).catch(function(err){
+                console.log(err);
             });
 
         }
-        callback(testId);
+        callback({message:'succes'});
     }
 
     /**

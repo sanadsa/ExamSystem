@@ -1,5 +1,5 @@
 export interface Question {
-    Id?: number;
+    ID?: number;
     Field: String;
     QuestionType: eQuestionType;
     Title: String;
