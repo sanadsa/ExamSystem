@@ -67,12 +67,15 @@ export class TestFormComponent implements OnInit {
 
     this.testForm = this.formBuilder.group({
       name: ['', Validators.required],
-      emailFrom: ['', Validators.required],
+      ownerEmail: ['', Validators.required],
       passingGrade: ['', Validators.required],
       instructions: ['', Validators.required],
       msgSuccess: ['', Validators.required],
       msgFailure: ['', Validators.required],
-      language: new FormControl()
+      language: new FormControl(),
+      reviewAnswers : new FormControl(),
+      time : ['',Validators.required],
+      questions: new FormControl()
     });
 
     this.questionsList.push(this.qustion1);
@@ -89,7 +92,7 @@ export class TestFormComponent implements OnInit {
   }
 
   addQuestion(data) {
-    var dataExist = this.selectedQuestions.find(q => q.Id == data.id);
+    var dataExist = this.selectedQuestions.find(q => q.Id == data.Id);
     if (!dataExist) {
       this.selectedQuestions.push(data);
     }
@@ -102,14 +105,14 @@ export class TestFormComponent implements OnInit {
   }
 
   createTest() {
-    debugger;
     this.submitted = true;
     if (this.testForm.invalid) {
       return;
     }
-    // this.testSerive.addTest(this.testForm.value).subscribe(test => {
-    //   alert('succes');
-    // }, err => alert(err));
+    this.testForm.value.questions = [1,2];
+    this.testSerive.addTest(this.testForm.value).subscribe(test => {
+      alert('succes');
+    }, err => console.log(err));
   }
 
   get f() { return this.testForm.controls; }

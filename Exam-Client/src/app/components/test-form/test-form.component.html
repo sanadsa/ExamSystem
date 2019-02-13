@@ -6,7 +6,7 @@
     <div>
         Language :
         <select formControlName="language">
-            <option selected="language" *ngFor="let language of languages">{{language}}</option>
+            <option selected="language"  *ngFor="let language of languages">{{language}}</option>
         </select>
     </div>
     <div class="form-group">
@@ -17,10 +17,18 @@
         </div>
     </div>
     <div class="form-group">
-        <label>Email From</label>
-        <input type="text" formControlName="emailFrom" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.emailFrom.errors }" />
-        <div *ngIf="submitted && f.emailFrom.errors" class="invalid-feedback">
-            <div *ngIf="f.emailFrom.errors.required"> Email is required</div>
+        <label>Time</label>
+        <input type="text" formControlName="time" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.time.errors }" />
+        <div *ngIf="submitted && f.time.errors" class="invalid-feedback">
+            <div *ngIf="f.time.errors.required"> Time is required</div>
+        </div>
+    </div>
+   
+    <div class="form-group">
+        <label>Owner Email</label>
+        <input type="text" formControlName="ownerEmail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ownerEmail.errors }" />
+        <div *ngIf="submitted && f.ownerEmail.errors" class="invalid-feedback">
+            <div *ngIf="f.ownerEmail.errors.required"> Owner Email is required</div>
         </div>
     </div>
     <div class="form-group">
@@ -31,25 +39,25 @@
         </div>
     </div>
     <div>
-        Show correct answers after submission <input  type="checkbox">Show
+        Show correct answers after submission <input formControlName="reviewAnswers" type="checkbox">Show
     </div>
     <div class="form-group">
         <label>Instructions: </label>
-        <textarea  formControlName="instructions" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.instructions.errors }"></textarea>
+        <textarea formControlName="instructions" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.instructions.errors }"></textarea>
         <div *ngIf="submitted && f.instructions.errors" class="invalid-feedback">
             <div *ngIf="f.instructions.errors.required"> Header is required</div>
         </div>
     </div>
     <div class="form-group">
         <label>Message to show on success: </label>
-        <textarea  formControlName="msgSuccess" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.msgSuccess.errors }"></textarea>
+        <textarea formControlName="msgSuccess" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.msgSuccess.errors }"></textarea>
         <div *ngIf="submitted && f.msgSuccess.errors" class="invalid-feedback">
             <div *ngIf="f.msgSuccess.errors.required"> Message success is required</div>
         </div>
     </div>
     <div class="form-group">
         <label>Message to show on Failure: </label>
-        <textarea  formControlName="msgFailure" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.msgFailure.errors }"></textarea>
+        <textarea formControlName="msgFailure" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.msgFailure.errors }"></textarea>
         <div *ngIf="submitted && f.msgFailure.errors" class="invalid-feedback">
             <div *ngIf="f.msgFailure.errors.required"> Message failure is required</div>
         </div>
@@ -66,7 +74,7 @@
             Filter by tags : <input [(ngModel)]="filterBy" name="filterBy" type="text" (ngModelChange)="filterByTags()">
         </div> -->
         <div>
-            <button (click)="selectAllFiltered()">Select All Filtered</button>
+            <button type="button" (click)="selectAllFiltered()">Select All Filtered</button>
         </div>
     </div>
     <br>
@@ -87,6 +95,6 @@ justify-content: center;">
 
     <div style="display: flex;
     justify-content: center;">
-<button type="submit">Save</button>
+        <button type="submit">Save</button>
     </div>
 </form>

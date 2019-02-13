@@ -58,25 +58,43 @@ class DBContext {
 
     }
 
-    createTest(test,callback){
+    createTest(test, callback) {
         var request = dbPool.request();
-        request.input('Language', sql.VarChar(50), test.Language);
-        request.input('TestName', sql.VarChar(50), test.TestName);
-        request.input('Instructions', sql.VarChar(50), test.Instructions);
-        request.input('Time', sql.Int, test.Time);
-        request.input('OwnerEmail', sql.VarChar(50), test.OwnerEmail);
-        request.input('PassingGrade', sql.Int, test.PassingGrade);
-        request.input('ReviewAnswers', sql.Bit, test.ReviewAnswers);
-        request.input('ReviewAnswers', sql.Bit, test.ReviewAnswers);
-        request.input('LastUpdate', sql.Date, test.LastUpdate);
-        request.input('DiplomeURL', sql.VarChar(50), test.DiplomeURL);
+        request.input('Language', sql.VarChar(50), test.language);
+        request.input('TestName', sql.VarChar(50), test.name);
+        request.input('Instructions', sql.VarChar(50), test.instructions);
+        request.input('Time', sql.Int, test.time);
+        request.input('OwnerEmail', sql.VarChar(50), test.ownerEmail);
+        request.input('PassingGrade', sql.Int, test.passingGrade);
+        request.input('ReviewAnswers', sql.Bit, test.reviewAnswers);
+        request.input('LastUpdate', sql.Date, new Date());
+        request.input('DiplomaURL', sql.VarChar(50), null);
         request.execute('spTests_Insert').then(function (req, err) {
             if (req) {
-                callback(req);
+                callback(req.returnValue);
             } else if (err) {
                 callback(null, { message: 'Error occured ' })
             }
         });
+    }
+
+    addQuestionsToTest(questions, testId, callback) {
+        var request = dbPool.request();
+        request.input('TestId', sql.Int, testId);
+        for (let index = 0; index < questions.length; index++) {
+            request.input('QuestionId', sql.Int, questions[index]);
+            request.execute('spQuestionForTest_Insert').then(function (req, err) {
+                if (req) {
+                    console.log(req);
+                    continue;
+                } else if (err) {
+                    console.log('zubidsadas');
+                    callback(null, { message: 'Error occured ' })
+                }
+            });
+
+        }
+        callback(testId);
     }
 
     /**
