@@ -1,7 +1,7 @@
 import { ConstantFields } from './../../helpers/common-constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from './../../services/question.service';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question';
 
@@ -19,8 +19,9 @@ export class QuestionFormComponent implements OnInit {
       belowQuestion: new FormControl('', Validators.required),
     })
   });
-  quesForm = new FormGroup({
-    answers: new FormArray([
+  answerForm = new FormGroup({
+    answers: new FormArray([this.initAnswers(),this.initAnswers()]),
+    answersIsCorrect: new FormArray([
       this.initAnswers(),
       this.initAnswers()
     ])
@@ -30,6 +31,7 @@ export class QuestionFormComponent implements OnInit {
   isSingle = true;
   question: Question;
   questionType = eQuestionType;
+  questionId: string;
 
   constructor(private questionService: QuestionService,
     private route: ActivatedRoute,
@@ -38,20 +40,21 @@ export class QuestionFormComponent implements OnInit {
     this.constantFields = new ConstantFields();
   }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.route.paramMap.subscribe(params => {
       let jsonObj: any = JSON.parse(params.get('question'));
       let jsonToQuestion: Question = <Question>jsonObj;
       this.question = jsonToQuestion;
     });
   }
+
   keys(): Array<string> {
     const keys = Object.keys(this.questionType);
     return keys.slice(keys.length / 2).reverse();
   }
 
   get answers() {
-    return this.quesForm.get('answers') as FormArray;
+    return this.answerForm.get('answers') as FormArray;
   }
   get answer() {
     return this.answers.get('answer');
@@ -91,19 +94,26 @@ export class QuestionFormComponent implements OnInit {
       LastUpdate: new Date(),
       Field: this.question.Field
     }
-    var arrayControl =this.quesForm.get('answer') as FormArray;
-    var item = arrayControl.at(1);
-    console.log(item);
     this.submitted = true;
     if (this.questionForm.invalid) {
       return;
     }
+    this.questionService.addQuestion(questionToAdd).subscribe(questionId => {
+      debugger;
+      this.questionId = <string>questionId;
+      console.log('question id: ' + questionId);
+      for (let ansControl of this.answers['controls']) {
+        
+        var answer = {
+          QuestionId: questionId,
+          CorrectAnswer: false,
+          Info: ansControl.value.answer
+        }
+        this.questionService.addAnswer(answer).subscribe(response => {
 
-    // this.questionService.addQuestion(questionToAdd).subscribe(questionId => {
-    //   console.log(questionId);
-    //   // To Do : Add answers to db
-    //   this.router.navigate([this.constantFields.questionsListRoute, { category: this.question.Field }]);
-    // }, err => console.log(err));
+        }, ansErr => console.log(ansErr));
+      }
+      this.router.navigate([this.constantFields.questionsListRoute, { category: this.question.Field }]);
+    }, err => console.log(err));
   }
-
 }
