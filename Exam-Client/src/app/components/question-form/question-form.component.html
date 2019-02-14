@@ -49,18 +49,18 @@
           <div class="answers-layout">
             <label for="">Answers Layout: </label>
             <div>
-              <input type="radio" name="layoutChoice">
               <label>Vertical</label>
+              <input (click)="answerLayout(constantFields.Vertical)" type="radio" name="layoutChoice">
             </div>
             <div>
-              <input type="radio" name="layoutChoice">
               <label>Horizontal</label>
+              <input (click)="answerLayout(constantFields.Horizontal)" type="radio" name="layoutChoice">
             </div>
           </div>
           <hr>
-          <div>
-            <label for="">Tags: </label>
-            <input type="text" id="tags">
+          <div class="formGroup">
+            <label>Tags: </label>
+            <input type="text" formControlName="tags" class="form-control" id="tags">
           </div>
         </div>
         <button [disabled]="!questionForm.valid || !answerForm.valid" class="btn btn-primary"

@@ -1,0 +1,28 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{question.Title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      <label for="questionContent">{{question.QuestionContent}}</label>
+    </div>
+    <div *ngFor="let ans of answers; let i=index">
+      <label *ngIf="question.Layout.toString() == constsFields.vertical">test</label>
+      <label>{{i+1}} - {{ans.Info}}</label>
+      <input *ngIf="question.QuestionType.toString() == constsFields.SingleChoice" type="radio" name="single">
+      <input *ngIf="question.QuestionType.toString() == constsFields.MultipleSelection"  type="checkbox">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+  </div>
+</ng-template>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Show</button>
+
+<hr>
+
+<!-- <pre>{{closeResult}}</pre> -->

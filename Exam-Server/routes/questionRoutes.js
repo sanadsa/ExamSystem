@@ -37,6 +37,17 @@ router.get('/getQuestions/:field', function (req, res) {
     });
 });
 
+router.get('/getAnswers/:questionId', function (req, res) {
+    const questionId = req.params['questionId'];
+    mainDB.getAnswers(questionId, function (result, err) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            res.status(200).send(result);
+        }
+    });
+});
+
 router.get('/tests', function (req, res, next) {
     mainDB.getTests(data => {
         res.json(data);
