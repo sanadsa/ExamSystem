@@ -24,4 +24,8 @@ export class QuestionService {
   getQuestions(field): Observable<any> {
     return this.http.get(this.constFields.getQuestions + field);
   }
+
+  getAnswers(questionId): Observable<any> {
+    return this.http.get(this.constFields.getAnswers + questionId);
+  }
 }

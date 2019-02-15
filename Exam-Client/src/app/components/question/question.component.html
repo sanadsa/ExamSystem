@@ -1,14 +1,14 @@
 <div (click)="test(this.question)" class="question">
   <div> {{question.ID}}</div>
   <div>{{question.Title}}</div>
-  <!-- <div>{{question.QuestionType}}</div> -->
+  <div>{{question.QuestionType}}</div>
   <div>{{question.LastUpdate | date:'yyyy-MM-dd'}}</div>
   <div># of Tests</div>|
   <div>{{question.Tags}}</div>
   <div class="question-operations">
-    <button >Show</button>
-    <button *ngIf="testForm" (click)="navToEdit()">Edit</button>
-    <button *ngIf="testForm">Delete</button>
+    <question-modal [question]="question" ></question-modal>
+    <button *ngIf="!isTestform" (click)="navToEdit()">Edit</button>
+    <button *ngIf="!isTestform">Delete</button>
   </div>
 </div>
 

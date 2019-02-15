@@ -12,11 +12,14 @@ import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question'
 })
 export class QuestionFormComponent implements OnInit {
   @ViewChild('selectedType') selectedType: ElementRef;
+  @ViewChild('vertical') vertical: ElementRef;
+  @ViewChild('horizontal') horizontal: ElementRef;
   questionForm = new FormGroup({
     question: new FormGroup({
       questionType: new FormControl('', Validators.required),
       questionText: new FormControl('', Validators.required),
       belowQuestion: new FormControl('', Validators.required),
+      tags: new FormControl('', Validators.required)
     })
   });
   answerForm = new FormGroup({
@@ -51,38 +54,18 @@ export class QuestionFormComponent implements OnInit {
 
   get answers() {
     return this.answerForm.get('answers') as FormArray;
-  }
-
-  get answersContent() {
-    return this.answers.get('answer') as FormArray
-  }
-
-  get answer() {
-    return this.answers.get('answer');
-  }
+  }  
   initAnswers() {
-    // return this.fb.group({
-    //   answer: this.fb.array([
-    //     this.initAns()
-    //   ])
-    // });
     return this.fb.group({
       Info: ['', Validators.required],
       IsCorrect: [false]
     });
-  }
-  initAns() {
-    return this.fb.group({
-      Info: ['', Validators.required],
-      IsCorrect: [false, Validators.required]
-    });
-  }
+  }  
   addAnswer() {
     this.answers.push(this.initAnswers());
   }
   removeAnswer(index) {
     this.answers.removeAt(index);
-    //this.answersContent.removeAt(index);
   }
   get questionTypeF() {
     return this.questionForm.get('question').get('questionType');
@@ -99,15 +82,21 @@ export class QuestionFormComponent implements OnInit {
     this.isSingle = (choice === this.keys()[0]) ? true : false;
   }
 
-  createQuestion() {    
+  answerLayout(layout) {
+    this.question.Layout = layout;
+  }
+
+  createQuestion() {
     var questionToAdd = {
       Title: this.questionForm.get('question.questionText').value,
       QuestionType: this.questionForm.get('question.questionType').value,
       QuestionContent: this.questionForm.get('question.belowQuestion').value,
       Active: false,
       LastUpdate: new Date(),
-      Field: this.question.Field
-    }
+      Field: this.question.Field,
+      Layout: this.question.Layout,
+      tags: this.questionForm.get('question.tags').value
+    }    
 
     this.submitted = true;
     if (this.questionForm.invalid) {
@@ -116,17 +105,16 @@ export class QuestionFormComponent implements OnInit {
     this.questionService.addQuestion(questionToAdd).subscribe(questionId => {
       debugger;
       this.questionId = <string>questionId;
-      console.log('question id: ' + questionId);
       for (let ansControl of this.answers['controls']) {        
         var answer = {  
           QuestionId: questionId,
           CorrectAnswer: ansControl.value.IsCorrect,
           Info: ansControl.value.Info
-        }
+        }        
         this.questionService.addAnswer(answer).subscribe(response => {
         }, ansErr => console.log(ansErr));
       }
-      this.router.navigate([this.constantFields.questionsListRoute, { category: this.question.Field }]);
+      this.router.navigate([this.constantFields.questionsListRoute, { field: this.question.Field }]);
     }, err => console.log(err));
   }
 }

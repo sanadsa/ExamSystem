@@ -40,7 +40,7 @@ export class QuestionListComponent implements OnInit {
       QuestionContent: '',
       LastUpdate: new Date(),
       PossibleAnswers: null,
-      AnswerLayout: eAnswerLayout.Horizontal,
+      Layout: eAnswerLayout.Horizontal,
       Tags: null
     }
 

@@ -135,6 +135,8 @@ class DBContext {
         request.input('Active', sql.Bit, false);
         request.input('LastUpdate', sql.Date, question.LastUpdate);
         request.input('Field', sql.NVarChar(50), question.Field);
+        request.input('Layout', sql.NVarChar(50), question.Layout);
+        request.input('tags', sql.NVarChar(50), question.tags);
 
         request.execute('spQuestions_INSERT').then(function (req, err) {
             if (err) {
@@ -178,6 +180,22 @@ class DBContext {
         req.execute('spQuestions_GetByField').then(function (req, err) {
             if (err) {
                 callback(null, { message: "Exec error calling 'spQuestions_GetAll'" })
+            } else {
+                callback(req.recordset);
+            }
+        });
+    }
+    
+    /**
+     * get answers of specific question
+     * @param {*} callback 
+     */
+    getAnswers(questionId, callback) {
+        var req = dbPool.request();
+        req.input('QuestionId', sql.Int, questionId);
+        req.execute('spAnswers_GetByQuestionId').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Exec error calling 'spAnswers_GetByQuestionId'" })
             } else {
                 callback(req.recordset);
             }

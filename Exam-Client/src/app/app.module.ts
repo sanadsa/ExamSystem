@@ -16,6 +16,7 @@ import { QuestionComponent } from './components/question/question.component';
 import { TestComponent } from './components/test/test.component';
 import { TestListComponent } from './components/test-list/test-list.component';
 import { TestFormComponent } from './components/test-form/test-form.component';
+import { QuestionModalComponent } from './components/question-modal/question-modal.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +29,9 @@ import { TestFormComponent } from './components/test-form/test-form.component';
     QuestionListComponent,
     QuestionComponent,
     TestComponent,
+    TestFormComponent,
     TestListComponent,
-    TestFormComponent
+    QuestionModalComponent
   ],
   imports: [
     BrowserModule,

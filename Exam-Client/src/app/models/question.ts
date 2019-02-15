@@ -6,7 +6,7 @@ export interface Question {
     QuestionContent: String;
     LastUpdate: Date;
     PossibleAnswers: String[];
-    AnswerLayout: eAnswerLayout;
+    Layout: eAnswerLayout;
     Tags: String[];
 }
 
