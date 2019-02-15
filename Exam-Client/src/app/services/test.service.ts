@@ -13,6 +13,10 @@ export class TestService {
   }
 
   getTestsByField(field){
-    return this.http.get('http://localhost:8000/api/Tests/getTestsByField/' + field)
+    return this.http.get('http://localhost:8000/api/Tests/getTestsByField/' + field);
+  }
+
+  getTestById(id){
+    return this.http.get('http://localhost:8000/api/Tests/getTestById/' + id);
   }
 }

@@ -69,11 +69,25 @@ class DBContext {
         request.input('ReviewAnswers', sql.Bit, test.reviewAnswers);
         request.input('LastUpdate', sql.Date, new Date());
         request.input('DiplomaURL', sql.VarChar(50), null);
+        request.input('Field', sql.VarChar(50), test.field);
+
         request.execute('spTests_Insert').then(function (req, err) {
             if (req) {
                 callback(req.returnValue);
             } else if (err) {
                 callback(null, { message: 'Error occured ' })
+            }
+        });
+    }
+
+    getTestById(testId,callback){
+        var request = dbPool.request();
+        request.input('Id', sql.Int, testId);
+        request.execute('spTests_GetById').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Execution error calling 'spTests_GetByField'" })
+            } else {
+                callback(req.recordsets);
             }
         });
     }
@@ -96,6 +110,8 @@ class DBContext {
         for (let index = 0; index < questions.length; index++) {
             var request = dbPool.request();
             request.input('TestId', sql.Int, testId);
+            console.log(questions[index]);
+            
             request.input('QuestionId', sql.Int, questions[index]);
             request.execute('spQuestionForTest_Insert').then(function (test) {
                continue;

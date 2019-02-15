@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question';
 import { QuestionService } from 'src/app/services/question.service';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray, AbstractControl } from '@angular/forms';
 import { TestService } from 'src/app/services/test.service';
+import { Test } from 'src/app/models/test';
 
 
 @Component({
@@ -17,44 +18,12 @@ export class TestFormComponent implements OnInit {
   testForm: FormGroup;
   submitted: boolean;
   languages: string[] = ['Hebrew', 'English'];
-  // qustion1: Question = {
-  //   Id: 1,
-  //   Field: this.field,
-  //   QuestionType: eQuestionType.SingleChoice,
-  //   QuestionContent: '',
-  //   Title: 'What is the DOM?',
-  //   PossibleAnswers: [''],
-  //   AnswerLayout: eAnswerLayout.Vertical,
-  //   Tags: ['javascript', 'advanced'],
-  //   LastUpdate: new Date()
-  // }
-  // qustion2: Question = {
-  //   Id: 2,
-  //   Field: this.field,
-  //   QuestionType: eQuestionType.SingleChoice,
-  //   QuestionContent: '',
-  //   Title: 'What are Zubi?',
-  //   PossibleAnswers: [''],
-  //   AnswerLayout: eAnswerLayout.Vertical,
-  //   Tags: ['javascript'],
-  //   LastUpdate: new Date()
-  // }
-  // qustion3: Question = {
-  //   Id: 3,
-  //   Field: this.field,
-  //   QuestionType: eQuestionType.SingleChoice,
-  //   QuestionContent: '',
-  //   Title: 'Kiki Do you Love me ?',
-  //   PossibleAnswers: [''],
-  //   AnswerLayout: eAnswerLayout.Vertical,
-  //   Tags: ['typescript'],
-  //   LastUpdate: new Date()
-  // }
-
   questionsList: Question[] = [];
   questionsFilteredList: Question[] = [];
-  selectedQuestions: Question[] = [];
-  filterBy: string
+  selectedQuestionsId: number[] = [];
+  filterBy: string;
+  test: Test = {}
+
   constructor(private route: ActivatedRoute,
     private questionService: QuestionService,
     private formBuilder: FormBuilder,
@@ -62,31 +31,56 @@ export class TestFormComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
+      debugger;
       this.field = params.get('field');
+      const testId = params.get('testId');
+      if (testId) {
+        this.testSerive.getTestById(testId).subscribe(result => {
+          this.test = result[0][0];
+          debugger;
+          this.questionsFilteredList = result[1];
+        });
+      } else {
+        this.questionService.getQuestions(this.field).subscribe(questions => {
+          this.questionsFilteredList = questions;
+        });
+      }
     })
 
     this.testForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      ownerEmail: ['', Validators.required],
-      passingGrade: ['', Validators.required],
-      instructions: ['', Validators.required],
+      name: [this.test.TestName || '', Validators.required],
+      ownerEmail: [this.test.OwnerEmail || '', Validators.required],
+      passingGrade: [this.test.PassingGrade || '', Validators.required],
+      instructions: [this.test.Instructions || '', Validators.required],
       msgSuccess: ['', Validators.required],
       msgFailure: ['', Validators.required],
-      language: new FormControl(),
-      reviewAnswers: new FormControl(),
-      time: ['', Validators.required],
-      questions:this.selectedQuestions,
+      language: [this.test.Language || ''],
+      reviewAnswers: [this.test.ReviewAnswers || ''],
+      time: [this.test.Time || '', Validators.required],
+      questions: [] = [],
       field: this.field
     });
 
     // this.questionsList.push(this.qustion1);
     // this.questionsList.push(this.qustion2);
     // this.questionsList.push(this.qustion3);
-    this.questionService.getQuestions(this.field).subscribe(questions => {
-      debugger;
-      this.questionsFilteredList = questions;
-    })
+
     // this.questionsFilteredList = this.questionsList;
+  }
+  generateForm(): any {
+    this.testForm = this.formBuilder.group({
+      name: [this.test.TestName || '', Validators.required],
+      ownerEmail: [this.test.OwnerEmail || '', Validators.required],
+      passingGrade: [this.test.PassingGrade || '', Validators.required],
+      instructions: [this.test.Instructions || '', Validators.required],
+      msgSuccess: ['', Validators.required],
+      msgFailure: ['', Validators.required],
+      language: [this.test.Language || ''],
+      reviewAnswers: [this.test.ReviewAnswers || ''],
+      time: [this.test.Time || '', Validators.required],
+      questions: [] = [],
+      field: this.field
+    });
   }
 
   filterByTags() {
@@ -97,20 +91,13 @@ export class TestFormComponent implements OnInit {
   }
 
   addQuestion(data) {
-    var dataExist = this.selectedQuestions.find(q => q.ID == data.ID);
+    var dataExist = this.selectedQuestionsId.find(ID => ID == data.ID);
     if (!dataExist) {
-      debugger;
-      this.selectedQuestions.push(data);
-      console.log(this.testForm.controls.questions.value);
-      
-      // this.testForm.controls.questions.value.push(data);
+      this.selectedQuestionsId.push(data.ID);
     } else {
-      const indexOfQuestion = this.selectedQuestions.findIndex(q => q.ID == data.ID);
-      console.log();
-      
-      this.selectedQuestions.splice(indexOfQuestion, 1);
+      const indexOfQuestion = this.selectedQuestionsId.findIndex(ID => ID == data.ID);
+      this.selectedQuestionsId.splice(indexOfQuestion, 1);
     }
-
   }
 
   selectAllFiltered() {
@@ -121,10 +108,10 @@ export class TestFormComponent implements OnInit {
 
   createTest() {
     this.submitted = true;
+    this.testForm.value.questions = this.selectedQuestionsId;
     if (this.testForm.invalid) {
       return;
     }
-    debugger;
     this.testSerive.addTest(this.testForm.value).subscribe(test => {
       alert('succes');
     }, err => console.log(err));

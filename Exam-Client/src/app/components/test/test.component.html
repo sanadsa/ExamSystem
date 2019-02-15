@@ -12,7 +12,7 @@
       {{test.NumOfQuestions}}
   </div>
   <div>
-    <button>
+    <button [routerLink]="['/testForm',{testId:test.ID}]"  >
       Edit
     </button>
   </div>

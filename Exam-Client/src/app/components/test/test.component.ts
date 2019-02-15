@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Test } from 'src/app/models/test';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-test',
@@ -8,10 +9,9 @@ import { Test } from 'src/app/models/test';
 })
 export class TestComponent implements OnInit {
 
-  @Input() test:Test
-  constructor() { }
+  @Input() test: Test
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
-
 }

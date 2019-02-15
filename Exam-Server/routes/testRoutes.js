@@ -33,4 +33,18 @@ router.get('/getTestsByField/:field', function (req, res) {
 
 });
 
+router.get('/getTestById/:id', function (req, res) {
+    const testID = req.params['id'];
+    console.log(testID);
+    
+    mainDB.getTestById(testID, function (result, error) {
+        if (result) {
+            res.status(200).send(result);
+        } else if (error) {
+            res.status(400).send(error);
+        }
+    })
+
+});
+
 module.exports = router;
