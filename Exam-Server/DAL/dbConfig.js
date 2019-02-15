@@ -1,5 +1,5 @@
 const DBConnection = {
-    server: "DESKTOP-5K04ECP\\SQLEXPRESS",
+    server: "DESKTOP-7Q5OG91\\SQLEXPRESS01",
     database: "NodeJsDb",
     user: "sanad",
     password: "123456789",
