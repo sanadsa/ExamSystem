@@ -9,20 +9,17 @@
     <div>
       <label for="questionContent">{{question.QuestionContent}}</label>
     </div>
-    <div *ngFor="let ans of answers; let i=index">
-      <label *ngIf="question.Layout.toString() == constsFields.vertical">test</label>
-      <label>{{i+1}} - {{ans.Info}}</label>
-      <input *ngIf="question.QuestionType.toString() == constsFields.SingleChoice" type="radio" name="single">
-      <input *ngIf="question.QuestionType.toString() == constsFields.MultipleSelection"  type="checkbox">
+    <div [ngClass]="{'horizontal': question.Layout.toString() == constsFields.Horizontal}">
+      <div *ngFor="let ans of answers; let i=index">
+        <label>{{i+1}} - {{ans.Info}}</label>
+        <input *ngIf="question.QuestionType.toString() == constsFields.SingleChoice" type="radio" name="single">
+        <input *ngIf="question.QuestionType.toString() == constsFields.MultipleSelection" type="checkbox">
+      </div>
     </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
   </div>
 </ng-template>
-
 <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Show</button>
-
 <hr>
-
-<!-- <pre>{{closeResult}}</pre> -->

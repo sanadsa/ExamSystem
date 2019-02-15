@@ -187,6 +187,22 @@ class DBContext {
     }
     
     /**
+     * delete question
+     * @param {*} callback 
+     */
+    deleteQuestion(questionId, callback) {
+        var req = dbPool.request();
+        req.input('QuestionId', sql.Int, questionId);
+        req.execute('spQuestions_Delete').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Exec error calling 'spQuestions_Delete'" })
+            } else {
+                callback(req.recordset);
+            }
+        });
+    }
+    
+    /**
      * get answers of specific question
      * @param {*} callback 
      */

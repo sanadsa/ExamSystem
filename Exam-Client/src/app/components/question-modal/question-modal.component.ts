@@ -19,12 +19,11 @@ export class QuestionModalComponent implements OnInit {
 
   constructor(private modalService: NgbModal,
     private service: QuestionService) {
-    this.answers = new Array<Answer>();    
+    this.answers = new Array<Answer>();
     this.constsFields = new ConstantFields();
   }
 
   ngOnInit() {
-    
   }
 
   open(content) {
