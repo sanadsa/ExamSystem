@@ -15,8 +15,7 @@ export class QuestionComponent implements OnInit {
   @Output() onSelectQuestion: EventEmitter<any> = new EventEmitter();
   constFields: ConstantFields;
 
-  constructor(private router: Router,
-    private questionService: QuestionService) { 
+  constructor(private router: Router) { 
       this.constFields = new ConstantFields();
     }
   ngOnInit() {
@@ -36,10 +35,8 @@ export class QuestionComponent implements OnInit {
     this.router.navigate([this.constFields.questionsListRoute, { field: this.question.Field }])
   }
 
-  deleteQuestion() {
-    this.questionService.deleteQuestion(this.question.ID).subscribe(res =>{
-      this.navToQuestionList();
-    });
+  deleteQuestion(questionId) {
+    this.onSelectQuestion.emit(questionId);
   }
 
   test(question) {
