@@ -70,7 +70,8 @@ class DBContext {
         request.input('LastUpdate', sql.Date, new Date());
         request.input('DiplomaURL', sql.VarChar(50), null);
         request.input('Field', sql.VarChar(50), test.field);
-
+        request.input('MessageOnSuccess', sql.VarChar(100), test.msgSuccess);
+        request.input('MessageOnFailure', sql.VarChar(100), test.msgFailure);
         request.execute('spTests_Insert').then(function (req, err) {
             if (req) {
                 callback(req.returnValue);

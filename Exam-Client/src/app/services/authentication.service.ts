@@ -19,15 +19,15 @@ export class AuthenticationService {
    }
 
   restorePassword(email): Observable<any> {
-    return this.http.get('http://localhost:8000/api/restorePassword/' + email);
+    return this.http.get('http://localhost:8000/api/Authentication/restorePassword/' + email);
   }
 
   updatePassword(user: any) {
-    return this.http.post('http://localhost:8000/api/updatePassword/', user);
+    return this.http.post('http://localhost:8000/api/Authentication/updatePassword/', user);
   }
 
   login(email: string, password: string) {
-    return this.http.get('http://localhost:8000/api/login/' + email + '/' + password).pipe(
+    return this.http.get('http://localhost:8000/api/Authentication/login/' + email + '/' + password).pipe(
       map(user => {
         if (user) {
           localStorage.setItem('currentUser', JSON.stringify(user));
@@ -37,7 +37,7 @@ export class AuthenticationService {
   }
 
   register(user: any) {
-    return this.http.post('http://localhost:8000/api/register/', user);
+    return this.http.post('http://localhost:8000/api/Authentication/register', user);
   }
 
   logout(){
