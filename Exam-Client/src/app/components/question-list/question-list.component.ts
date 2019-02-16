@@ -47,8 +47,14 @@ export class QuestionListComponent implements OnInit {
       Layout: eAnswerLayout.Horizontal,
       Tags: null
     }
+    this.router.navigate([this.constFields.addQuestionRoute, { question: JSON.stringify(question) }]);
+  }
 
-    this.router.navigate([this.constFields.addQuestionRoute, { question: JSON.stringify(question)  }]);
+  deleteQuestion(id) {
+    const index = this.questionsList.findIndex(q => q.ID == id);
+    this.questionsList.splice(index, 1);
+    this.service.deleteQuestion(id).subscribe(res =>{      
+    });
   }
 
 }

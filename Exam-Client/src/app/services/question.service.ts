@@ -20,6 +20,10 @@ export class QuestionService {
     return this.http.delete(this.constFields.deleteQuestion + questionId);
   }
 
+  editQuestion(ques) {
+    return this.http.post(this.constFields.editQuestion, ques);
+  }
+
   getQuestions(field): Observable<any> {
     return this.http.get(this.constFields.getQuestions + field);
   }

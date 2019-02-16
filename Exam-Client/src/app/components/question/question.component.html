@@ -6,9 +6,9 @@
   <div># of Tests</div>|
   <div>{{question.Tags}}</div>
   <div class="question-operations">
-    <question-modal [question]="question" ></question-modal>
-    <button *ngIf="!isTestform" (click)="navToEdit()">Edit</button>
-    <button *ngIf="!isTestform" (click)="deleteQuestion()">Delete</button>
+    <question-modal [question]="question"></question-modal>
+    <button class="btn btn-outline-secondary mr-2" *ngIf="!isTestform" (click)="navToEdit()">Edit</button>
+    <button class="btn btn-outline-secondary mr-2" *ngIf="!isTestform" (click)="deleteQuestion(question.ID)">Delete</button>
   </div>
 </div>
 

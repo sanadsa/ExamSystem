@@ -11,15 +11,15 @@
     </div>
     <div [ngClass]="{'horizontal': question.Layout.toString() == constsFields.Horizontal}">
       <div *ngFor="let ans of answers; let i=index">
-        <label>{{i+1}} - {{ans.Info}}</label>
+        <label style="margin-right: 10px">{{i+1}} - {{ans.Info}}</label>
         <input *ngIf="question.QuestionType.toString() == constsFields.SingleChoice" type="radio" name="single">
         <input *ngIf="question.QuestionType.toString() == constsFields.MultipleSelection" type="checkbox">
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    <button type="button" class="btn btn-outline-secondary mr-2" (click)="modal.close('Save click')">Ok</button>
   </div>
 </ng-template>
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Show</button>
+<button class="btn btn-outline-secondary mr-2" (click)="open(content)">Show</button>
 <hr>

@@ -1,7 +1,7 @@
 const DBConnection = {
     server: "DESKTOP-7Q5OG91\\SQLEXPRESS01",
     database: "NodeJsDb",
-    user: "omerc2803",
+    user: "sanad",
     password: "123456789",
     options: {
         encrypt: true

@@ -45,6 +45,26 @@ export class QuestionFormComponent implements OnInit {
       let jsonToQuestion: Question = <Question>jsonObj;
       this.question = jsonToQuestion;
     });
+
+    // this.questionForm = this.fb.group({
+    //   question: [
+    //     questionType: [this.question.QuestionType || '']
+    //   ]        
+    // })
+
+    // this.testForm = this.formBuilder.group({
+    //   name: [this.test.TestName || '', Validators.required],
+    //   ownerEmail: [this.test.OwnerEmail || '', Validators.required],
+    //   passingGrade: [this.test.PassingGrade || '', Validators.required],
+    //   instructions: [this.test.Instructions || '', Validators.required],
+    //   msgSuccess: ['', Validators.required],
+    //   msgFailure: ['', Validators.required],
+    //   language: [this.test.Language || ''],
+    //   reviewAnswers: [this.test.ReviewAnswers || ''],
+    //   time: [this.test.Time || '', Validators.required],
+    //   questions: [] = [],
+    //   field: this.field
+    // })
   }
 
   keys(): Array<string> {

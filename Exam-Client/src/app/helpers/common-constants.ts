@@ -10,6 +10,7 @@ export class ConstantFields {
     getAnswers: string;
     addQuestion: string;
     deleteQuestion: string;
+    editQuestion: string;
     addAnswer: string;
     // rooutes
     questionsListRoute: string;
