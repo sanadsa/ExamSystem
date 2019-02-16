@@ -1,12 +1,27 @@
-<div>
-    Choose a field of study
-    <select #field>
-        <option selected="field" *ngFor="let field of studyFields">{{field}}</option>
-    </select>
+<nav class="navbar" style="background-color:darkblue">
+    <div style="color:gray">
+        Main Menu
+    </div>
+</nav>
+<div class="menuDiv">
+    <div>
+        Choose a field of study
+        <select #field>
+            <option selected="field" *ngFor="let field of studyFields">{{field}}</option>
+        </select>
+    </div>
 </div>
-
-<button (click)="routeToQuestions(field.value)">Manage Questions</button>
-<button (click)="routeToManageTest(field.value)">Manage Tests</button>
-<button>Reports</button>
-
-<router-outlet></router-outlet>
+<div class="buttonsDiv">
+    <div>
+        <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;" (click)="routeToQuestions(field.value)">Manage
+            Questions</button>
+    </div>
+    <div>
+        <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;" (click)="routeToManageTest(field.value)">Manage
+            Tests</button>
+    </div>
+    <div>
+        <button class="btn btn-outline-secondary mr-2">Reports</button>
+    </div>
+    <router-outlet></router-outlet>
+</div>

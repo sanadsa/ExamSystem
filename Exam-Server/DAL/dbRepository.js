@@ -87,6 +87,8 @@ class DBContext {
             if (err) {
                 callback(null, { message: "Execution error calling 'spTests_GetByField'" })
             } else {
+                console.log(req.recordsets);
+                
                 callback(req.recordsets);
             }
         });
