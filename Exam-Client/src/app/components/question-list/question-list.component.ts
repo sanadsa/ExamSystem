@@ -32,6 +32,10 @@ export class QuestionListComponent implements OnInit {
     });
   }
 
+  navMainMenu() {
+    this.router.navigate([this.constFields.mainMenu]);
+  }
+
   navToAddQuestion() {
     const question: Question = {
       Field: this.field,

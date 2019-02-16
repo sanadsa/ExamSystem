@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class MainMenuComponent implements OnInit {
   @ViewChild('field') field: ElementRef;
-  studyFields: any[] = ['Development', 'QA', 'Automation', 'Web'];
+  studyFields: any[] = ['Development', 'QA', 'Automation', 'Web', 'Cyber'];
   constructor(private router: Router) { }
 
   ngOnInit() {

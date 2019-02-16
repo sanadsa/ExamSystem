@@ -8,7 +8,7 @@
   <div class="question-operations">
     <question-modal [question]="question" ></question-modal>
     <button *ngIf="!isTestform" (click)="navToEdit()">Edit</button>
-    <button *ngIf="!isTestform">Delete</button>
+    <button *ngIf="!isTestform" (click)="deleteQuestion()">Delete</button>
   </div>
 </div>
 

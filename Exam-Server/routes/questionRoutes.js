@@ -25,6 +25,17 @@ router.post('/createAnswer', function (req, res) {
     });
 });
 
+router.delete('/deleteQuestion/:questionId', function(req, res) {
+    const questionId = req.params['questionId'];
+    mainDB.deleteQuestion(questionId, function(result, err) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            res.status(200).send(result);
+        }
+    });
+});
+
 router.get('/getQuestions/:field', function (req, res) {
     const field = req.params['field'];
     mainDB.getQuestions(field, function (result, err) {
