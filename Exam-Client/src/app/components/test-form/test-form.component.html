@@ -42,13 +42,13 @@
         </div>
     </div>
     <div>
-        Show correct answers after submission <input formControlName="reviewAnswers" type="checkbox">Show
+        Show correct answers after submission <input checked="{{test.ReviewAnswers}}" formControlName="reviewAnswers" type="checkbox">Show
     </div>
     <div class="form-group">
         <label>Instructions: </label>
         <textarea formControlName="instructions" value="{{test.Instructions}}" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.instructions.errors }"></textarea>
         <div *ngIf="submitted && f.instructions.errors" class="invalid-feedback">
-            <div *ngIf="f.instructions.errors.required"> Header is required</div>
+            <div *ngIf="f.instructions.errors.required"> Instructions is required</div>
         </div>
     </div>
     <div class="form-group">
