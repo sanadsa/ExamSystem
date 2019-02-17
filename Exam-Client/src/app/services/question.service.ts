@@ -21,7 +21,7 @@ export class QuestionService {
   }
 
   editQuestion(ques) {
-    return this.http.post(this.constFields.editQuestion, ques);
+    return this.http.put(this.constFields.editQuestion, ques);
   }
 
   getQuestions(field): Observable<any> {

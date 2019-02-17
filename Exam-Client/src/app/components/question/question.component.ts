@@ -27,8 +27,7 @@ export class QuestionComponent implements OnInit {
   }
 
   navToEdit() {
-    debugger;
-    this.router.navigate(['/editQuestion', { question: JSON.stringify(this.question) }]);
+    this.router.navigate([this.constFields.questionFormRoute, { question: JSON.stringify(this.question) }]);
   }
 
   navToQuestionList() {
