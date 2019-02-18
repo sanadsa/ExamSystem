@@ -150,6 +150,31 @@ class DBContext {
             }
         });
     }
+    
+    /**
+     * edit an existing question in db
+     * @param {*response function} callback 
+     */
+    editQuestion(question, callback) {
+        var request = dbPool.request();
+        request.input('QuestionId', sql.Int, question.ID)
+        request.input('Title', sql.VarChar(50), question.Title);
+        request.input('QuestionType', sql.VarChar(50), question.QuestionType);
+        request.input('QuestionContent', sql.VarChar(50), question.QuestionContent);
+        request.input('Active', sql.Bit, false);
+        request.input('LastUpdate', sql.Date, question.LastUpdate);
+        request.input('Field', sql.NVarChar(50), question.Field);
+        request.input('Layout', sql.NVarChar(50), question.Layout);
+        request.input('tags', sql.NVarChar(50), question.tags);
+
+        request.execute('spQuestions_Update').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Execution error calling 'spQuestions_Update'" })
+            } else {
+                callback(req);
+            }
+        });
+    }
 
     /**
      * Add answer to db
@@ -202,6 +227,22 @@ class DBContext {
                 callback(null, { message: "Exec error calling 'spQuestions_Delete'" })
             } else {
                 callback(req.recordset);
+            }
+        });
+    }
+    
+    /**
+     * delete answers
+     * @param {*} callback 
+     */
+    deleteAnswers(questionId, callback) {
+        var req = dbPool.request();
+        req.input('QuestionId', sql.Int, questionId);
+        req.execute('spAnswers_Delete').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Exec error calling 'spAnswers_Delete'" })
+            } else {
+                callback(req);
             }
         });
     }

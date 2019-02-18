@@ -10,6 +10,7 @@ export class ConstantFields {
     getAnswers: string;
     addQuestion: string;
     deleteQuestion: string;
+    deleteAnswers: string;
     editQuestion: string;
     addAnswer: string;
     // rooutes
@@ -26,8 +27,10 @@ export class ConstantFields {
         this.Horizontal = 'Horizontal';
         // services
         this.addQuestion = 'http://localhost:8000/api/Question/createQuestion';
+        this.editQuestion = 'http://localhost:8000/api/Question/editQuestion';
         this.getQuestions = 'http://localhost:8000/api/Question/getQuestions/';
         this.deleteQuestion = 'http://localhost:8000/api/Question/deleteQuestion/';
+        this.deleteAnswers = 'http://localhost:8000/api/Question/deleteAnswers/';
         this.getAnswers = 'http://localhost:8000/api/Question/getAnswers/';
         this.addAnswer = 'http://localhost:8000/api/Question/createAnswer';
         // routes

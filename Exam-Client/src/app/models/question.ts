@@ -3,11 +3,12 @@ export interface Question {
     Field: String;
     QuestionType: eQuestionType;
     Title: String;
+    Active: boolean;
     QuestionContent: String;
     LastUpdate: Date;
     PossibleAnswers: String[];
     Layout: eAnswerLayout;
-    Tags: String[];
+    tags: String;
 }
 
 export enum eQuestionType {
