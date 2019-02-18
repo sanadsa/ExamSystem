@@ -14,8 +14,7 @@ export class ConstantFields {
     addAnswer: string;
     // rooutes
     questionsListRoute: string;
-    editQuestionRoute: string;
-    addQuestionRoute: string;
+    questionFormRoute: string;
     mainMenu: string;
 
     constructor() {
@@ -33,8 +32,7 @@ export class ConstantFields {
         this.addAnswer = 'http://localhost:8000/api/Question/createAnswer';
         // routes
         this.questionsListRoute = '/questionList';
-        this.editQuestionRoute = '/editQuestion';
-        this.addQuestionRoute = '/addQuestion';
+        this.questionFormRoute = '/questionForm';
         this.mainMenu = '/mainmenu';
     }
 }

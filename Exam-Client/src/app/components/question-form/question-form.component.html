@@ -46,21 +46,29 @@
               </div>
             </div>
           </form>
-          <div class="answers-layout">
-            <label>Answers Layout: </label>
-            <div>
-              <label>Vertical</label>
-              <input (click)="answerLayout(constantFields.Vertical)" type="radio" name="layoutChoice">
-            </div>
-            <div>
-              <label>Horizontal</label>
-              <input (click)="answerLayout(constantFields.Horizontal)" type="radio" name="layoutChoice">
-            </div>
+          <div class="formGroup" class="answers-layout">
+            <label class="control-label">Answers Layout: </label>
+            <p>
+                <input type="radio" value="constantFields.Vertical" formControlName="layout"> Vertical
+                <input type="radio" value="constantFields.Horizontal" formControlName="layout"> Horizontal
+             </p>
+            <!-- <div class="form-control">
+              <label class="radio-inline">
+                <input formControlName="layout" (click)="answerLayout(constantFields.Vertical)" type="radio" name="layout">
+                Vertical
+              </label>
+              <label class="radio-inline">
+                <input  (click)="answerLayout(constantFields.Horizontal)" type="radio" name="layout">
+                Horizontal
+              </label>
+            </div> -->
+            <span class="alert alert-danger" *ngIf="layout.touched && layout.invalid">Layout is required</span>
           </div>
           <hr>
           <div class="formGroup">
-            <label>Tags: </label>
-            <input type="text" formControlName="tags" class="form-control" id="tags">
+            <label for="tags">Tags: </label>
+            <input formControlName="tags" class="form-control" id="tags">
+            <div *ngIf="tags.touched && tags.invalid" class="alert alert-danger">Tags Required</div>
           </div>
         </div>
         <button [disabled]="!questionForm.valid || !answerForm.valid" class="btn btn-primary"

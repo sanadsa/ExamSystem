@@ -14,21 +14,22 @@ export class QuestionFormComponent implements OnInit {
   @ViewChild('selectedType') selectedType: ElementRef;
   @ViewChild('vertical') vertical: ElementRef;
   @ViewChild('horizontal') horizontal: ElementRef;
-  questionForm = new FormGroup({
-    question: new FormGroup({
-      questionType: new FormControl('', Validators.required),
-      questionText: new FormControl('', Validators.required),
-      belowQuestion: new FormControl('', Validators.required),
-      tags: new FormControl('', Validators.required)
-    })
-  });
+  question: Question;
+  questionForm: FormGroup;
+  // questionForm = new FormGroup({
+  //   question: new FormGroup({
+  //     questionType: new FormControl('', Validators.required),
+  //     questionText: new FormControl('', Validators.required),
+  //     belowQuestion: new FormControl('', Validators.required),
+  //     tags: new FormControl('', Validators.required)
+  //   })
+  // });
   answerForm = new FormGroup({
     answers: new FormArray([this.initAnswers(), this.initAnswers()]),
   });
   constantFields: ConstantFields;
   submitted: boolean;
   isSingle = true;
-  question: Question;
   questionType = eQuestionType;
   questionId: string;
 
@@ -46,25 +47,17 @@ export class QuestionFormComponent implements OnInit {
       this.question = jsonToQuestion;
     });
 
-    // this.questionForm = this.fb.group({
-    //   question: [
-    //     questionType: [this.question.QuestionType || '']
-    //   ]        
-    // })
+    this.questionForm = this.fb.group({
+      question: this.fb.group({
+        questionType: [this.question.QuestionType || '', Validators.required],
+        questionText: [this.question.Title || '', Validators.required],
+        belowQuestion: [this.question.QuestionContent || '', Validators.required],
+        tags: [this.question.Tags || '', Validators.required],
+        layout: ['', Validators.required]
+      })
+    })
 
-    // this.testForm = this.formBuilder.group({
-    //   name: [this.test.TestName || '', Validators.required],
-    //   ownerEmail: [this.test.OwnerEmail || '', Validators.required],
-    //   passingGrade: [this.test.PassingGrade || '', Validators.required],
-    //   instructions: [this.test.Instructions || '', Validators.required],
-    //   msgSuccess: ['', Validators.required],
-    //   msgFailure: ['', Validators.required],
-    //   language: [this.test.Language || ''],
-    //   reviewAnswers: [this.test.ReviewAnswers || ''],
-    //   time: [this.test.Time || '', Validators.required],
-    //   questions: [] = [],
-    //   field: this.field
-    // })
+    this.questionForm.get('question').patchValue({layout:this.constantFields.Vertical, tc:true});
   }
 
   keys(): Array<string> {
@@ -74,13 +67,13 @@ export class QuestionFormComponent implements OnInit {
 
   get answers() {
     return this.answerForm.get('answers') as FormArray;
-  }  
+  }
   initAnswers() {
     return this.fb.group({
       Info: ['', Validators.required],
       IsCorrect: [false]
     });
-  }  
+  }
   addAnswer() {
     this.answers.push(this.initAnswers());
   }
@@ -96,6 +89,12 @@ export class QuestionFormComponent implements OnInit {
   get belowQuestion() {
     return this.questionForm.get('question').get('belowQuestion');
   }
+  get tags() {
+    return this.questionForm.get('question').get('tags');
+  }
+  get layout() {
+    return this.questionForm.get('question.layout');
+  }
 
   setIsSingle() {
     const choice = this.selectedType.nativeElement.value;
@@ -108,15 +107,16 @@ export class QuestionFormComponent implements OnInit {
 
   createQuestion() {
     var questionToAdd = {
-      Title: this.questionForm.get('question.questionText').value,
+      Title: this.questionText.value,
       QuestionType: this.questionForm.get('question.questionType').value,
       QuestionContent: this.questionForm.get('question.belowQuestion').value,
       Active: false,
       LastUpdate: new Date(),
       Field: this.question.Field,
-      Layout: this.question.Layout,
+      Layout: this.layout.value,
+      // Layout: this.question.Layout,
       tags: this.questionForm.get('question.tags').value
-    }    
+    }
 
     this.submitted = true;
     if (this.questionForm.invalid) {
@@ -125,12 +125,12 @@ export class QuestionFormComponent implements OnInit {
     this.questionService.addQuestion(questionToAdd).subscribe(questionId => {
       debugger;
       this.questionId = <string>questionId;
-      for (let ansControl of this.answers['controls']) {        
-        var answer = {  
+      for (let ansControl of this.answers['controls']) {
+        var answer = {
           QuestionId: questionId,
           CorrectAnswer: ansControl.value.IsCorrect,
           Info: ansControl.value.Info
-        }        
+        }
         this.questionService.addAnswer(answer).subscribe(response => {
         }, ansErr => console.log(ansErr));
       }

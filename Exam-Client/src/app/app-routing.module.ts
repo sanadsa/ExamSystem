@@ -15,10 +15,9 @@ const routes: Routes = [
   { path: 'login', component: LoginAdminComponent },
   { path: 'restorePassword', component: RestorePasswordComponent },
   { path: 'questionList', component: QuestionListComponent },
-  { path: 'editQuestion', component: QuestionFormComponent },
   { path: 'testsList', component: TestListComponent },
   { path: 'testForm', component: TestFormComponent },
-  { path: 'addQuestion', component: QuestionFormComponent },
+  { path: 'questionForm', component: QuestionFormComponent },
   { path: '**', redirectTo: '' }
 
 ];
