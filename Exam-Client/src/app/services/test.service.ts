@@ -16,7 +16,7 @@ export class TestService {
     return this.http.get('http://localhost:8000/api/Tests/getTestsByField/' + field);
   }
 
-  getTestById(id){
-    return this.http.get('http://localhost:8000/api/Tests/getTestById/' + id);
+  getTestById(id,field){
+    return this.http.get('http://localhost:8000/api/Tests/getTestById/'  + id + '/' + field);
   }
 }

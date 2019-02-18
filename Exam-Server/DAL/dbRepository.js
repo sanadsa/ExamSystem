@@ -81,9 +81,10 @@ class DBContext {
         });
     }
 
-    getTestById(testId,callback){
+    getTestById(testId,field,callback){
         var request = dbPool.request();
         request.input('Id', sql.Int, testId);
+        request.input('Field', sql.VarChar(50), field);
         request.execute('spTests_GetById').then(function (req, err) {
             if (err) {
                 callback(null, { message: "Execution error calling 'spTests_GetByField'" })

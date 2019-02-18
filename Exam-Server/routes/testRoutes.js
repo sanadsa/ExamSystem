@@ -22,7 +22,7 @@ router.post('/createTest', function (req, res) {
 router.get('/getTestsByField/:field', function (req, res) {
     const field = req.params['field'];
     console.log(field);
-    
+
     mainDB.getTestsByField(field, function (result, error) {
         if (result) {
             res.status(200).send(result);
@@ -33,11 +33,12 @@ router.get('/getTestsByField/:field', function (req, res) {
 
 });
 
-router.get('/getTestById/:id', function (req, res) {
+router.get('/getTestById/:id/:field', function (req, res) {
     const testID = req.params['id'];
-    console.log(testID);
-    
-    mainDB.getTestById(testID, function (result, error) {
+    const field = req.params['field'];
+    console.log(field);
+
+    mainDB.getTestById(testID,field, function (result, error) {
         if (result) {
             res.status(200).send(result);
         } else if (error) {

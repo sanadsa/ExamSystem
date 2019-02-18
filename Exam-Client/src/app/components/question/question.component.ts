@@ -39,8 +39,9 @@ export class QuestionComponent implements OnInit {
     this.onSelectQuestion.emit(questionId);
   }
 
-  test(question) {
-    this.onSelectQuestion.emit(question);
+  test(event,question) {
+    event.target.style.backgroundColor = '#00ff00';
+     this.onSelectQuestion.emit(question);
   }
 
 }

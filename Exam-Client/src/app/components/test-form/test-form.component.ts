@@ -34,8 +34,7 @@ export class TestFormComponent implements OnInit {
       this.field = params.get('field');
       const testId = params.get('testId');
       if (testId) {
-        this.testSerive.getTestById(testId).subscribe(result => {
-          debugger;
+        this.testSerive.getTestById(testId,this.field).subscribe(result => {
           this.test = result[0][0];
           this.questionsFilteredList = result[1];
         });

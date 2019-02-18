@@ -1,4 +1,4 @@
-<div (click)="test(this.question)" class="question">
+<div (click)="test($event,this.question)" class="question">
   <div> {{question.ID}}</div>
   <div>{{question.Title}}</div>
   <div>{{question.QuestionType}}</div>
@@ -11,4 +11,5 @@
     <button class="btn btn-outline-secondary mr-2" *ngIf="!isTestform" (click)="deleteQuestion(question.ID)">Delete</button>
   </div>
 </div>
+<hr>
 
