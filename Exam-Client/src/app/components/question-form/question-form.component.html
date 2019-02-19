@@ -29,13 +29,13 @@
           <form [formGroup]="answerForm">
             <div formArrayName="answers">
               <label for="possibleAnswers">Possible Answers: </label>
-              <button (click)="addAnswer()">Add new answer</button>
-              <div *ngFor="let ans of answers['controls']; let i=index" class="answers-layout">
+              <button (click)="addAnswer()" class="btn btn-outline-secondary mr-2">Add new answer</button>
+              <div *ngFor="let ans of answersFormArray['controls']; let i=index" class="answers-layout">
                 <label>Answer {{i+1}}</label>
-                <button *ngIf="answers['controls'].length > 2" (click)="removeAnswer(i)">X</button>
+                <button *ngIf="answersFormArray['controls'].length > 2" (click)="removeAnswer(i)">X</button>
                 <div [formGroupName]="i" style="display: flex">
                   <input type="text" formControlName="Info" class="form-control">
-                  <div *ngIf="answers['controls'][i].touched && answers['controls'][i].invalid"
+                  <div *ngIf="answersFormArray['controls'][i].touched && answersFormArray['controls'][i].invalid"
                     class="alert alert-danger">required</div>
                   <input formControlName="IsCorrect" *ngIf="!isSingle" type="checkbox" name="IsCorrect"
                     style="margin-left: 5px;">
@@ -49,19 +49,9 @@
           <div class="formGroup" class="answers-layout">
             <label class="control-label">Answers Layout: </label>
             <p>
-                <input type="radio" value="constantFields.Vertical" formControlName="layout"> Vertical
-                <input type="radio" value="constantFields.Horizontal" formControlName="layout"> Horizontal
-             </p>
-            <!-- <div class="form-control">
-              <label class="radio-inline">
-                <input formControlName="layout" (click)="answerLayout(constantFields.Vertical)" type="radio" name="layout">
-                Vertical
-              </label>
-              <label class="radio-inline">
-                <input  (click)="answerLayout(constantFields.Horizontal)" type="radio" name="layout">
-                Horizontal
-              </label>
-            </div> -->
+              <input type="radio" value="Vertical" formControlName="layout"> Vertical
+              <input type="radio" value="Horizontal" formControlName="layout"> Horizontal
+            </p>
             <span class="alert alert-danger" *ngIf="layout.touched && layout.invalid">Layout is required</span>
           </div>
           <hr>

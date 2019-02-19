@@ -20,6 +20,10 @@ export class QuestionService {
     return this.http.delete(this.constFields.deleteQuestion + questionId);
   }
 
+  deleteAnswers(questionId) {
+    return this.http.delete(this.constFields.deleteAnswers + questionId);
+  }
+
   editQuestion(ques) {
     return this.http.put(this.constFields.editQuestion, ques);
   }

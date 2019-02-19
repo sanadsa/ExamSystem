@@ -1,10 +1,11 @@
-<div (click)="test($event,this.question)" class="question">
+<!-- <div (click)="test($event,this.question)" class="question"> -->
+<div class="question">
   <div> {{question.ID}}</div>
   <div>{{question.Title}}</div>
   <div>{{question.QuestionType}}</div>
   <div>{{question.LastUpdate | date:'yyyy-MM-dd'}}</div>
   <div># of Tests</div>|
-  <div>{{question.Tags}}</div>
+  <div>{{question.tags}}</div>
   <div class="question-operations">
     <question-modal [question]="question"></question-modal>
     <button class="btn btn-outline-secondary mr-2" *ngIf="!isTestform" (click)="navToEdit()">Edit</button>

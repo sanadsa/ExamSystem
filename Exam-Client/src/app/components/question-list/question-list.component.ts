@@ -42,10 +42,11 @@ export class QuestionListComponent implements OnInit {
       QuestionType: eQuestionType.SingleChoice,
       Title: '',
       QuestionContent: '',
+      Active: false,
       LastUpdate: new Date(),
       PossibleAnswers: null,
       Layout: eAnswerLayout.Horizontal,
-      Tags: null
+      tags: ''
     }
     this.router.navigate([this.constFields.questionFormRoute, { question: JSON.stringify(question) }]);
   }
@@ -53,8 +54,10 @@ export class QuestionListComponent implements OnInit {
   deleteQuestion(id) {
     const index = this.questionsList.findIndex(q => q.ID == id);
     this.questionsList.splice(index, 1);
-    this.service.deleteQuestion(id).subscribe(res => {
-    });
+    this.service.deleteAnswers(id).subscribe(r => {
+      this.service.deleteQuestion(id).subscribe(res => {
+      });
+    })
   }
 
 }

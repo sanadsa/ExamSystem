@@ -12,6 +12,16 @@ router.post('/createQuestion', function (req, res) {
     });
 });
 
+router.put('/editQuestion', function (req, res) {
+    mainDB.editQuestion(req.body, function (result, err) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            res.status(200).send(result.returnValue.toString());
+        }
+    });
+});
+
 router.post('/createAnswer', function (req, res) {
     console.log('in ans route: ');
     console.log(req.body);
@@ -21,6 +31,17 @@ router.post('/createAnswer', function (req, res) {
         } else {
             console.log('in ans route');
             res.status(200).send();
+        }
+    });
+});
+
+router.delete('/deleteAnswers/:questionId', function(req, res) {
+    const questionId = req.params['questionId'];
+    mainDB.deleteAnswers(questionId, function(result, err) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            res.status(200).send(result);
         }
     });
 });
