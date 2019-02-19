@@ -24,8 +24,9 @@ export class QuestionService {
     return this.http.put(this.constFields.editQuestion, ques);
   }
 
-  getQuestions(field): Observable<any> {
-    return this.http.get(this.constFields.getQuestions + field);
+  getQuestions(field,min,max): Observable<any> {
+    debugger;
+    return this.http.get(this.constFields.getQuestions + field + '/' + min + '/' + max);
   }
 
   addAnswer(ans) {

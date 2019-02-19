@@ -8,7 +8,7 @@
           Filter by tags : <input [(ngModel)]="filterBy" name="filterBy" type="text" (ngModelChange)="filterByTags()">
       </div>
       <div>
-          <button type="button" (click)="selectAllFiltered()">Select All Filtered</button>
+          <button class="btn btn-outline-secondary mr-2" type="button" (click)="selectAllFiltered()">Select All Filtered</button>
       </div>
   </div>
 </div>
@@ -19,9 +19,9 @@
 <hr>
 <div style="display:flex;justify-content:space-between;">
   <div>
-<button>Back</button>
+<button class="btn btn-outline-secondary mr-2">Back</button>
   </div>
   <div>
-    <button [routerLink]="['/testForm',{field:field}]" >Create New Test</button>
+    <button [routerLink]="['/testForm',{field:field}]"  class="btn btn-outline-secondary mr-2">Create New Test</button>
   </div>
 </div>

@@ -176,15 +176,17 @@ class DBContext {
      * get all questions
      * @param {*} callback 
      */
-    getQuestions(field, callback) {
-        console.log('in db repo ');
-        console.log('field: ' + field);
+    getQuestions(field,min,max, callback) {
         var req = dbPool.request();
         req.input('Field', sql.NVarChar(50), field);
+        req.input('MinId', sql.Int, min);
+        req.input('MaxId', sql.Int, max);
         req.execute('spQuestions_GetByField').then(function (req, err) {
             if (err) {
                 callback(null, { message: "Exec error calling 'spQuestions_GetAll'" })
             } else {
+                console.log(req.recordset);
+                
                 callback(req.recordset);
             }
         });

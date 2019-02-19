@@ -1,15 +1,18 @@
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-md-4 offset-4"> -->
 <h1>New Test</h1>
 <form [formGroup]="testForm" (ngSubmit)="createTest()">
     <div *ngIf="test.Field">
         Field of study: {{test.Field}}
     </div>
     <div *ngIf="!test.Field">
-            Field of study: {{field}}
-        </div>
+        Field of study: {{field}}
+    </div>
     <div>
         Language :
         <select formControlName="language">
-            <option selected="language"  *ngFor="let language of languages" >{{language}}</option>
+            <option selected="language" *ngFor="let language of languages">{{language}}</option>
         </select>
     </div>
     <div class="form-group">
@@ -26,7 +29,7 @@
             <div *ngIf="f.time.errors.required"> Time is required</div>
         </div>
     </div>
-   
+
     <div class="form-group">
         <label>Owner Email</label>
         <input type="text" formControlName="ownerEmail" value="{{test.OwnerEmail}}" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ownerEmail.errors }" />
@@ -42,7 +45,8 @@
         </div>
     </div>
     <div>
-        Show correct answers after submission <input checked="{{test.ReviewAnswers}}" formControlName="reviewAnswers" type="checkbox">Show
+        Show correct answers after submission <input checked="{{test.ReviewAnswers}}" formControlName="reviewAnswers"
+            type="checkbox">Show
     </div>
     <div class="form-group">
         <label>Instructions: </label>
@@ -77,17 +81,20 @@
             Filter by tags : <input [(ngModel)]="filterBy" name="filterBy" type="text" (ngModelChange)="filterByTags()">
         </div> -->
         <div>
-            <button type="button" (click)="selectAllFiltered()">Select All Filtered</button>
+            <button type="button" class="btn btn-outline-secondary mr-2" (click)="selectAllFiltered()">Select All Filtered</button>
         </div>
     </div>
     <br>
     <hr>
 
     <div *ngFor="let question of questionsFilteredList">
-        <question [isTestform]="isTestform" [question]="question" (onSelectQuestion)="addQuestion($event)"></question>
+        <div [ngStyle]="{'background-color': question.IsInTest == 1 ? '#00ff00' : ''}">
+            <question [isTestform]="isTestform" [question]="question" (onSelectQuestion)="addQuestion($event)"></question>
+        </div>
     </div>
+
     <div>
-        <button (click)="getQuestions()">Show more Questions</button>
+        <button type="button" class="btn btn-outline-secondary mr-2" (click)="getmoreQuestions()">Show more Questions</button>
     </div>
     <div style="display: flex;
 justify-content: center;">
@@ -98,6 +105,6 @@ justify-content: center;">
 
     <div style="display: flex;
     justify-content: center;">
-        <button type="submit">Save</button>
+        <button class="btn btn-outline-secondary mr-2" type="submit">Save</button>
     </div>
 </form>

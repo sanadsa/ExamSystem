@@ -39,7 +39,11 @@ export class QuestionComponent implements OnInit {
   }
 
   test(event,question) {
-    event.target.style.backgroundColor = '#00ff00';
+    if (event.target.style.backgroundColor == '') {
+      event.target.style.backgroundColor = '#00ff00';
+    }else{
+      event.target.style.backgroundColor = '';
+    }
      this.onSelectQuestion.emit(question);
   }
 

@@ -13,13 +13,15 @@ import { Test } from 'src/app/models/test';
   styleUrls: ['./test-form.component.css']
 })
 export class TestFormComponent implements OnInit {
+  minIndex:number =0;
+  maxIndex:number =10;
   field: string;
   isTestform: boolean = true;
   testForm: FormGroup;
   submitted: boolean;
   languages: string[] = ['Hebrew', 'English'];
   questionsList: Question[] = [];
-  questionsFilteredList: Question[] = [];
+  questionsFilteredList: any[] = [];
   selectedQuestionsId: number[] = [];
   filterBy: string;
   test: Test = {}
@@ -37,11 +39,14 @@ export class TestFormComponent implements OnInit {
         this.testSerive.getTestById(testId,this.field).subscribe(result => {
           this.test = result[0][0];
           this.questionsFilteredList = result[1];
+          this.questionsFilteredList.forEach(q => {
+            if (q.IsInTest ==1) {   
+              this.selectedQuestionsId.push(q.ID);
+            }
+          });
         });
       } else {
-        this.questionService.getQuestions(this.field).subscribe(questions => {
-          this.questionsFilteredList = questions;
-        });
+        this.getmoreQuestions();
       }
     })
 
@@ -59,11 +64,6 @@ export class TestFormComponent implements OnInit {
       field: this.field
     });
 
-    // this.questionsList.push(this.qustion1);
-    // this.questionsList.push(this.qustion2);
-    // this.questionsList.push(this.qustion3);
-
-    // this.questionsFilteredList = this.questionsList;
   }
   generateForm(): any {
     this.testForm = this.formBuilder.group({
@@ -113,6 +113,18 @@ export class TestFormComponent implements OnInit {
     this.testSerive.addTest(this.testForm.value).subscribe(test => {
       alert('succes');
     }, err => console.log(err));
+  }
+
+  getmoreQuestions(){
+    debugger;
+
+    this.questionService.getQuestions(this.field,this.minIndex,this.maxIndex).subscribe(questions => {
+      questions.forEach(q => {
+        this.questionsFilteredList.push(q);
+      });
+      this.minIndex = this.maxIndex;
+      this.maxIndex = this.maxIndex+10;
+    });
   }
 
   get f() { return this.testForm.controls; }

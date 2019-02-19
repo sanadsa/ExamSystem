@@ -36,9 +36,11 @@ router.delete('/deleteQuestion/:questionId', function(req, res) {
     });
 });
 
-router.get('/getQuestions/:field', function (req, res) {
+router.get('/getQuestions/:field/:min/:max', function (req, res) {
     const field = req.params['field'];
-    mainDB.getQuestions(field, function (result, err) {
+    const min = req.params['min'];
+    const max = req.params['max'];
+    mainDB.getQuestions(field,min,max, function (result, err) {
         if (err) {
             console.log(err);
             res.status(400).send(err);
