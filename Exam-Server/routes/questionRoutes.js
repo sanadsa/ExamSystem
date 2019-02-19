@@ -35,9 +35,9 @@ router.post('/createAnswer', function (req, res) {
     });
 });
 
-router.delete('/deleteAnswers/:questionId', function(req, res) {
+router.delete('/deleteAnswers/:questionId', function (req, res) {
     const questionId = req.params['questionId'];
-    mainDB.deleteAnswers(questionId, function(result, err) {
+    mainDB.deleteAnswers(questionId, function (result, err) {
         if (err) {
             res.status(400).send(err);
         } else {
@@ -46,9 +46,9 @@ router.delete('/deleteAnswers/:questionId', function(req, res) {
     });
 });
 
-router.delete('/deleteQuestion/:questionId', function(req, res) {
+router.delete('/deleteQuestion/:questionId', function (req, res) {
     const questionId = req.params['questionId'];
-    mainDB.deleteQuestion(questionId, function(result, err) {
+    mainDB.deleteQuestion(questionId, function (result, err) {
         if (err) {
             res.status(400).send(err);
         } else {
@@ -61,7 +61,7 @@ router.get('/getQuestions/:field/:min/:max', function (req, res) {
     const field = req.params['field'];
     const min = req.params['min'];
     const max = req.params['max'];
-    mainDB.getQuestions(field,min,max, function (result, err) {
+    mainDB.getQuestions(field, min, max, function (result, err) {
         if (err) {
             console.log(err);
             res.status(400).send(err);
