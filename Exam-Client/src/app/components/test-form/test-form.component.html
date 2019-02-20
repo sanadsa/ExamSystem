@@ -39,7 +39,7 @@
     </div>
     <div class="form-group">
         <label>Passing Grade</label>
-        <input type="text" formControlName="passingGrade" value="{{test.PassingGrade}}" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.passingGrade.errors }" />
+        <input  type="text" formControlName="passingGrade" value="{{test.PassingGrade}}" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.passingGrade.errors }" />
         <div *ngIf="submitted && f.passingGrade.errors" class="invalid-feedback">
             <div *ngIf="f.passingGrade.errors.required"> Passing grade is required</div>
         </div>
@@ -81,7 +81,7 @@
             Filter by tags : <input [(ngModel)]="filterBy" name="filterBy" type="text" (ngModelChange)="filterByTags()">
         </div> -->
         <div>
-            <button type="button" class="btn btn-outline-secondary mr-2" (click)="selectAllFiltered()">Select All Filtered</button>
+            <button  type="button" class="btn btn-outline-secondary mr-2" (click)="selectAllFiltered()">Select All Filtered</button>
         </div>
     </div>
     <br>
