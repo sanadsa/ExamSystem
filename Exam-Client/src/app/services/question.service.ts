@@ -29,13 +29,15 @@ export class QuestionService {
   }
 
   getQuestions(field, min, max): Observable<any> {
-    debugger;
     return this.http.get(this.constFields.getQuestions + field + '/' + min + '/' + max);
   }
 
   addAnswer(ans) {
-    debugger;
     return this.http.post(this.constFields.addAnswer, ans);
+  }
+  
+  updateAnswer(ans) {
+    return this.http.put(this.constFields.updateAnswer, ans);
   }
 
   getAnswers(questionId): Observable<any> {

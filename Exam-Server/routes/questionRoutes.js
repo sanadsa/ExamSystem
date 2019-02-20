@@ -22,6 +22,16 @@ router.put('/editQuestion', function (req, res) {
     });
 });
 
+router.put('/editAnswer', function (req, res) {
+    mainDB.editAnswer(req.body, function (result, err) {
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            res.status(200).send(result.returnValue.toString());
+        }
+    });
+});
+
 router.post('/createAnswer', function (req, res) {
     console.log('in ans route: ');
     console.log(req.body);

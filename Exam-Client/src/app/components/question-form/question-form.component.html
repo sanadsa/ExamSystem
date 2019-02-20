@@ -40,7 +40,7 @@
                   <input formControlName="IsCorrect" *ngIf="questionTypeF.value == constantFields.MultipleSelection"
                     type="checkbox" name="IsCorrect" style="margin-left: 5px;">
                   <input formControlName="IsCorrect"
-                    *ngIf="isSingle && selectedType.value == constantFields.SingleChoice" type="radio" name="IsCorrect"
+                    *ngIf="isSingle && selectedType.value == constantFields.SingleChoice" (click)="checkRadio(i)" type="radio" name="IsCorrect"
                     style="margin-left: 5px;">
                 </div>
               </div>

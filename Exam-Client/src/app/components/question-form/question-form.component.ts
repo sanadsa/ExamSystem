@@ -42,13 +42,13 @@ export class QuestionFormComponent implements OnInit {
       if (this.question.ID != undefined) {
         this.questionService.getAnswers(this.question.ID).subscribe(response => {
           this.answers = response;
-          this.answers.forEach(element => {
-            this.answersFormArray.push(this.initAnswers(element.Info, element.CorrectAnswer));
+          this.answers.forEach(element => {          
+            this.answersFormArray.push(this.initAnswers(element.Info, element.CorrectAnswer, element.ID));
           });
         });
       } else {
-        this.answersFormArray.push(this.initAnswers('', false));
-        this.answersFormArray.push(this.initAnswers('', false));
+        this.answersFormArray.push(this.initAnswers('', false, 0));
+        this.answersFormArray.push(this.initAnswers('', false, 0));
       }
     });
 
@@ -71,15 +71,16 @@ export class QuestionFormComponent implements OnInit {
   get answersFormArray() {
     return this.answerForm.get('answers') as FormArray;
   }
-  initAnswers(info, isCorrect) {
-    let c = isCorrect == 0 ? false : true;
+  initAnswers(info, isCorrect, id) {
+    let c = (isCorrect === "0" || isCorrect === false) ? false : true;
     return this.fb.group({
       Info: [info, Validators.required],
-      IsCorrect: [c]
+      IsCorrect: [c],
+      ID: [id]
     });
   }
   addAnswer() {
-    this.answersFormArray.push(this.initAnswers('', false));
+    this.answersFormArray.push(this.initAnswers('', false, 0));
   }
   removeAnswer(index) {
     this.answersFormArray.removeAt(index);
@@ -127,6 +128,7 @@ export class QuestionFormComponent implements OnInit {
       this.editQuestion(questionToAdd);
     } else {
       this.questionService.addQuestion(questionToAdd).subscribe(questionId => {
+        debugger;
         this.questionId = <string>questionId;
         this.createAnswers(questionId);
         this.navToQuestionsList();
@@ -136,8 +138,8 @@ export class QuestionFormComponent implements OnInit {
 
   editQuestion(questionToEdit) {
     this.questionService.editQuestion(questionToEdit).subscribe(res => {
-      // delete 
-      // add - this.createAnswers(questionToEdit.ID);
+      // deleet
+      this.createAnswers(questionToEdit.ID);
       this.navToQuestionsList();
     }, err => console.log(err));
   }
@@ -146,15 +148,30 @@ export class QuestionFormComponent implements OnInit {
     this.router.navigate([this.constantFields.questionsListRoute, { field: this.question.Field }]);
   }
 
+  checkRadio(i) {
+    for (let ansControl of this.answersFormArray['controls']) {
+      ansControl.value.IsCorrect = false;
+    }
+    this.answersFormArray['controls'][i].value.IsCorrect = 1;
+  }
+
   createAnswers(questionId) {
     for (let ansControl of this.answersFormArray['controls']) {
-      var answer = {
+      console.log(ansControl);
+      let answer: Answer = {
         QuestionId: questionId,
-        CorrectAnswer: ansControl.value.IsCorrect,
-        Info: ansControl.value.Info
+        CorrectAnswer: (ansControl.value.IsCorrect === undefined) ? true : ansControl.value.IsCorrect,
+        Info: ansControl.value.Info,
+        ID: ansControl.value.ID
       }
-      this.questionService.addAnswer(answer).subscribe(response => {
-      }, ansErr => console.log(ansErr));
+      if (answer.ID != 0) {
+        debugger;
+        this.questionService.updateAnswer(answer).subscribe(response => {
+        }, ansErr => console.log(ansErr));
+      } else {
+        this.questionService.addAnswer(answer).subscribe(response => {
+        }, ansErr => console.log(ansErr));
+      }
     }
   }
 

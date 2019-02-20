@@ -13,6 +13,7 @@ export class ConstantFields {
     deleteAnswers: string;
     editQuestion: string;
     addAnswer: string;
+    updateAnswer: string;
     // rooutes
     questionsListRoute: string;
     questionFormRoute: string;
@@ -33,6 +34,7 @@ export class ConstantFields {
         this.deleteAnswers = 'http://localhost:8000/api/Question/deleteAnswers/';
         this.getAnswers = 'http://localhost:8000/api/Question/getAnswers/';
         this.addAnswer = 'http://localhost:8000/api/Question/createAnswer';
+        this.updateAnswer = 'http://localhost:8000/api/Question/editAnswer';
         // routes
         this.questionsListRoute = '/questionList';
         this.questionFormRoute = '/questionForm';
