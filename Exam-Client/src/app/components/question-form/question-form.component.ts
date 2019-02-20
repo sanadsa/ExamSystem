@@ -72,9 +72,10 @@ export class QuestionFormComponent implements OnInit {
     return this.answerForm.get('answers') as FormArray;
   }
   initAnswers(info, isCorrect) {
+    let c = isCorrect == 0 ? false : true;
     return this.fb.group({
       Info: [info, Validators.required],
-      IsCorrect: [isCorrect]
+      IsCorrect: [c]
     });
   }
   addAnswer() {
@@ -96,7 +97,7 @@ export class QuestionFormComponent implements OnInit {
     return this.questionForm.get('question').get('tags');
   }
   get layout() {
-    return this.questionForm.get('question.layout');
+    return this.questionForm.get('question').get('layout');
   }
 
   setIsSingle() {
@@ -121,12 +122,7 @@ export class QuestionFormComponent implements OnInit {
       tags: this.questionForm.get('question.tags').value
     }
 
-    this.submitted = true;
-    if (this.questionForm.invalid) {
-      return;
-    }
     if (this.question.ID != undefined) {
-      debugger;
       questionToAdd.ID = this.question.ID;
       this.editQuestion(questionToAdd);
     } else {
@@ -140,6 +136,8 @@ export class QuestionFormComponent implements OnInit {
 
   editQuestion(questionToEdit) {
     this.questionService.editQuestion(questionToEdit).subscribe(res => {
+      // delete 
+      // add - this.createAnswers(questionToEdit.ID);
       this.navToQuestionsList();
     }, err => console.log(err));
   }
@@ -149,7 +147,7 @@ export class QuestionFormComponent implements OnInit {
   }
 
   createAnswers(questionId) {
-    for (let ansControl of this.answers['controls']) {
+    for (let ansControl of this.answersFormArray['controls']) {
       var answer = {
         QuestionId: questionId,
         CorrectAnswer: ansControl.value.IsCorrect,

@@ -15,6 +15,8 @@ export class QuestionListComponent implements OnInit {
   @Input() questionsList: Array<Question>;
   field: string;
   constFields: ConstantFields;
+  filterBy: string;
+  questionsFilteredList: any[] = [];
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -27,9 +29,13 @@ export class QuestionListComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.field = params.get(this.constFields.category);
     })
-    this.service.getQuestions(this.field).subscribe(response => {
+    this.service.getQuestions(this.field, 0, 10).subscribe(response => {
       this.questionsList = response;
     });
+  }
+
+  filterByTitle() {
+    this.questionsFilteredList = this.questionsList.filter(q => q.Title.toUpperCase().includes(this.filterBy.toUpperCase()));
   }
 
   navMainMenu() {
@@ -45,7 +51,7 @@ export class QuestionListComponent implements OnInit {
       Active: false,
       LastUpdate: new Date(),
       PossibleAnswers: null,
-      Layout: eAnswerLayout.Horizontal,
+      Layout: null,
       tags: ''
     }
     this.router.navigate([this.constFields.questionFormRoute, { question: JSON.stringify(question) }]);

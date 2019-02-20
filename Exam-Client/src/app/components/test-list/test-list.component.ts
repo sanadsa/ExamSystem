@@ -9,7 +9,6 @@ import { Test } from 'src/app/models/test';
   styleUrls: ['./test-list.component.css']
 })
 export class TestListComponent implements OnInit {
-
   field: string;
   tests: Test[] = [];
   constructor(private route: ActivatedRoute, private testSerive: TestService) { }
@@ -18,11 +17,9 @@ export class TestListComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.field = params.get('field');
     });
-    this.testSerive.getTestsByField(this.field).subscribe((tests:Test[]) => {
+    this.testSerive.getTestsByField(this.field).subscribe((tests: Test[]) => {
       debugger;
       this.tests = tests;
     })
-
   }
-
 }

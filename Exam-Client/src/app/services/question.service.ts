@@ -8,14 +8,14 @@ import { ConstantFields } from '../helpers/common-constants';
 })
 export class QuestionService {
   constFields: ConstantFields;
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.constFields = new ConstantFields();
   }
 
   addQuestion(question) {
     return this.http.post(this.constFields.addQuestion, question);
   }
-  
+
   deleteQuestion(questionId) {
     return this.http.delete(this.constFields.deleteQuestion + questionId);
   }
@@ -28,7 +28,7 @@ export class QuestionService {
     return this.http.put(this.constFields.editQuestion, ques);
   }
 
-  getQuestions(field,min,max): Observable<any> {
+  getQuestions(field, min, max): Observable<any> {
     debugger;
     return this.http.get(this.constFields.getQuestions + field + '/' + min + '/' + max);
   }

@@ -37,8 +37,8 @@
                   <input type="text" formControlName="Info" class="form-control">
                   <div *ngIf="answersFormArray['controls'][i].touched && answersFormArray['controls'][i].invalid"
                     class="alert alert-danger">required</div>
-                  <input formControlName="IsCorrect" *ngIf="!isSingle" type="checkbox" name="IsCorrect"
-                    style="margin-left: 5px;">
+                  <input formControlName="IsCorrect" *ngIf="questionTypeF.value == constantFields.MultipleSelection"
+                    type="checkbox" name="IsCorrect" style="margin-left: 5px;">
                   <input formControlName="IsCorrect"
                     *ngIf="isSingle && selectedType.value == constantFields.SingleChoice" type="radio" name="IsCorrect"
                     style="margin-left: 5px;">
@@ -49,8 +49,8 @@
           <div class="formGroup" class="answers-layout">
             <label class="control-label">Answers Layout: </label>
             <p>
-              <input type="radio" value="Vertical" formControlName="layout"> Vertical
-              <input type="radio" value="Horizontal" formControlName="layout"> Horizontal
+              Vertical<input type="radio" value="Vertical" formControlName="layout" class="form-control">
+              Horizontal<input type="radio" value="Horizontal" formControlName="layout" class="form-control">
             </p>
             <span class="alert alert-danger" *ngIf="layout.touched && layout.invalid">Layout is required</span>
           </div>
@@ -63,6 +63,7 @@
         </div>
         <button [disabled]="!questionForm.valid || !answerForm.valid" class="btn btn-primary"
           type="submit">Submit</button>
+        <button class="btn btn-outline-secondary mr-2" (click)="navToQuestionsList()">Cancel</button>
       </form>
     </div>
   </div>
