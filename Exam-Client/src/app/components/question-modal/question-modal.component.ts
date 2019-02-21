@@ -26,7 +26,7 @@ export class QuestionModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  open(content) {
+  public open(content) {
     this.service.getAnswers(this.question.ID).subscribe(response => {
       this.answers = response;
     });

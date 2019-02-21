@@ -13,8 +13,6 @@ import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question'
 })
 export class QuestionFormComponent implements OnInit {
   @ViewChild('selectedType') selectedType: ElementRef;
-  @ViewChild('vertical') vertical: ElementRef;
-  @ViewChild('horizontal') horizontal: ElementRef;
   question: Question;
   questionForm: FormGroup;
   answerForm = new FormGroup({
@@ -42,13 +40,13 @@ export class QuestionFormComponent implements OnInit {
       if (this.question.ID != undefined) {
         this.questionService.getAnswers(this.question.ID).subscribe(response => {
           this.answers = response;
-          this.answers.forEach(element => {          
+          this.answers.forEach(element => {
             this.answersFormArray.push(this.initAnswers(element.Info, element.CorrectAnswer, element.ID));
           });
         });
       } else {
-        this.answersFormArray.push(this.initAnswers('', false, 0));
-        this.answersFormArray.push(this.initAnswers('', false, 0));
+        this.answersFormArray.push(this.initAnswers());
+        this.answersFormArray.push(this.initAnswers());
       }
     });
 
@@ -71,20 +69,23 @@ export class QuestionFormComponent implements OnInit {
   get answersFormArray() {
     return this.answerForm.get('answers') as FormArray;
   }
-  initAnswers(info, isCorrect, id) {
-    let c = (isCorrect === "0" || isCorrect === false) ? false : true;
+  private initAnswers(info = '', isCorrect = false, id = 0) {
+    let c = (isCorrect || isCorrect === false) ? false : true;
     return this.fb.group({
       Info: [info, Validators.required],
-      IsCorrect: [c],
+      IsCorrect: [isCorrect],
       ID: [id]
     });
   }
-  addAnswer() {
-    this.answersFormArray.push(this.initAnswers('', false, 0));
+
+  public addAnswer() {
+    this.answersFormArray.push(this.initAnswers());
   }
-  removeAnswer(index) {
+
+  public removeAnswer(index) {
     this.answersFormArray.removeAt(index);
   }
+
   get questionTypeF() {
     return this.questionForm.get('question').get('questionType');
   }
@@ -101,17 +102,17 @@ export class QuestionFormComponent implements OnInit {
     return this.questionForm.get('question').get('layout');
   }
 
-  setIsSingle() {
+  public setIsSingle() {
     const choice = this.selectedType.nativeElement.value;
     this.isSingle = (choice === this.keys()[0]) ? true : false;
   }
 
-  answerLayout(layout) {
+  public answerLayout(layout) {
     this.question.Layout = layout;
   }
 
-  createQuestion() {
-    var questionToAdd: Question = {
+  public createQuestion() {
+    let questionToAdd: Question = {
       Title: this.questionText.value,
       QuestionType: this.questionForm.get('question.questionType').value,
       QuestionContent: this.questionForm.get('question.belowQuestion').value,
@@ -136,26 +137,25 @@ export class QuestionFormComponent implements OnInit {
     }
   }
 
-  editQuestion(questionToEdit) {
+  private editQuestion(questionToEdit) {
     this.questionService.editQuestion(questionToEdit).subscribe(res => {
-      // deleet
       this.createAnswers(questionToEdit.ID);
       this.navToQuestionsList();
     }, err => console.log(err));
   }
 
-  navToQuestionsList() {
+  private navToQuestionsList() {
     this.router.navigate([this.constantFields.questionsListRoute, { field: this.question.Field }]);
   }
 
-  checkRadio(i) {
+  public checkRadio(i) {
     for (let ansControl of this.answersFormArray['controls']) {
       ansControl.value.IsCorrect = false;
     }
     this.answersFormArray['controls'][i].value.IsCorrect = 1;
   }
 
-  createAnswers(questionId) {
+  private createAnswers(questionId) {
     for (let ansControl of this.answersFormArray['controls']) {
       console.log(ansControl);
       let answer: Answer = {

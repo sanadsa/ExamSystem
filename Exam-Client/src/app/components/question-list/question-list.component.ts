@@ -11,7 +11,6 @@ import { getLocaleDateFormat } from '@angular/common';
   styleUrls: ['./question-list.component.css']
 })
 export class QuestionListComponent implements OnInit {
-  number = [1, 2, 3, 4, 5];
   @Input() questionsList: Array<Question>;
   field: string;
   constFields: ConstantFields;
@@ -34,15 +33,15 @@ export class QuestionListComponent implements OnInit {
     });
   }
 
-  filterByTitle() {
+  public filterByTitle() {
     this.questionsFilteredList = this.questionsList.filter(q => q.Title.toUpperCase().includes(this.filterBy.toUpperCase()));
   }
 
-  navMainMenu() {
+  public navMainMenu() {
     this.router.navigate([this.constFields.mainMenu]);
   }
 
-  navToAddQuestion() {
+  public navToAddQuestion() {
     const question: Question = {
       Field: this.field,
       QuestionType: eQuestionType.SingleChoice,
@@ -57,13 +56,11 @@ export class QuestionListComponent implements OnInit {
     this.router.navigate([this.constFields.questionFormRoute, { question: JSON.stringify(question) }]);
   }
 
-  deleteQuestion(id) {
+  public deleteQuestion(id) {
     const index = this.questionsList.findIndex(q => q.ID == id);
     this.questionsList.splice(index, 1);
-    this.service.deleteAnswers(id).subscribe(r => {
-      this.service.deleteQuestion(id).subscribe(res => {
-      });
-    })
+    this.service.deleteQuestion(id).subscribe(r => {
+    }, err => console.log(err))
   }
 
 }
