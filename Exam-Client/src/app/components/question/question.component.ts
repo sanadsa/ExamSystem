@@ -15,36 +15,36 @@ export class QuestionComponent implements OnInit {
   @Output() onSelectQuestion: EventEmitter<any> = new EventEmitter();
   constFields: ConstantFields;
 
-  constructor(private router: Router) { 
-      this.constFields = new ConstantFields();
-    }
+  constructor(private router: Router) {
+    this.constFields = new ConstantFields();
+  }
   ngOnInit() {
   }
 
-  keys(): Array<string> {
+  public keys(): Array<string> {
     const keys = Object.keys(this.question.QuestionType);
     return keys.slice(keys.length / 2);
   }
 
-  navToEdit() {
+  public navToEdit() {
     this.router.navigate([this.constFields.questionFormRoute, { question: JSON.stringify(this.question) }]);
   }
 
-  navToQuestionList() {
+  public navToQuestionList() {
     this.router.navigate([this.constFields.questionsListRoute, { field: this.question.Field }])
   }
 
-  deleteQuestion(questionId) {
+  public deleteQuestion(questionId) {
     this.onSelectQuestion.emit(questionId);
   }
 
-  test(event,question) {
+  public test(event, question) {
     if (event.target.style.backgroundColor == '') {
       event.target.style.backgroundColor = '#00ff00';
-    }else{
+    } else {
       event.target.style.backgroundColor = '';
     }
-     this.onSelectQuestion.emit(question);
+    this.onSelectQuestion.emit(question);
   }
 
 }

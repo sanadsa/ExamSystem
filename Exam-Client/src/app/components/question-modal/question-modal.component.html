@@ -11,7 +11,7 @@
     </div>
     <div [ngClass]="{'horizontal': question.Layout.toString() == constsFields.Horizontal}">
       <div *ngFor="let ans of answers; let i=index">
-        <label style="margin-right: 10px">{{i+1}} - {{ans.Info}}</label>
+        <label [ngClass]="{'correct-answer': ans.CorrectAnswer === true}" style="margin-right: 10px">{{i+1}} - {{ans.Info}}</label>
         <input *ngIf="question.QuestionType.toString() == constsFields.SingleChoice" type="radio" name="single">
         <input *ngIf="question.QuestionType.toString() == constsFields.MultipleSelection" type="checkbox">
       </div>

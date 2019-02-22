@@ -1,6 +1,9 @@
+import { Question } from 'src/app/models/question';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
+
 import { ConstantFields } from '../helpers/common-constants';
 
 @Injectable({
@@ -12,33 +15,35 @@ export class QuestionService {
     this.constFields = new ConstantFields();
   }
 
-  addQuestion(question) {
+  public addQuestion(question: Question) {
     return this.http.post(this.constFields.addQuestion, question);
   }
 
-  deleteQuestion(questionId) {
+  public deleteQuestion(questionId) {
     return this.http.delete(this.constFields.deleteQuestion + questionId);
   }
 
-  deleteAnswers(questionId) {
+  public deleteAnswers(questionId) {
     return this.http.delete(this.constFields.deleteAnswers + questionId);
   }
 
-  editQuestion(ques) {
+  public editQuestion(ques) {
     return this.http.put(this.constFields.editQuestion, ques);
   }
 
-  getQuestions(field, min, max): Observable<any> {
-    debugger;
+  public getQuestions(field, min, max): Observable<any> {
     return this.http.get(this.constFields.getQuestions + field + '/' + min + '/' + max);
   }
 
-  addAnswer(ans) {
-    debugger;
+  public addAnswer(ans) {
     return this.http.post(this.constFields.addAnswer, ans);
   }
 
-  getAnswers(questionId): Observable<any> {
+  public updateAnswer(ans) {
+    return this.http.put(this.constFields.updateAnswer, ans);
+  }
+
+  public getAnswers(questionId): Observable<any> {
     return this.http.get(this.constFields.getAnswers + questionId);
   }
 }

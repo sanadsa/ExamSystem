@@ -175,6 +175,26 @@ class DBContext {
             }
         });
     }
+    
+    /**
+     * edit an existing answer in db
+     * @param {*response function} callback 
+     */
+    editAnswer(answer, callback) {
+        var request = dbPool.request();
+        request.input('QuestionId', sql.Int, answer.QuestionId)
+        request.input('CorrectAnswer', sql.Bit, answer.CorrectAnswer)
+        request.input('Info', sql.NVarChar(50), answer.Info)
+        request.input('ID', sql.Int, answer.ID)
+
+        request.execute('spAnswers_Update').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Execution error calling 'spAnswers_Update'" })
+            } else {
+                callback(req);
+            }
+        });
+    }
 
     /**
      * Add answer to db
