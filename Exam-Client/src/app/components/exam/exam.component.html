@@ -1,17 +1,49 @@
 <nav class="navbar" style="background-color:darkblue">
-    <div style="color:gray">
-       Test
-    </div>
+  <div style="color:gray">
+    Test
+  </div>
 </nav>
 
 <div>
+  Test Name : {{test.TestName}}
+</div>
+<div>
+  Instructions : {{test.Instructions}}
+</div>
+<div>
+  Time : {{test.Time}}
+</div>
+
+<div class="center">
   Question #1
 </div>
+
+<div class="center">
+  {{q.Title}}
+  <br>
+</div>
+<div class="center">
+  <label for="questionContent">{{q.QuestionContent}}</label>
+</div>
+<div  [ngClass]="{'horizontal': q.Layout.toString() === 'Horizontal'}">
+  <div class="center" *ngFor="let ans of answers; let i=index">
+    <label [ngClass]="{'correct-answer': ans.CorrectAnswer === true}" style="margin-right: 10px">{{ans.Info}}</label>
+    <input *ngIf="q.QuestionType.toString() === 'SingleChoice'" type="radio" name="single">
+    <input *ngIf="q.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
+  </div>
+</div>
+
 <div style="display:flex;justify-content:space-between">
-<button>
-  Next Question
-</button>
-<button>
+  <button class="btn btn-outline-secondary mr-2">
     Previous Question
   </button>
+  <button class="btn btn-outline-secondary mr-2" (click)="nextQuestion()">
+    Next Question
+  </button>
+
 </div>
+<!-- <div *ngFor="let q of questions">
+  {{q.Title}}
+  <br>
+  {{q.QuestionContent}}
+</div> -->

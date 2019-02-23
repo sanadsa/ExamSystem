@@ -48,4 +48,26 @@ router.get('/getTestById/:id/:field', function (req, res) {
 
 });
 
+router.get('/getExam/:id', function (req, res) {
+    const testID = req.params['id'];
+    mainDB.getExam(testID, function (result, error) {
+        if (result) {
+            res.status(200).send(result);
+        } else if (error) {
+            res.status(400).send(error);
+        }
+    })
+});
+
+router.get('/getNextQuestion/', function (req, res) {
+    mainDB.getNextQuestion(function (result, error) {
+        if (result) {
+            res.status(200).send(result);
+        } else if (error) {
+            res.status(400).send(error);
+        }
+    })
+});
+
+
 module.exports = router;

@@ -1,7 +1,7 @@
 var sql = require("mssql");
 var config = require("./dbconfig");
 var bcrypt = require('bcryptjs');
-
+var currentExam;
 const dbPool = new sql.ConnectionPool(config, err => {
     if (err) {
         console.log('dbPool Error: ' + err);
@@ -195,6 +195,23 @@ class DBContext {
             }
         });
     }
+    getExam(id,callback){
+        var request = dbPool.request();
+        request.input('TestID', sql.Int, id);
+        request.execute('spExams_GetByID').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Execution error calling 'spExams_GetByID'" })
+            } else {
+                callback(req.recordsets);
+            }
+        });
+
+    }
+    getNextQuestion(callback){
+        console.log(currentExam);
+        
+    }
+    
 
     /**
      * Add answer to db
