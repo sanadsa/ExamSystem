@@ -5,6 +5,7 @@ import { QuestionService } from './../../services/question.service';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-question-form',
@@ -12,20 +13,19 @@ import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question'
   styleUrls: ['./question-form.component.css']
 })
 export class QuestionFormComponent implements OnInit {
-  @ViewChild('selectedType') selectedType: ElementRef;
   question: Question;
   questionForm: FormGroup;
   answerForm = new FormGroup({
     answers: new FormArray([])
   });
   constantFields: ConstantFields;
-  submitted: boolean;
-  isSingle = true;
-  questionType = eQuestionType;
   questionId: string;
   answers: Array<Answer>;
+  questionType: string[] = ['SingleChoice', 'MultipleSelection'];
 
-  constructor(private questionService: QuestionService,
+  constructor(
+    private questionService: QuestionService,
+    private modalService: NgbModal,
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder) {
@@ -35,18 +35,18 @@ export class QuestionFormComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      let jsonObj: any = JSON.parse(params.get('question'));
-      this.question = <Question>jsonObj;
+      let questionObj: any = JSON.parse(params.get('question'));
+      this.question = <Question>questionObj;
       if (this.question.ID != undefined) {
         this.questionService.getAnswers(this.question.ID).subscribe(response => {
           this.answers = response;
           this.answers.forEach(element => {
-            this.answersFormArray.push(this.initAnswers(element.Info, element.CorrectAnswer, element.ID));
+            this.answersFormArray.push(this.initAnswer(element.Info, element.CorrectAnswer, element.ID));
           });
         });
       } else {
-        this.answersFormArray.push(this.initAnswers());
-        this.answersFormArray.push(this.initAnswers());
+        this.answersFormArray.push(this.initEmptyAnswer());
+        this.answersFormArray.push(this.initEmptyAnswer());
       }
     });
 
@@ -61,15 +61,11 @@ export class QuestionFormComponent implements OnInit {
     })
   }
 
-  keys(): Array<string> {
-    const keys = Object.keys(this.questionType);
-    return keys.slice(keys.length / 2).reverse();
-  }
-
   get answersFormArray() {
     return this.answerForm.get('answers') as FormArray;
   }
-  private initAnswers(info = '', isCorrect = false, id = 0) {
+
+  private initAnswer(info: string, isCorrect: boolean, id: number) {
     let c = (isCorrect || isCorrect === false) ? false : true;
     return this.fb.group({
       Info: [info, Validators.required],
@@ -78,58 +74,55 @@ export class QuestionFormComponent implements OnInit {
     });
   }
 
-  public addAnswer() {
-    this.answersFormArray.push(this.initAnswers());
+  private initEmptyAnswer() {
+    return this.fb.group({
+      Info: ['', Validators.required],
+      IsCorrect: [false],
+      ID: [0]
+    });
   }
 
-  public removeAnswer(index) {
+  public addAnswer() {
+    this.answersFormArray.push(this.initEmptyAnswer());
+  }
+
+  public removeAnswer(index: number) {
     this.answersFormArray.removeAt(index);
   }
 
-  get questionTypeF() {
-    return this.questionForm.get('question').get('questionType');
-  }
-  get questionText() {
-    return this.questionForm.get('question').get('questionText');
-  }
-  get belowQuestion() {
-    return this.questionForm.get('question').get('belowQuestion');
-  }
-  get tags() {
-    return this.questionForm.get('question').get('tags');
-  }
-  get layout() {
-    return this.questionForm.get('question').get('layout');
+  public questionFormGroup(formControlName: string) {
+    return this.questionForm.get('question').get(formControlName)
   }
 
-  public setIsSingle() {
-    const choice = this.selectedType.nativeElement.value;
-    this.isSingle = (choice === this.keys()[0]) ? true : false;
+  public showQuestion(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    });
   }
 
-  public answerLayout(layout) {
-    this.question.Layout = layout;
-  }
-
-  public createQuestion() {
+  public getQuestionObj() {
     let questionToAdd: Question = {
-      Title: this.questionText.value,
-      QuestionType: this.questionForm.get('question.questionType').value,
-      QuestionContent: this.questionForm.get('question.belowQuestion').value,
+      Title: this.questionFormGroup('questionText').value,
+      QuestionType: this.questionFormGroup('questionType').value,
+      QuestionContent: this.questionFormGroup('belowQuestion').value,
       Active: false,
       PossibleAnswers: null,
       LastUpdate: new Date(),
       Field: this.question.Field,
-      Layout: this.layout.value,
-      tags: this.questionForm.get('question.tags').value
+      Layout: this.questionFormGroup('layout').value,
+      tags: this.questionFormGroup('tags').value
     }
+
+    return questionToAdd;
+  }
+
+  public createQuestion() {
+    let questionToAdd = this.getQuestionObj();
 
     if (this.question.ID != undefined) {
       questionToAdd.ID = this.question.ID;
       this.editQuestion(questionToAdd);
     } else {
       this.questionService.addQuestion(questionToAdd).subscribe(questionId => {
-        debugger;
         this.questionId = <string>questionId;
         this.createAnswers(questionId);
         this.navToQuestionsList();
@@ -144,28 +137,16 @@ export class QuestionFormComponent implements OnInit {
     }, err => console.log(err));
   }
 
-  private navToQuestionsList() {
-    this.router.navigate([this.constantFields.questionsListRoute, { field: this.question.Field }]);
-  }
-
-  public checkRadio(i) {
-    for (let ansControl of this.answersFormArray['controls']) {
-      ansControl.value.IsCorrect = false;
-    }
-    this.answersFormArray['controls'][i].value.IsCorrect = 1;
-  }
-
   private createAnswers(questionId) {
     for (let ansControl of this.answersFormArray['controls']) {
-      console.log(ansControl);
       let answer: Answer = {
         QuestionId: questionId,
         CorrectAnswer: (ansControl.value.IsCorrect === undefined) ? true : ansControl.value.IsCorrect,
         Info: ansControl.value.Info,
         ID: ansControl.value.ID
       }
+
       if (answer.ID != 0) {
-        debugger;
         this.questionService.updateAnswer(answer).subscribe(response => {
         }, ansErr => console.log(ansErr));
       } else {
@@ -175,4 +156,15 @@ export class QuestionFormComponent implements OnInit {
     }
   }
 
+  private navToQuestionsList() {
+    this.router.navigate([this.constantFields.questionsListRoute, { field: this.question.Field }]);
+  }
+
+  public checkCorrectAnswer(index: number) {
+    for (let ansControl of this.answersFormArray['controls']) {
+      ansControl.value.IsCorrect = false;
+    }
+
+    this.answersFormArray['controls'][index].value.IsCorrect = 1;
+  }
 }

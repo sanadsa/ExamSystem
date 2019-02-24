@@ -3,7 +3,7 @@ var router = express.Router();
 var mainDB = require('../DAL/dbRepository');
 const authorize = require('../middlewares/authorize');
 
-router.post('/createQuestion', authorize.admin, function (req, res) {
+router.post('/createQuestion', function (req, res) {
     mainDB.addQuestion(req.body, function (result, err) {
         if (err) {
             res.status(400).send(err);

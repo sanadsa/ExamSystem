@@ -21,11 +21,6 @@ export class QuestionComponent implements OnInit {
   ngOnInit() {
   }
 
-  public keys(): Array<string> {
-    const keys = Object.keys(this.question.QuestionType);
-    return keys.slice(keys.length / 2);
-  }
-
   public navToEdit() {
     this.router.navigate([this.constFields.questionFormRoute, { question: JSON.stringify(this.question) }]);
   }
