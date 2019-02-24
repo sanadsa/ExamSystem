@@ -1,5 +1,5 @@
 import { Question } from 'src/app/models/question';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -13,6 +13,20 @@ export class QuestionService {
   constFields: ConstantFields;
   constructor(private http: HttpClient) {
     this.constFields = new ConstantFields();
+  }
+
+  private getHeaders(jwt: boolean): HttpHeaders {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    console.log('token: ' + localStorage.getItem('token'));
+    if (jwt) {
+      headers=headers.append(
+        'admin_token',
+        localStorage.getItem('token')
+      );
+    }
+    console.log({headers});
+    return headers;
   }
 
   public addQuestion(question: Question) {

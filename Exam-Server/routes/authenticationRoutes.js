@@ -4,6 +4,7 @@ const cors = require('cors');
 var nodemailer = require('nodemailer');
 var router = express.Router();
 var mainDB = require('../DAL/dbRepository');
+const jwt = require('jsonwebtoken');
 
 router.get('/restorePassword/:email', function (req, res) {
     const email = req.params['email'];
@@ -13,11 +14,11 @@ router.get('/restorePassword/:email', function (req, res) {
 
 router.post('/updatePassword', function (req, res) {
     console.log(req.body);
-    
-    mainDB.updatePassword(req.body,function(respone,err){
+
+    mainDB.updatePassword(req.body, function (respone, err) {
         if (respone) {
             res.status(200).send(req.body);
-        }else{
+        } else {
             res.status(400).send(err);
         }
     });
@@ -35,7 +36,11 @@ router.get('/login/:email/:password', function (req, res) {
                 email: email,
                 password: password
             }
-            res.status(200).send(JSON.stringify(user));
+            var token = jwt.sign({}, 'qwerasdfzxcv', {
+                expiresIn: 60*60*2,
+                subject: email
+            });
+            res.status(200).send({ user, token });
         }
     });
 });
