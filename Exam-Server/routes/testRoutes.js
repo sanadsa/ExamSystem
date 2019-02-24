@@ -59,8 +59,8 @@ router.get('/getExam/:id', function (req, res) {
     })
 });
 
-router.get('/getNextQuestion/', function (req, res) {
-    mainDB.getNextQuestion(function (result, error) {
+router.post('/saveAnswer/', function (req, res) {
+    mainDB.saveAnswer(req.body,function (result, error) {
         if (result) {
             res.status(200).send(result);
         } else if (error) {

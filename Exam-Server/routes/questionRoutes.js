@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var mainDB = require('../DAL/dbRepository');
-
 router.post('/createQuestion', function (req, res) {
     mainDB.addQuestion(req.body, function (result, err) {
         if (err) {

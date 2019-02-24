@@ -9,12 +9,10 @@ export class ExamService {
   constructor(private http:HttpClient) { }
 
   getExam(id){
-    debugger;
     return this.http.get('http://localhost:8000/api/Tests/getExam/' + id);
   }
 
-  nextQuestion(){
-    return this.http.get('http://localhost:8000/api/Tests/getNextQuestion/');
-    
+  saveAnswer(answer){
+    return this.http.post('http://localhost:8000/api/Tests/saveAnswer/',answer);
   }
 }

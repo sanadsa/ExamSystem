@@ -81,7 +81,7 @@ class DBContext {
         });
     }
 
-    getTestById(testId,field,callback){
+    getTestById(testId, field, callback) {
         var request = dbPool.request();
         request.input('Id', sql.Int, testId);
         request.input('Field', sql.VarChar(50), field);
@@ -90,13 +90,13 @@ class DBContext {
                 callback(null, { message: "Execution error calling 'spTests_GetByField'" })
             } else {
                 console.log(req.recordsets);
-                
+
                 callback(req.recordsets);
             }
         });
     }
 
-    getTestsByField(field,callback){
+    getTestsByField(field, callback) {
         var request = dbPool.request();
         request.input('Field', sql.NVarChar(50), field);
         request.execute('spTests_GetByField').then(function (req, err) {
@@ -104,7 +104,7 @@ class DBContext {
                 callback(null, { message: "Execution error calling 'spTests_GetByField'" })
             } else {
                 console.log(req.recordset);
-                
+
                 callback(req.recordset);
             }
         });
@@ -115,16 +115,16 @@ class DBContext {
             var request = dbPool.request();
             request.input('TestId', sql.Int, testId);
             console.log(questions[index]);
-            
+
             request.input('QuestionId', sql.Int, questions[index]);
             request.execute('spQuestionForTest_Insert').then(function (test) {
-               continue;
-            }).catch(function(err){
+                continue;
+            }).catch(function (err) {
                 console.log(err);
             });
 
         }
-        callback({message:'succes'});
+        callback({ message: 'succes' });
     }
 
     /**
@@ -150,7 +150,7 @@ class DBContext {
             }
         });
     }
-    
+
     /**
      * edit an existing question in db
      * @param {*response function} callback 
@@ -175,7 +175,7 @@ class DBContext {
             }
         });
     }
-    
+
     /**
      * edit an existing answer in db
      * @param {*response function} callback 
@@ -195,7 +195,8 @@ class DBContext {
             }
         });
     }
-    getExam(id,callback){
+
+    getExam(id, callback) {
         var request = dbPool.request();
         request.input('TestID', sql.Int, id);
         request.execute('spExams_GetByID').then(function (req, err) {
@@ -205,13 +206,25 @@ class DBContext {
                 callback(req.recordsets);
             }
         });
+    }
 
+    saveAnswer(answer, callback) {
+        var request = dbPool.request();
+        request.input('QuestionId', sql.Int, answer.questionID);
+        request.input('UserId', sql.Int, answer.userID);
+        request.input('AnswerId', sql.Int, answer.answerID);
+        request.execute('spExams_SaveAnswer').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Execution error calling 'spExams_SaveAnswer" })
+            } else {
+                console.log(req);
+                
+                callback(req);
+            }
+        });
     }
-    getNextQuestion(callback){
-        console.log(currentExam);
-        
-    }
-    
+
+
 
     /**
      * Add answer to db
@@ -238,7 +251,7 @@ class DBContext {
      * get all questions
      * @param {*} callback 
      */
-    getQuestions(field,min,max, callback) {
+    getQuestions(field, min, max, callback) {
         var req = dbPool.request();
         req.input('Field', sql.NVarChar(50), field);
         req.input('MinId', sql.Int, min);
@@ -248,12 +261,12 @@ class DBContext {
                 callback(null, { message: "Exec error calling 'spQuestions_GetAll'" })
             } else {
                 console.log(req.recordset);
-                
+
                 callback(req.recordset);
             }
         });
     }
-    
+
     /**
      * delete question
      * @param {*} callback 
@@ -269,7 +282,7 @@ class DBContext {
             }
         });
     }
-    
+
     /**
      * delete answers
      * @param {*} callback 
@@ -285,7 +298,7 @@ class DBContext {
             }
         });
     }
-    
+
     /**
      * get answers of specific question
      * @param {*} callback 

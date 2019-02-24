@@ -1,0 +1,15 @@
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Finish test</h4>
+      <button type="button" class="close" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>You reached the end of the exam. Are you sure you want to submit this test?</p>
+    </div>
+    <div class="modal-footer">
+      <button style="background-color:green" type="button" class="btn btn-outline-dark" (click)="c('Save click')">Sure</button>
+      <button  type="button" class="btn btn-outline-dark" (click)="close()">Cancel</button>
+    </div>
+  
+  <!-- <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button> -->
