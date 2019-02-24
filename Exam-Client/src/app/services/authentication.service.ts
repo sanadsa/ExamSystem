@@ -27,11 +27,12 @@ export class AuthenticationService {
   }
 
   login(email: string, password: string) {
-    return this.http.get('http://localhost:8000/api/Authentication/login/' + email + '/' + password).pipe(
-      map(user => {
-        if (user) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
+    return this.http.get<any>('http://localhost:8000/api/Authentication/login/' + email + '/' + password).pipe(
+      map(data => {
+        if (data.user) {
+          localStorage.setItem('currentUser', JSON.stringify(data.user));
+          localStorage.setItem('token', JSON.stringify(data.token));
+          this.currentUserSubject.next(data.user);
         }
       }));
   }
