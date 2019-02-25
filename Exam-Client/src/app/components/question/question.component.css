@@ -7,3 +7,11 @@
     display: flex;
     justify-content: space-between;
 }
+
+td,tr{
+    border: 2px solid gray;
+}
+
+.block{
+   border: 1px solid gray; 
+}
