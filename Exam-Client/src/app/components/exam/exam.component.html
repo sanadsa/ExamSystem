@@ -36,7 +36,7 @@
   </div>
 </div>
 <div style="display:flex;justify-content:space-between">
-  <button class="btn btn-outline-secondary mr-2">
+  <button class="btn btn-outline-secondary mr-2" (click)="previousQuestion()">
     Previous Question
   </button>
   <button class="btn btn-outline-secondary mr-2" (click)="nextQuestion()">
@@ -46,10 +46,10 @@
 <hr>
 <br>
 <div style="display:flex;justify-content: flex-end;">
-  <button (click)="finishTest(content)"> Finish Test</button>
+  <button class="btn btn-outline-secondary mr-2" (click)="finishTest(content)"> Finish Test</button>
 </div>
 <ng-template #content let-modal>
-    <app-confirm-modal></app-confirm-modal>
+    <app-confirm-modal (onFinish)="onFinish()"></app-confirm-modal>
 </ng-template>
 <!-- <div *ngFor="let q of questions">
   {{q.Title}}

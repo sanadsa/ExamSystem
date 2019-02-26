@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'questionForm', component: QuestionFormComponent },
   { path: 'examined', component: ExaminedComponent },
   { path: 'exam', component: ExamComponent },
+  { path: 'examFinish', component: ExamComponent },
 
   { path: '**', redirectTo: '' }
 

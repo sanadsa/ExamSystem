@@ -4,6 +4,7 @@ import { ExamService } from 'src/app/services/exam.service';
 import { Test } from 'src/app/models/test';
 import { Question } from 'src/app/models/question';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-exam',
@@ -11,15 +12,17 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./exam.component.css']
 })
 export class ExamComponent implements OnInit {
+  @ViewChild('content') content: any;
+  userId: number = 1;
   test: Test = {};
   questions: Question[];
   allAnswers: any[];
   answers: any[] = [];
-  q: Question 
+  q: Question
   index: number = 0;
-  selectedAnswerId:number;
+  selectedAnswerId: number;
 
-  constructor(private examService: ExamService,private modalService: NgbModal) { }
+  constructor(private examService: ExamService, private modalService: NgbModal,private router:Router) { }
 
   ngOnInit() {
     this.examService.getExam(49).subscribe(result => {
@@ -33,34 +36,55 @@ export class ExamComponent implements OnInit {
   }
   nextQuestion() {
     debugger;
-    const answer ={
+    const answer = {
       questionID: this.q.ID,
-      userID:1,
-      answerID:this.selectedAnswerId
+      userID: this.userId,
+      answerID: this.selectedAnswerId
     }
     this.index++;
     this.q = this.questions[this.index];
     if (!this.q) {
-      
+      this.index--;
+      this.q = this.questions[this.index];
+      this.modalService.open(this.content);
       return;
     }
     this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
-    this.examService.saveAnswer(answer).subscribe(result=>{
-    },err=>console.log(err));
-   
-   
+    this.examService.saveAnswer(answer).subscribe(result => {
+    }, err => console.log(err));
   }
-
-
 
   setAnswer(event) {
     const choice = event.target.value;
-    const answer =this.answers.find(a => a.Info == choice);
+    const answer = this.answers.find(a => a.Info == choice);
     this.selectedAnswerId = answer.ID;
   }
 
-  finishTest(content){
+  finishTest(content) {
     this.modalService.open(content);
+  }
+
+  previousQuestion() {
+    debugger;
+    const answer = {
+      questionID: this.q.ID,
+      userID: this.userId,
+      answerID: this.selectedAnswerId
+    }
+    this.index--;
+    this.q = this.questions[this.index];
+    if (!this.q) {
+      this.index++;
+      this.q = this.questions[this.index];
+      return;
+    }
+    this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
+    this.examService.saveAnswer(answer).subscribe(result => {
+    }, err => console.log(err));
+  }
+
+  onFinish(){
+this.router.navigate(['/examFinish',{test:this.test,questions:this.questions}])
   }
 
 }

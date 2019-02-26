@@ -20,6 +20,7 @@ import { QuestionModalComponent } from './components/question-modal/question-mod
 import { ExaminedComponent } from './components/examined/examined.component';
 import { ExamComponent } from './components/exam/exam.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
+import { ExamFinishComponent } from './components/exam-finish/exam-finish.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
     QuestionModalComponent,
     ExaminedComponent,
     ExamComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    ExamFinishComponent
     
   ],
   imports: [
