@@ -20,6 +20,8 @@ import { QuestionModalComponent } from './components/question-modal/question-mod
 import { ExaminedComponent } from './components/examined/examined.component';
 import { ExamComponent } from './components/exam/exam.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
+import { DecimalPipe } from '@angular/common';
+import { DeleteModalComponent } from './modals/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +39,8 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
     QuestionModalComponent,
     ExaminedComponent,
     ExamComponent,
-    ConfirmModalComponent
-    
+    ConfirmModalComponent,
+    DeleteModalComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,9 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
     HttpClientModule,
     NgbModule
   ],
-  providers: [],
+  providers: [
+    DecimalPipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

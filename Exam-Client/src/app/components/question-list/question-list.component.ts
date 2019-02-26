@@ -1,9 +1,13 @@
 import { QuestionService } from './../../services/question.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChildren, QueryList, Directive, PipeTransform } from '@angular/core';
 import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConstantFields } from 'src/app/helpers/common-constants';
-import { getLocaleDateFormat } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { DecimalPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'question-list',
@@ -12,15 +16,15 @@ import { getLocaleDateFormat } from '@angular/common';
 })
 export class QuestionListComponent implements OnInit {
   @Input() questionsList: Array<Question>;
+  filteredQuestionsList: Observable<Question[]>;
   field: string;
   constFields: ConstantFields;
   filterBy: string;
-  questionsFilteredList: any[] = [];
+  filter = new FormControl('');
 
   constructor(private router: Router,
     private route: ActivatedRoute,
     private service: QuestionService) {
-    this.questionsList = new Array<Question>();
     this.constFields = new ConstantFields();
   }
 
@@ -30,11 +34,19 @@ export class QuestionListComponent implements OnInit {
     })
     this.service.getQuestions(this.field, 0, 10).subscribe(response => {
       this.questionsList = response;
+      this.filteredQuestionsList = this.filter.valueChanges.pipe(
+        startWith(''),
+        map(text => this.search(text))
+      );
     });
   }
 
-  public filterByTitle() {
-    this.questionsFilteredList = this.questionsList.filter(q => q.Title.toUpperCase().includes(this.filterBy.toUpperCase()));
+  private search(text: string): Array<Question> {
+    return this.questionsList.filter(question => {
+      const term = text.toLowerCase();
+      return question.Title.toLowerCase().includes(term)
+        || question.tags.toLowerCase().includes(term);
+    });
   }
 
   public navMainMenu() {
@@ -51,7 +63,8 @@ export class QuestionListComponent implements OnInit {
       LastUpdate: new Date(),
       PossibleAnswers: null,
       Layout: null,
-      tags: ''
+      tags: '',
+      NumOfTests: 0
     }
     this.router.navigate([this.constFields.questionFormRoute, { question: JSON.stringify(question) }]);
   }
@@ -61,8 +74,17 @@ export class QuestionListComponent implements OnInit {
   }
 
   public deleteQuestion(id: number) {
-    const index = this.questionsList.findIndex(q => q.ID == id);
-    this.questionsList.splice(index, 1);
+    let index;
+    this.filteredQuestionsList.subscribe(questionList => {
+      index = questionList.findIndex(question => question.ID == id);
+      questionList.splice(index, 1);
+      this.questionsList = questionList;
+    });
+    this.filteredQuestionsList = this.filter.valueChanges.pipe(
+      startWith(''),
+      map(text => this.search(text))
+    );
+    
     this.service.deleteQuestion(id).subscribe(r => {
     }, err => console.log(err))
   }

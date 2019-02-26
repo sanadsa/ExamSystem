@@ -1,3 +1,18 @@
 td,tr{
-    border: 2px solid gray;
+    border: 1px solid gray;
+}
+
+/* table, th , td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+} */
+
+.head {
+    background-color: orange;
+}  
+
+.question-operations {
+    display: flex;
+    justify-content: space-between;
 }

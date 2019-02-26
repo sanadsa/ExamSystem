@@ -12,3 +12,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .correct-answer {
     background-color: green;
 }
+
+.field {
+    color:orange;
+}
+
+.title {
+    margin-right: 15px;
+}
+
+.title-center {
+    display:flex;justify-content: center;
+}

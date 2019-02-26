@@ -9,6 +9,7 @@ export interface Question {
     PossibleAnswers?: String[];
     Layout?: eAnswerLayout;
     tags?: String;
+    NumOfTests: number
 }
 
 export enum eQuestionType {
