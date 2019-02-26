@@ -22,6 +22,7 @@ import { ExamComponent } from './components/exam/exam.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 import { DecimalPipe } from '@angular/common';
 import { DeleteModalComponent } from './modals/delete-modal/delete-modal.component';
+import { ExamFinishComponent } from './components/exam-finish/exam-finish.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,9 @@ import { DeleteModalComponent } from './modals/delete-modal/delete-modal.compone
     ExaminedComponent,
     ExamComponent,
     ConfirmModalComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+    ExamFinishComponent
+    
   ],
   imports: [
     BrowserModule,

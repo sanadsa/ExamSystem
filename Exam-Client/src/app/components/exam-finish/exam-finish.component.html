@@ -1,0 +1,35 @@
+<p>
+  Exam Finished
+</p>
+<div>
+  Your grade: {{grade}}
+</div>
+<div>
+  Status: {{status}}
+</div>
+<div>
+  Summary: You answered {{numberOfRightAnswers}} questions correctly, out of {{questions.length}} questions in total.
+</div>
+<div>
+  Passing Grade : The minimum grade to pass this test is {{test.PassingGrade}}
+</div>
+<div *ngIf="test.ReviewAnswers">
+  <div *ngFor="let question of questions">
+    <div *ngIf="question">
+      <div class="center">
+        {{question.Title}}
+        <br>
+      </div>
+      <div class="center">
+        <label for="questionContent">{{question.QuestionContent}}</label>
+      </div>
+      <div [ngClass]="{'horizontal': question.Layout.toString() === 'Horizontal'}">
+        <div class="center" *ngFor="let ans of answers; let i=index">
+          <input (click)="setAnswer($event)" value="{{ans.Info}}" *ngIf="question.QuestionType.toString() === 'SingleChoice'"
+            type="radio" name="single">{{ans.Info}}
+          <input *ngIf="question.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
