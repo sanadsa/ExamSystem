@@ -56,7 +56,11 @@ export class QuestionListComponent implements OnInit {
     this.router.navigate([this.constFields.questionFormRoute, { question: JSON.stringify(question) }]);
   }
 
-  public deleteQuestion(id) {
+  public navToEdit(question) {
+    this.router.navigate([this.constFields.questionFormRoute, { question: JSON.stringify(question) }]);
+  }
+
+  public deleteQuestion(id: number) {
     const index = this.questionsList.findIndex(q => q.ID == id);
     this.questionsList.splice(index, 1);
     this.service.deleteQuestion(id).subscribe(r => {

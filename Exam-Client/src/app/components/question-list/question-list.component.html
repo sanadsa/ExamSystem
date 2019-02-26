@@ -5,10 +5,65 @@
 <div>
   Filter by tags : <input [(ngModel)]="filterBy" name="filterBy" type="text" (ngModelChange)="filterByTitle()">
 </div>
-<ul>
-  <li *ngFor="let question of questionsList">
+<div class="datagrid">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Question Text and Tags</th>
+      <th>Last Update</th>
+      <th>Question Type</th>
+      <th># of Tests</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let question of questionsList">
+      <td>{{question.ID}}</td>
+      <td>{{question.Title}}
+        {{question.tags}}
+      </td>
+      <td>{{question.LastUpdate}}</td>
+      <td>{{question.QuestionType}}</td>
+      <td>1111111</td>
+      <td>
+        <div class="question-operations">
+          <question-modal [question]="question"></question-modal>
+          <button class="btn btn-outline-secondary mr-2" *ngIf="!isTestform" (click)="navToEdit(question)">Edit</button>
+          <button class="btn btn-outline-secondary mr-2" *ngIf="!isTestform"
+            (click)="deleteQuestion(question.ID)">Delete</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</div>
+<!-- <div class="container">
+  <div class="row questionRow ">
+    <div class="col-md-2 questionHeader">
+      ID
+    </div>
+    <div class="col-md-2 questionHeader">
+      Question Text and Tags
+    </div>
+    <div class="col-md-2 questionHeader">
+      Last Update
+    </div>
+    <div class="col-md-2 questionHeader">
+      Question Type
+    </div>
+    <div class="col-md-1 questionHeader">
+      # of Tests
+    </div>
+    <div class="col-md-3 questionHeader">
+
+    </div>
+  </div>
+  <div *ngFor="let question of questionsList; let i=index">
     <question [isTestform]="false" (onSelectQuestion)="deleteQuestion($event)" [question]="question"></question>
+  </div>
+</div> -->
+<!-- <ul>
+  <li *ngFor="let question of questionsList">
   </li>
-</ul>
+</ul> -->
 <button class="btn btn-outline-secondary mr-2" (click)="navToAddQuestion()">Add Question</button>
 <button class="btn btn-outline-secondary mr-2" (click)="navMainMenu()">Back To Menu</button>
