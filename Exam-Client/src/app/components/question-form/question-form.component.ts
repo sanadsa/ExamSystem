@@ -109,7 +109,7 @@ export class QuestionFormComponent implements OnInit {
       LastUpdate: new Date(),
       Field: this.question.Field,
       Layout: this.questionFormGroup('layout').value,
-      tags: this.questionFormGroup('tags').value
+      tags: this.questionFormGroup('tags').value,
     }
 
     return questionToAdd;

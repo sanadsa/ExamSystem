@@ -1,9 +1,12 @@
+<div class="title-center">
+  <h3 class="title">Add Question for</h3>
+  <h3 class="orange">{{question.Field}}</h3>
+</div>
 <div class="container">
-  <div class="row">
-    <div class="col-lg-6 col-centered">
+  <div class="row second-div">
+    <div class="offset-2 col-md-8 mainDiv">
       <form [formGroup]="questionForm" (ngSubmit)="createQuestion()">
-        <div formGroupName="question">
-          Field: {{question.Field}}
+        <div formGroupName="question" class="mb-2">
           <div class="formGroup">
             <label for="questionType">Question Type: </label>
             <select formControlName="questionType" id="questionType" class="form-control">
@@ -15,30 +18,33 @@
           </div>
           <div class="formGroup">
             <label for="questionText">Question Text: </label>
-            <input type="text" formControlName="questionText" id="questionText" class="form-control" />
+            <textarea type="text" formControlName="questionText" id="questionText" class="form-control"></textarea>
             <div *ngIf="questionFormGroup('questionText').touched && questionFormGroup('questionText').invalid"
               class="alert alert-danger">Question text is
               required</div>
           </div>
           <div class="formGroup">
             <label for="belowQuestion">Text Below Question: </label>
-            <input formControlName="belowQuestion" id="belowQuestion" class="form-control" />
+            <textarea formControlName="belowQuestion" id="belowQuestion" class="form-control"></textarea>
             <div *ngIf="questionFormGroup('belowQuestion').touched && questionFormGroup('belowQuestion').invalid"
               class="alert alert-danger">Content required
             </div>
           </div>
           <hr>
           <form [formGroup]="answerForm">
-            <div formArrayName="answers">
-              <label for="possibleAnswers">Possible Answers: </label>
-              <button (click)="addAnswer()" class="btn btn-outline-secondary mr-2">Add new answer</button>
-              <div *ngFor="let ans of answersFormArray['controls']; let i=index" class="answers-layout">
-                <label>Answer {{i+1}}</label>
-                <button *ngIf="answersFormArray['controls'].length > 2" (click)="removeAnswer(i)">X</button>
+            <div formArrayName="answers" class="row">
+              <div class="col-md-12">
+                <label class="mr-2" for="possibleAnswers">Possible Answers: </label>
+                <button (click)="addAnswer()" class="btn btn-outline-secondary mr-2">Add new answer</button>
+              </div>
+              <div *ngFor="let ans of answersFormArray['controls']; let i=index" class="answers-layout col-md-12 my-1">
+                <label class="mx-2">Answer {{i+1}}</label>
+                <button *ngIf="answersFormArray['controls'].length > 2" class="btn btn-secondary mx-2"
+                  (click)="removeAnswer(i)">X</button>
                 <div [formGroupName]="i" style="display: flex">
-                  <input type="text" formControlName="Info" class="form-control">
+                  <input type="text" formControlName="Info" class="form-control answer">
                   <div *ngIf="answersFormArray['controls'][i].touched && answersFormArray['controls'][i].invalid"
-                    class="alert alert-danger">required</div>
+                    class="required">required</div>
                   <input formControlName="IsCorrect"
                     *ngIf="questionFormGroup('questionType').value == 'MultipleSelection'" type="checkbox"
                     name="IsCorrect" class="check-answer">
@@ -64,11 +70,12 @@
               class="alert alert-danger">Tags Required</div>
           </div>
         </div>
-        <button [disabled]="!questionForm.valid || !answerForm.valid" class="btn btn-primary"
+        <button [disabled]="!questionForm.valid || !answerForm.valid" class="btn btn-primary mr-2"
           type="submit">Submit</button>
         <button class="btn btn-outline-secondary mr-2" (click)="navToQuestionsList()">Cancel</button>
+        <button class="btn btn-outline-secondary mr-2 float-right" type="button"
+          (click)="showQuestion(content)">Show</button>
       </form>
-
       <ng-template #content let-modal>
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title">{{questionFormGroup('questionText').value}}</h4>
@@ -93,7 +100,6 @@
           <button type="button" class="btn btn-outline-secondary mr-2" (click)="modal.close('Save click')">Ok</button>
         </div>
       </ng-template>
-      <button class="btn btn-outline-secondary mr-2" type="button" (click)="showQuestion(content)">Showww</button>
     </div>
   </div>
 </div>

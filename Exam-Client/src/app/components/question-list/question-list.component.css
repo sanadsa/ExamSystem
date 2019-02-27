@@ -12,7 +12,14 @@ td,tr{
     background-color: orange;
 }  
 
-.question-operations {
+.space {
     display: flex;
     justify-content: space-between;
+}
+
+.mainDiv{
+    background-color: whitesmoke;
+    border: 1px solid #bbb;
+    box-shadow: 1px 1px 1px 1px #ccc;
+    padding: 10px;   
 }

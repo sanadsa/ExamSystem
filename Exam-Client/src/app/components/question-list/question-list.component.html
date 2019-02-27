@@ -1,52 +1,55 @@
 <div class="title-center">
   <h1 class="title">Available Questions for</h1>
-  <h1 class="field">{{field}}</h1>
+  <h1 class="orange">{{field}}</h1>
 </div>
-<form>
-  <div class="form-group form-inline">
-    Full text search: <input class="form-control ml-2" type="text" [formControl]="filter" />
+<div class="container">
+  <div class="row second-div">
+    <div class="col-md-12 mainDiv">
+      <form>
+        <div class="form-group form-inline">
+          Full text search: <input class="form-control ml-2" type="text" [formControl]="filter" />
+        </div>
+      </form>
+      <table class="table table-striped">
+        <thead class="head">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Question Text and Tags</th>
+            <th scope="col">Last Update</th>
+            <th scope="col">Question Type</th>
+            <th scope="col"># of Tests</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let question of filteredQuestionsList | async">
+            <th scope="row">{{question.ID}}</th>
+            <td>
+              <ngb-highlight [result]="question.Title" [term]="filter.value"></ngb-highlight>
+              <hr>
+              <div>
+                <ngb-highlight [result]="question.tags" [term]="filter.value"></ngb-highlight>
+              </div>
+            </td>
+            <td>{{question.LastUpdate | date:'dd-MM-yyyy'}}</td>
+            <td>{{question.QuestionType}}</td>
+            <td>{{question.NumOfTests}}</td>
+            <td>
+              <div class="space">
+                <question-modal [question]="question"></question-modal>
+                <button class="btn btn-outline-secondary mr-2" *ngIf="!isTestform"
+                  (click)="navToEdit(question)">Edit</button>
+                <es-delete-modal [questionId]="question.ID" (onDeleteQuestion)="deleteQuestion($event)">
+                </es-delete-modal>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="space">
+        <button class="btn btn-outline-secondary mr-2" (click)="navToAddQuestion()">Add Question</button>
+        <button class="btn btn-outline-secondary mr-2" (click)="navMainMenu()">Back To Menu</button>
+      </div>
+    </div>
   </div>
-</form>
-<table class="table table-striped">
-  <thead class="head">
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Question Text and Tags</th>
-      <th scope="col">Last Update</th>
-      <th scope="col">Question Type</th>
-      <th scope="col"># of Tests</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let question of filteredQuestionsList | async">
-      <th scope="row">{{question.ID}}</th>
-      <td>
-        <ngb-highlight [result]="question.Title" [term]="filter.value"></ngb-highlight>
-        <hr>
-        <div>
-          <ngb-highlight [result]="question.tags" [term]="filter.value"></ngb-highlight>
-        </div>
-      </td>
-      <td>{{question.LastUpdate | date:'dd-MM-yyyy'}}</td>
-      <td>{{question.QuestionType}}</td>
-      <td>{{question.NumOfTests}}</td>
-      <td>
-        <div class="question-operations">
-          <question-modal [question]="question"></question-modal>
-          <button class="btn btn-outline-secondary mr-2" *ngIf="!isTestform" (click)="navToEdit(question)">Edit</button>
-          <es-delete-modal [questionId]="question.ID" (onDeleteQuestion)="deleteQuestion($event)"></es-delete-modal>
-          <!-- <button class="btn btn-outline-secondary mr-2" *ngIf="!isTestform"
-            (click)="deleteQuestion(question.ID)">Delete</button> -->
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<!-- <ul>
-  <li *ngFor="let question of questionsList">
-      <question [isTestform]="false" (onSelectQuestion)="deleteQuestion($event)" [question]="question"></question>
-  </li>
-</ul> -->
-<button class="btn btn-outline-secondary mr-2" (click)="navToAddQuestion()">Add Question</button>
-<button class="btn btn-outline-secondary mr-2" (click)="navMainMenu()">Back To Menu</button>
+</div>

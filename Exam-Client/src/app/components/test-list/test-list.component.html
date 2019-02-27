@@ -21,7 +21,7 @@
 <hr>
 <div style="display:flex;justify-content:space-between;">
   <div>
-    <button class="btn btn-outline-secondary mr-2">Back</button>
+    <button class="btn btn-outline-secondary mr-2" (click)="navToMenu()">Back</button>
   </div>
   <div>
     <button [routerLink]="['/testForm',{field:field}]" class="btn btn-outline-secondary mr-2">Create New Test</button>

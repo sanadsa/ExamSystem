@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class QuestionComponent implements OnInit {
   @Input() question: Question;
-  @Input() isTestform: boolean;
   @Output() onSelectQuestion: EventEmitter<any> = new EventEmitter();
   constFields: ConstantFields;
 

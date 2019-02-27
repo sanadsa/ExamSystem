@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question';
 import { QuestionService } from 'src/app/services/question.service';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, AbstractControl } from '@angular/forms';
@@ -16,7 +16,6 @@ export class TestFormComponent implements OnInit {
   minIndex: number = 0;
   maxIndex: number = 10;
   field: string;
-  isTestform: boolean = true;
   testForm: FormGroup;
   submitted: boolean;
   languages: string[] = ['Hebrew', 'English'];
@@ -24,11 +23,12 @@ export class TestFormComponent implements OnInit {
   questionsFilteredList: any[] = [];
   selectedQuestionsId: number[] = [];
   filterBy: string;
-  test: Test = {}
+  test: Test = {};
 
   constructor(private route: ActivatedRoute,
     private questionService: QuestionService,
     private formBuilder: FormBuilder,
+    private router: Router,
     private testSerive: TestService) { }
 
   ngOnInit() {
@@ -42,29 +42,16 @@ export class TestFormComponent implements OnInit {
           this.questionsFilteredList.forEach(q => {
             if (q.IsInTest == 1) {
               this.selectedQuestionsId.push(q.ID);
-            } 
+            }
           });
         });
       }
+      this.getmoreQuestions();
     });
     this.generateForm();
-
-    // this.testForm = this.formBuilder.group({
-    //   name: [this.test.TestName || '', Validators.required],
-    //   ownerEmail: [this.test.OwnerEmail || '', Validators.required],
-    //   passingGrade: [this.test.PassingGrade || '', Validators.required],
-    //   instructions: [this.test.Instructions || '', Validators.required],
-    //   msgSuccess: ['', Validators.required],
-    //   msgFailure: ['', Validators.required],
-    //   language: [this.test.Language || ''],
-    //   reviewAnswers: [this.test.ReviewAnswers || ''],
-    //   time: [this.test.Time || '', Validators.required],
-    //   questions: [] = [],
-    //   field: this.field
-    // });
-
   }
-  generateForm(): any {
+
+  private generateForm(): any {
     debugger;
     this.testForm = this.formBuilder.group({
       name: [this.test.TestName || '', Validators.required],
@@ -81,15 +68,18 @@ export class TestFormComponent implements OnInit {
     });
   }
 
-  filterByTags() {
+  public navToTestsList() {
+    this.router.navigate(['/testsList', { field: this.field }]);
+  }
+
+  public filterByTags() {
     // this.questionsFilteredList = this.questionsList.filter(q => q.content.toUpperCase().includes(this.filterBy.toUpperCase()));
     //  this.questionsFilteredList= this.questionsList.filter(q => q.tags.forEach(t => {
     //    t.toUpperCase().includes(this.filterBy.toUpperCase());
     //  }));
   }
 
-  addQuestion(data) {
-    
+  public addQuestion(data) {
     var dataExist = this.selectedQuestionsId.find(ID => ID == data.ID);
     if (!dataExist) {
       this.selectedQuestionsId.push(data.ID);
@@ -99,14 +89,13 @@ export class TestFormComponent implements OnInit {
     }
   }
 
-  selectAllFiltered() {
+  public selectAllFiltered() {
     this.questionsFilteredList.forEach(q => {
       this.addQuestion(q);
     });
   }
 
-  createTest() {
-    debugger;
+  public createTest() {
     if (this.test.ID) {
       this.generateForm();
     }
@@ -120,9 +109,7 @@ export class TestFormComponent implements OnInit {
     }, err => console.log(err));
   }
 
-  getmoreQuestions() {
-    debugger;
-
+  public getmoreQuestions() {
     this.questionService.getQuestions(this.field, this.minIndex, this.maxIndex).subscribe(questions => {
       questions.forEach(q => {
         this.questionsFilteredList.push(q);

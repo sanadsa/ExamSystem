@@ -1,0 +1,15 @@
+.second-div {
+    margin-top: 15px;
+}
+
+.mainDiv{
+    background-color: whitesmoke;
+    border: 1px solid #bbb;
+    box-shadow: 1px 1px 1px 1px #ccc;
+    padding: 10px;   
+}
+
+hr { 
+    color: #333;
+    background-color: #333;
+  }
