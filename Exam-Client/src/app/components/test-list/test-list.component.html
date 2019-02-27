@@ -1,29 +1,30 @@
-<div style="display:flex;justify-content: center;">
+<div class="content-center">
   <h1 style="margin-right: 15px;">Available Tests for</h1>
-  <h1 style="color:orange">{{field}}</h1>
+  <h1 class="orange">{{field}}</h1>
 </div>
-<div>
-  <div style="display: flex;
-  justify-content: space-around;">
-    <div>
-      Filter by tags : <input [(ngModel)]="filterBy" name="filterBy" type="text" (ngModelChange)="filterByTags()">
+<div class="container">
+  <div class="row second-div">
+    <div class="col-md-12 mainDiv">
+      <div>
+        <div class="content-around">
+          <div>
+            Filter by tags : <input [(ngModel)]="filterBy" name="filterBy" type="text" (ngModelChange)="filterByTags()">
+          </div>
+          <div>
+            <button class="btn btn-outline-secondary mr-2" type="button" (click)="selectAllFiltered()">Select All
+              Filtered</button>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div *ngFor="let test of tests">
+        <app-test [test]="test"></app-test>
+      </div>
+      <hr>
+      <div class="content-between">
+        <button [routerLink]="['/testForm',{field:field}]" class="btn btn-outline-secondary mr-2">Create New Test</button>
+        <button class="btn btn-outline-secondary mr-2" (click)="navToMenu()">Back To Menu</button>
+      </div>
     </div>
-    <div>
-      <button class="btn btn-outline-secondary mr-2" type="button" (click)="selectAllFiltered()">Select All
-        Filtered</button>
-    </div>
-  </div>
-</div>
-<br>
-<div *ngFor="let test of tests">
-  <app-test [test]="test"></app-test>
-</div>
-<hr>
-<div style="display:flex;justify-content:space-between;">
-  <div>
-    <button class="btn btn-outline-secondary mr-2" (click)="navToMenu()">Back</button>
-  </div>
-  <div>
-    <button [routerLink]="['/testForm',{field:field}]" class="btn btn-outline-secondary mr-2">Create New Test</button>
   </div>
 </div>

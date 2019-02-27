@@ -22,10 +22,10 @@ export class ExamComponent implements OnInit {
   index: number = 0;
   selectedAnswerId: number;
 
-  constructor(private examService: ExamService, private modalService: NgbModal,private router:Router) { }
+  constructor(private examService: ExamService, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit() {
-    this.examService.getExam(49).subscribe(result => {
+    this.examService.getExam(1).subscribe(result => {
       this.test = result[0][0];
       this.questions = result[1];
       this.allAnswers = result[2];
@@ -83,8 +83,8 @@ export class ExamComponent implements OnInit {
     }, err => console.log(err));
   }
 
-  onFinish(){
-this.router.navigate(['/examFinish',{test:this.test,questions:this.questions}])
+  onFinish() {
+    this.router.navigate(['/examFinish', { test: this.test, questions: this.questions }])
   }
 
 }

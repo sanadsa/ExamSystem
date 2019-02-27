@@ -31,3 +31,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     box-shadow: 1px 1px 1px 1px #ccc;
     padding: 10px;   
 }
+
+.content-around {
+    display: flex;
+    justify-content: space-around;
+}
+
+.content-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-center {
+    display: flex;
+    justify-content: center;
+}

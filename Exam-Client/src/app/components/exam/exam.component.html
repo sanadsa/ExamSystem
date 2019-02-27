@@ -3,21 +3,21 @@
     Test
   </div>
 </nav>
-
 <div>
-  Test Name : {{test.TestName}}
-</div>
-<div>
-  Instructions : {{test.Instructions}}
-</div>
-<div>
-  Time : {{test.Time}} minutes
+  <div>
+    Test Name : {{test.TestName}}
+  </div>
+  <div>
+    Instructions : {{test.Instructions}}
+  </div>
+  <div>
+    Time : {{test.Time}} minutes
+  </div>
 </div>
 
 <div class="center">
   Question #1
 </div>
-
 
 <div *ngIf="q">
   <div class="center">
@@ -29,19 +29,16 @@
   </div>
   <div [ngClass]="{'horizontal': q.Layout.toString() === 'Horizontal'}">
     <div class="center" *ngFor="let ans of answers; let i=index">
-      <input (click)="setAnswer($event)" value="{{ans.Info}}" *ngIf="q.QuestionType.toString() === 'SingleChoice'" type="radio"
-        name="single">{{ans.Info}}
+      {{ans.Info}}
+      <input (click)="setAnswer($event)" value="{{ans.Info}}" *ngIf="q.QuestionType.toString() === 'SingleChoice'"
+        type="radio" name="single">
       <input *ngIf="q.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
     </div>
   </div>
 </div>
-<div style="display:flex;justify-content:space-between">
-  <button class="btn btn-outline-secondary mr-2" (click)="previousQuestion()">
-    Previous Question
-  </button>
-  <button class="btn btn-outline-secondary mr-2" (click)="nextQuestion()">
-    Next Question
-  </button>
+<div class="content-between">
+  <button class="btn btn-outline-secondary mr-2" (click)="previousQuestion()">Previous Question</button>
+  <button class="btn btn-outline-secondary mr-2" (click)="nextQuestion()">Next Question</button>
 </div>
 <hr>
 <br>
@@ -49,7 +46,7 @@
   <button class="btn btn-outline-secondary mr-2" (click)="finishTest(content)"> Finish Test</button>
 </div>
 <ng-template #content let-modal>
-    <app-confirm-modal (onFinish)="onFinish()"></app-confirm-modal>
+  <app-confirm-modal (onFinish)="onFinish()"></app-confirm-modal>
 </ng-template>
 <!-- <div *ngFor="let q of questions">
   {{q.Title}}
