@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row second-div">
     <div class="col-md-12 mainDiv">
-        <form [formGroup]="loginUserForm">
+        <form [formGroup]="loginUserForm" (ngSubmit)="addUser()">
           <div class="formGroup">
             <label for="firstName">First Name:
               <input type="text" id="firstName" class="form-control" formControlName="firstName">

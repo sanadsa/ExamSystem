@@ -1,8 +1,9 @@
 import { TestService } from 'src/app/services/test.service';
 import { Test } from 'src/app/models/test';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login-user',
@@ -12,12 +13,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class LoginUserComponent implements OnInit {
   examId: string;
   field: string;
-  exam: Test;
   loginUserForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
+    private router: Router,
     private testService: TestService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -25,15 +27,22 @@ export class LoginUserComponent implements OnInit {
       this.field = params.get("field");
     });
 
-    this.testService.getTestById(this.examId, this.field).subscribe(req => {
-      this.exam = req;
-    }, err => console.log(err));
-
     this.loginUserForm = this.fb.group({
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
       email: ["", Validators.required]
     });
+  }
+
+  public addUser() {
+    // this.userService.addUser(JSON.stringify(this.loginUserForm)).subscribe(res => {
+    // }, err => console.log(err));
+
+    this.navToExam();
+  }
+
+  private navToExam() {
+    this.router.navigate(["/exam", { examId: this.examId }]);
   }
 
   get firstName() {
