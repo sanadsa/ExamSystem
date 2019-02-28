@@ -1,0 +1,35 @@
+<div class="title-center">
+  <h1 class="title">Choose Exam In </h1>
+  <h1 class="orange">{{field}}</h1>
+</div>
+<div class="container">
+  <div class="row second-div">
+    <div class="col-md-12 mainDiv">
+
+      <table class="table table-striped">
+        <thead class="head">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Test Name</th>
+            <th scope="col">Last Update</th>
+            <th scope="col"># of Questions</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let exam of exams">
+            <th scope="row">{{exam.ID}}</th>
+            <td>{{exam.TestName}}</td>
+            <td>{{exam.LastUpdate | date:'dd-MM-yyyy'}}</td>
+            <td>{{exam.NumOfQuestions}}</td>
+            <td>
+              <div class="space">
+                <button class="btn btn-outline-secondary mr-2" (click)="goToUserLogin(exam.ID, exam.Field)" type="button">Choose Exam</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

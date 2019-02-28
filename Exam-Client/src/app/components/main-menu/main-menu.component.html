@@ -1,7 +1,5 @@
 <nav class="navbar" style="background-color:darkblue">
-    <div style="color:gray">
-        Main Menu
-    </div>
+    <div style="color:gray">Main Menu</div>
 </nav>
 <div class="menuDiv">
     <div>
@@ -13,15 +11,19 @@
 </div>
 <div class="buttonsDiv">
     <div>
-        <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;" (click)="routeToQuestions(field.value)">Manage
-            Questions</button>
+        <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;"
+                (click)="routeToQuestions(field.value)">Manage Questions</button>
     </div>
     <div>
-        <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;" (click)="routeToManageTest(field.value)">Manage
-            Tests</button>
+        <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;"
+                (click)="routeToManageTest(field.value)">Manage Tests</button>
     </div>
     <div>
         <button class="btn btn-outline-secondary mr-2">Reports</button>
+    </div>
+    <div>
+        <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;"
+            (click)="routeToExams(field.value)">Exams</button>
     </div>
     <router-outlet></router-outlet>
 </div>

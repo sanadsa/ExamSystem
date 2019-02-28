@@ -21,4 +21,8 @@ export class MainMenuComponent implements OnInit {
   routeToQuestions(field) {
     this.router.navigate(['/questionList', { field: field }]);
   }
+
+  routeToExams(field: string) {
+    this.router.navigate(['/chooseExam', { field: field }]);
+  }
 }

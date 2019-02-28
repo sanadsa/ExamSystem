@@ -96,6 +96,7 @@ export class TestFormComponent implements OnInit {
   }
 
   public createTest() {
+    debugger;
     if (this.test.ID) {
       this.generateForm();
     }
@@ -105,7 +106,7 @@ export class TestFormComponent implements OnInit {
       return;
     }
     this.testSerive.addTest(this.testForm.value).subscribe(test => {
-      alert('succes');
+      this.navToTestsList();
     }, err => console.log(err));
   }
 

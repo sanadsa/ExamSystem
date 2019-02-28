@@ -110,6 +110,7 @@ export class QuestionFormComponent implements OnInit {
       Field: this.question.Field,
       Layout: this.questionFormGroup('layout').value,
       tags: this.questionFormGroup('tags').value,
+      NumOfTests: 0
     }
 
     return questionToAdd;

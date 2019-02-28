@@ -1,0 +1,30 @@
+<div class="title-center">
+  <h4 class="title">Please complete the following form to begin: </h4>
+</div>
+<div class="container">
+  <div class="row second-div">
+    <div class="col-md-12 mainDiv">
+        <form [formGroup]="loginUserForm">
+          <div class="formGroup">
+            <label for="firstName">First Name:
+              <input type="text" id="firstName" class="form-control" formControlName="firstName">
+            </label>
+            <div class="alert alert-danger" *ngIf="firstName.invalid && firstName.touched">required</div>
+          </div>
+          <div class="formGroup">
+            <label>Last Name:
+              <input type="text" class="form-control" formControlName="lastName">
+            </label>
+            <div class="alert alert-danger" *ngIf="lastName.invalid && lastName.touched">required</div>
+          </div>
+          <div class="formGroup">
+            <label>Email:
+              <input type="text" class="form-control" formControlName="email">
+            </label>
+            <div class="alert alert-danger" *ngIf="email.invalid && email.touched">required</div>
+          </div>
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+  </div>
+</div>

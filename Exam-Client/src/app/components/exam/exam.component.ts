@@ -4,7 +4,7 @@ import { ExamService } from 'src/app/services/exam.service';
 import { Test } from 'src/app/models/test';
 import { Question } from 'src/app/models/question';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-exam',
@@ -21,19 +21,27 @@ export class ExamComponent implements OnInit {
   q: Question
   index: number = 0;
   selectedAnswerId: number;
+  examId: string;
 
-  constructor(private examService: ExamService, private modalService: NgbModal, private router: Router) { }
+  constructor(private examService: ExamService,
+    private modalService: NgbModal,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.examService.getExam(1).subscribe(result => {
-      this.test = result[0][0];
-      this.questions = result[1];
-      this.allAnswers = result[2];
-      debugger;
-      this.q = this.questions[0];
-      this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
-    })
+    this.route.paramMap.subscribe(params => {
+      this.examId = params.get("examId");
+      this.examService.getExam(this.examId).subscribe(result => {
+        this.test = result[0][0];
+        this.questions = result[1];
+        this.allAnswers = result[2];
+        debugger;
+        this.q = this.questions[0];
+        this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
+      });
+    });
   }
+
   nextQuestion() {
     debugger;
     const answer = {

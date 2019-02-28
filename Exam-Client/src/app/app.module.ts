@@ -23,6 +23,9 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
 import { DecimalPipe } from '@angular/common';
 import { DeleteModalComponent } from './modals/delete-modal/delete-modal.component';
 import { ExamFinishComponent } from './components/exam-finish/exam-finish.component';
+import { ExamTimerComponent } from './components/exam-timer/exam-timer.component';
+import { ChooseExamComponent } from './components/exams-components/choose-exam/choose-exam.component';
+import { LoginUserComponent } from './components/Login/login-user/login-user.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { ExamFinishComponent } from './components/exam-finish/exam-finish.compon
     ExamComponent,
     ConfirmModalComponent,
     DeleteModalComponent,
-    ExamFinishComponent
+    ExamFinishComponent,
+    ExamTimerComponent,
+    ChooseExamComponent,
+    LoginUserComponent
     
   ],
   imports: [

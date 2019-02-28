@@ -3,53 +3,64 @@
     Test
   </div>
 </nav>
-<div>
-  <div>
-    Test Name : {{test.TestName}}
-  </div>
-  <div>
-    Instructions : {{test.Instructions}}
-  </div>
-  <div>
-    Time : {{test.Time}} minutes
-  </div>
-</div>
-
-<div class="center">
-  Question #1
-</div>
-
-<div *ngIf="q">
-  <div class="center">
-    {{q.Title}}
-    <br>
-  </div>
-  <div class="center">
-    <label for="questionContent">{{q.QuestionContent}}</label>
-  </div>
-  <div [ngClass]="{'horizontal': q.Layout.toString() === 'Horizontal'}">
-    <div class="center" *ngFor="let ans of answers; let i=index">
-      {{ans.Info}}
-      <input (click)="setAnswer($event)" value="{{ans.Info}}" *ngIf="q.QuestionType.toString() === 'SingleChoice'"
-        type="radio" name="single">
-      <input *ngIf="q.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
-    </div>
-  </div>
-</div>
-<div class="content-between">
-  <button class="btn btn-outline-secondary mr-2" (click)="previousQuestion()">Previous Question</button>
-  <button class="btn btn-outline-secondary mr-2" (click)="nextQuestion()">Next Question</button>
-</div>
-<hr>
-<br>
-<div style="display:flex;justify-content: flex-end;">
-  <button class="btn btn-outline-secondary mr-2" (click)="finishTest(content)"> Finish Test</button>
-</div>
-<ng-template #content let-modal>
-  <app-confirm-modal (onFinish)="onFinish()"></app-confirm-modal>
-</ng-template>
-<!-- <div *ngFor="let q of questions">
+<div class="container">
+  <div class="row second-div">
+    <div class="offset-2 col-md-8 mainDiv">
+      <div class="row">
+        <div>
+          <div>
+            Test Name : {{test.TestName}}
+          </div>
+          <div>
+            Instructions : {{test.Instructions}}
+          </div>
+        </div>
+        <div>
+          Time :
+          <es-exam-timer [totalMinutes]="test.Time"></es-exam-timer>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div>
+        <div class="center">
+          Question #{{index+1}}
+        </div>
+        <div *ngIf="q">
+          <div class="center">
+            {{q.Title}}
+            <br>
+          </div>
+          <div class="center">
+            <label for="questionContent">{{q.QuestionContent}}</label>
+          </div>
+          <div [ngClass]="{'horizontal': q.Layout.toString() === 'Horizontal'}">
+            <div class="center" *ngFor="let ans of answers; let i=index">
+              {{ans.Info}}
+              <input (click)="setAnswer($event)" value="{{ans.Info}}"
+                *ngIf="q.QuestionType.toString() === 'SingleChoice'" type="radio" name="single">
+              <input *ngIf="q.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-between">
+        <button *ngIf="index > 0" class="btn btn-outline-secondary mr-2" (click)="previousQuestion()">Previous Question</button>
+        <button class="btn btn-outline-secondary mr-2" (click)="nextQuestion()">Next Question</button>
+      </div>
+      <hr>
+      <br>
+      <div style="display:flex;justify-content: flex-end;">
+        <button class="btn btn-outline-secondary mr-2" (click)="finishTest(content)"> Finish Test</button>
+      </div>
+      <ng-template #content let-modal>
+        <app-confirm-modal (onFinish)="onFinish()"></app-confirm-modal>
+      </ng-template>
+      <!-- <div *ngFor="let q of questions">
   {{q.Title}}
   <br>
   {{q.QuestionContent}}
 </div> -->
+    </div>
+  </div>
+</div>

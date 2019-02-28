@@ -10,6 +10,8 @@ import { TestListComponent } from './components/test-list/test-list.component';
 import { TestFormComponent } from './components/test-form/test-form.component';
 import { ExaminedComponent } from './components/examined/examined.component';
 import { ExamComponent } from './components/exam/exam.component';
+import { ChooseExamComponent } from './components/exams-components/choose-exam/choose-exam.component';
+import { LoginUserComponent } from './components/Login/login-user/login-user.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterAdminComponent },
@@ -23,6 +25,8 @@ const routes: Routes = [
   { path: 'examined', component: ExaminedComponent },
   { path: 'exam', component: ExamComponent },
   { path: 'examFinish', component: ExamComponent },
+  { path: 'chooseExam', component: ChooseExamComponent },
+  { path: 'userLogin', component: LoginUserComponent },
 
   { path: '**', redirectTo: '' }
 
