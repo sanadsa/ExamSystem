@@ -30,13 +30,20 @@ export class LoginUserComponent implements OnInit {
     this.loginUserForm = this.fb.group({
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
-      email: ["", Validators.required]
+      email: ["", Validators.compose([Validators.required, Validators.email])],
+      phone: ["", Validators.compose([Validators.required, Validators.maxLength(10)])]
     });
   }
 
   public addUser() {
-    // this.userService.addUser(JSON.stringify(this.loginUserForm)).subscribe(res => {
-    // }, err => console.log(err));
+    let userToAdd = {
+      firstName: this.userForm.firstName.value,
+      lastName: this.userForm.lastName.value,
+      email: this.userForm.email.value,
+      phone: this.userForm.phone.value
+    }
+    this.userService.addUser(userToAdd).subscribe(res => {
+    }, err => console.log(err));
 
     this.navToExam();
   }
@@ -45,14 +52,8 @@ export class LoginUserComponent implements OnInit {
     this.router.navigate(["/exam", { examId: this.examId }]);
   }
 
-  get firstName() {
-    return this.loginUserForm.get("firstName");
+  get userForm() {
+    return this.loginUserForm.controls;
   }
-  get lastName() {
-    return this.loginUserForm.get("lastName");
-  }
-  get email() {
-    return this.loginUserForm.get("email");
-  }
-
+  
 }
