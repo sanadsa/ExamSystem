@@ -16,9 +16,9 @@ class DBContext {
         console.log("in add user repo");
         console.log(user);
         var request = dbPool.request();
-        request.input('FirstName', sql.VarChar(50), user.firstName);
-        request.input('LastName', sql.VarChar(50), user.lastName);
-        request.input('Email', sql.VarChar(50), user.email);
+        request.input('FirstName', sql.VarChar(250), user.firstName);
+        request.input('LastName', sql.VarChar(250), user.lastName);
+        request.input('Email', sql.VarChar(250), user.email);
         request.input('Phone', sql.VarChar(50), user.phone);
 
         request.execute('spUsers_Insert').then(function (req, err) {
