@@ -15,4 +15,8 @@ export class ExamService {
   saveAnswer(answer){
     return this.http.post('http://localhost:8000/api/Tests/saveAnswer/',answer);
   }
+
+  getExamResult(userID){
+    return this.http.get('http://localhost:8000/api/Tests/getExamResult/' + userID);
+  }
 }

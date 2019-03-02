@@ -4,7 +4,7 @@
 <div>
   Your grade: {{grade}}
 </div>
-<div>
+<div [ngStyle]="{'color':grade > test.PassingGrade ? 'green' : 'red' }">
   Status: {{status}}
 </div>
 <div>
@@ -14,22 +14,32 @@
   Passing Grade : The minimum grade to pass this test is {{test.PassingGrade}}
 </div>
 <div *ngIf="test.ReviewAnswers">
-  <div *ngFor="let question of questions">
-    <div *ngIf="question">
-      <div class="center">
-        {{question.Title}}
-        <br>
-      </div>
-      <div class="center">
-        <label for="questionContent">{{question.QuestionContent}}</label>
-      </div>
-      <div [ngClass]="{'horizontal': question.Layout.toString() === 'Horizontal'}">
-        <div class="center" *ngFor="let ans of answers; let i=index">
-          <input (click)="setAnswer($event)" value="{{ans.Info}}" *ngIf="question.QuestionType.toString() === 'SingleChoice'"
-            type="radio" name="single">{{ans.Info}}
-          <input *ngIf="question.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
-        </div>
+  <div class="center">
+    Question #{{index+1}}
+  </div>
+  <div *ngIf="q">
+    <div class="center">
+      {{q.Title}}
+      <br>
+    </div>
+    <div class="center">
+      <label for="questionContent">{{q.QuestionContent}}</label>
+    </div>
+    <div [ngClass]="{'horizontal': q.Layout.toString() === 'Horizontal'}">
+      <div  class="center" *ngFor="let ans of answers; let i=index">
+        <label [ngClass]="{'correct': ans.CorrectAnswer}">
+        {{ans.Info}}
+        </label>
+        <input  type="radio" (click)="setAnswer(ans)" checked="{{ans.Selected? 'checked':''}}" *ngIf="q.QuestionType.toString() === 'SingleChoice'"
+          name="single">
+        <input *ngIf="q.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
       </div>
     </div>
   </div>
+
+  <div class="content-between">
+    <button *ngIf="index > 0" class="btn btn-outline-secondary mr-2" (click)="previousQuestion()">Previous Question</button>
+    <button class="btn btn-outline-secondary mr-2" (click)="nextQuestion()">Next Question</button>
+  </div>
+
 </div>

@@ -37,8 +37,8 @@
           <div [ngClass]="{'horizontal': q.Layout.toString() === 'Horizontal'}">
             <div class="center" *ngFor="let ans of answers; let i=index">
               {{ans.Info}}
-              <input (click)="setAnswer($event)" value="{{ans.Info}}"
-                *ngIf="q.QuestionType.toString() === 'SingleChoice'" type="radio" name="single">
+              <input type="radio" (click)="setAnswer(ans)" checked="{{ans.Selected? 'checked':''}}"
+                *ngIf="q.QuestionType.toString() === 'SingleChoice'"  name="single">
               <input *ngIf="q.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
             </div>
           </div>
@@ -54,13 +54,9 @@
         <button class="btn btn-outline-secondary mr-2" (click)="finishTest(content)"> Finish Test</button>
       </div>
       <ng-template #content let-modal>
-        <app-confirm-modal (onFinish)="onFinish()"></app-confirm-modal>
+        <app-confirm-modal (onFinish)="onFinish($event)"></app-confirm-modal>
       </ng-template>
-      <!-- <div *ngFor="let q of questions">
-  {{q.Title}}
-  <br>
-  {{q.QuestionContent}}
-</div> -->
+  
     </div>
   </div>
 </div>

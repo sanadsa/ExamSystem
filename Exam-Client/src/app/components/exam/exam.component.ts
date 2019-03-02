@@ -13,7 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ExamComponent implements OnInit {
   @ViewChild('content') content: any;
-  userId: number = 1;
+  userId: number = 3;
   test: Test = {};
   questions: Question[];
   allAnswers: any[];
@@ -35,23 +35,40 @@ export class ExamComponent implements OnInit {
         this.test = result[0][0];
         this.questions = result[1];
         this.allAnswers = result[2];
-        debugger;
         this.q = this.questions[0];
         this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
+        this.answers.forEach(a => {
+          a.Selected = false;
+        })
       });
     });
   }
 
   nextQuestion() {
-    debugger;
+    const selectValue = this.answers.find(a => a.Selected);
+    if (!selectValue) {
+      this.index++;
+      this.q = this.questions[this.index];
+      if (!this.q) {
+        this.index--;
+        this.q = this.questions[this.index];
+        this.modalService.open(this.content);
+        return;
+      }
+      this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
+      return;
+    }
+
     const answer = {
       questionID: this.q.ID,
       userID: this.userId,
-      answerID: this.selectedAnswerId
+      answerID: selectValue.ID
     }
     this.index++;
     this.q = this.questions[this.index];
     if (!this.q) {
+      this.examService.saveAnswer(answer).subscribe(result => {
+      }, err => console.log(err));
       this.index--;
       this.q = this.questions[this.index];
       this.modalService.open(this.content);
@@ -60,12 +77,15 @@ export class ExamComponent implements OnInit {
     this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
     this.examService.saveAnswer(answer).subscribe(result => {
     }, err => console.log(err));
+    this.selectedAnswerId = 0;
   }
 
-  setAnswer(event) {
-    const choice = event.target.value;
-    const answer = this.answers.find(a => a.Info == choice);
-    this.selectedAnswerId = answer.ID;
+  setAnswer(ans) {
+    this.answers.forEach(r => {
+      r.Selected = false;
+    });
+    ans.Selected = true;
+    this.selectedAnswerId = ans.ID;
   }
 
   finishTest(content) {
@@ -73,26 +93,57 @@ export class ExamComponent implements OnInit {
   }
 
   previousQuestion() {
-    debugger;
+    const selectValue = this.answers.find(a => a.Selected);
+    if (!selectValue) {
+      this.index--;
+      this.q = this.questions[this.index];
+      if (!this.q) {
+        this.index++;
+        this.q = this.questions[this.index];
+        this.modalService.open(this.content);
+        return;
+      }
+      this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
+      return;
+    }
+
     const answer = {
       questionID: this.q.ID,
       userID: this.userId,
-      answerID: this.selectedAnswerId
+      answerID: selectValue.ID
     }
     this.index--;
     this.q = this.questions[this.index];
     if (!this.q) {
+      this.examService.saveAnswer(answer).subscribe(result => {
+      }, err => console.log(err));
       this.index++;
       this.q = this.questions[this.index];
+      this.modalService.open(this.content);
       return;
     }
     this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
     this.examService.saveAnswer(answer).subscribe(result => {
     }, err => console.log(err));
+    this.selectedAnswerId = 0;
+  }
+
+  setAnswerSelected(answerID) {
+    this.answers.forEach(a => a.Selected = false);
+    this.answers.find(a => a.ID == answerID).Selected = true;
   }
 
   onFinish() {
-    this.router.navigate(['/examFinish', { test: this.test, questions: this.questions }])
+    this.router.navigate(['/examFinish',
+      {
+        test: JSON.stringify(this.test),
+        questions: JSON.stringify(this.questions),
+        answers: JSON.stringify(this.allAnswers),
+        userId: this.userId
+      }
+    ]);
+    this.modalService.dismissAll();
   }
+
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -8,6 +8,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ConfirmModalComponent implements OnInit {
 
+  @Output() onFinish = new EventEmitter();
   constructor(config: NgbModalConfig, private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -17,4 +18,7 @@ export class ConfirmModalComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  finishTest() {
+    this.onFinish.emit();
+  }
 }

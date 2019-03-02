@@ -157,7 +157,7 @@ class DBContext {
      */
     editQuestion(question, callback) {
         var request = dbPool.request();
-        request.input('QuestionId', sql.Int, question.ID)
+        request.input('QuestionId', sql.Int, question.ID);
         request.input('Title', sql.VarChar(50), question.Title);
         request.input('QuestionType', sql.VarChar(50), question.QuestionType);
         request.input('QuestionContent', sql.VarChar(50), question.QuestionContent);
@@ -174,6 +174,19 @@ class DBContext {
                 callback(req);
             }
         });
+    }
+
+    getExamResult(userId,callback){
+        var request = dbPool.request();
+        request.input('UserID', sql.Int, userId);
+        request.execute('spExams_GetExamResult').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Execution error calling 'spExams_GetExamResult'" })
+            } else {
+                callback(req.recordset);
+            }
+        });
+
     }
 
     /**

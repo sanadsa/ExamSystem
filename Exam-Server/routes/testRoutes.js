@@ -70,4 +70,17 @@ router.post('/saveAnswer/', function (req, res) {
 });
 
 
+
+router.get('/getExamResult/:userID', function (req, res) {
+    const userID = req.params['userID'];
+    mainDB.getExamResult(userID, function (result, error) {
+        if (result) {
+            res.status(200).send(result);
+        } else if (error) {
+            res.status(400).send(error);
+        }
+    })
+});
+
+
 module.exports = router;
