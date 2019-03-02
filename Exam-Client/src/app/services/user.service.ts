@@ -9,7 +9,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public addUser(user) {
+  public addUser(user: any): Observable<any> {
     debugger;
     return this.http.post('http://localhost:8000/api/User/createUser', user);
   }
