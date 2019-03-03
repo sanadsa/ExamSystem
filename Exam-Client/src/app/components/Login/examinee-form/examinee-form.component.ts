@@ -6,11 +6,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-login-user',
-  templateUrl: './login-user.component.html',
-  styleUrls: ['./login-user.component.css']
+  selector: 'app-examinee-form',
+  templateUrl: './examinee-form.component.html',
+  styleUrls: ['./examinee-form.component.css']
 })
-export class LoginUserComponent implements OnInit {
+export class ExamineeFormComponent implements OnInit {
   examId: string;
   field: string;
   loginUserForm: FormGroup;
@@ -30,7 +30,7 @@ export class LoginUserComponent implements OnInit {
     this.loginUserForm = this.fb.group({
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
-      email: ["", Validators.compose([Validators.required, Validators.email])],
+      email: ["", Validators.compose([Validators.required, Validators.email, ])],
       phone: ["", Validators.compose([Validators.required, Validators.maxLength(10)])]
     });
   }

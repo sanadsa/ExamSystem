@@ -18,12 +18,12 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use('/api/Question', questionRouter);
-app.use('/api/Authentication', authenticationRouter);
-app.use('/api/Tests', testRouter);
-app.use('/api/User', userRouter);
-
 app.use(bodyParser.json());
 app.listen(8000, () => {
     console.log('server ba avir');
 });
+
+app.use('/api/Question', questionRouter);
+app.use('/api/Authentication', authenticationRouter);
+app.use('/api/Tests', testRouter);
+app.use('/api/User', userRouter);

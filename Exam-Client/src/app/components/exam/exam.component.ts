@@ -36,6 +36,7 @@ export class ExamComponent implements OnInit {
         this.questions = result[1];
         this.allAnswers = result[2];
         this.q = this.questions[0];
+        debugger;
         this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
         this.answers.forEach(a => {
           a.Selected = false;
@@ -81,11 +82,17 @@ export class ExamComponent implements OnInit {
   }
 
   setAnswer(ans) {
-    this.answers.forEach(r => {
-      r.Selected = false;
-    });
-    ans.Selected = true;
-    this.selectedAnswerId = ans.ID;
+    debugger;
+    if (this.q.QuestionType.toString() == 'SingleChoice') {
+      this.answers.forEach(r => {
+        r.Selected = false;
+      });
+      ans.Selected = true;
+      this.selectedAnswerId = ans.ID;
+    } else {
+      ans.Selected = !ans.Selected;
+    }
+
   }
 
   finishTest(content) {
@@ -134,7 +141,7 @@ export class ExamComponent implements OnInit {
   }
 
   onFinish() {
-    this.router.navigate(['/examFinish',
+    this.router.navigate(['/examResult',
       {
         test: JSON.stringify(this.test),
         questions: JSON.stringify(this.questions),

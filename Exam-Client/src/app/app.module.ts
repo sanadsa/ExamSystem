@@ -22,10 +22,10 @@ import { ExamComponent } from './components/exam/exam.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 import { DecimalPipe } from '@angular/common';
 import { DeleteModalComponent } from './modals/delete-modal/delete-modal.component';
-import { ExamFinishComponent } from './components/exam-finish/exam-finish.component';
+import { ExamResultComponent } from './components/exam-result/exam-result.component';
 import { ExamTimerComponent } from './components/exam-timer/exam-timer.component';
 import { ChooseExamComponent } from './components/exams-components/choose-exam/choose-exam.component';
-import { LoginUserComponent } from './components/Login/login-user/login-user.component';
+import { ExamineeFormComponent } from './components/Login/examinee-form/examinee-form.component';
 
 @NgModule({
   declarations: [
@@ -45,10 +45,10 @@ import { LoginUserComponent } from './components/Login/login-user/login-user.com
     ExamComponent,
     ConfirmModalComponent,
     DeleteModalComponent,
-    ExamFinishComponent,
+    ExamResultComponent,
     ExamTimerComponent,
     ChooseExamComponent,
-    LoginUserComponent
+    ExamineeFormComponent
     
   ],
   imports: [

@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Test } from 'src/app/models/test';
-import { Question } from 'src/app/models/question';
+import { Question, eQuestionType } from 'src/app/models/question';
 import { ExamService } from 'src/app/services/exam.service';
 
 @Component({
-  selector: 'app-exam-finish',
-  templateUrl: './exam-finish.component.html',
-  styleUrls: ['./exam-finish.component.css']
+  selector: 'app-exam-result',
+  templateUrl: './exam-result.component.html',
+  styleUrls: ['./exam-result.component.css']
 })
-export class ExamFinishComponent implements OnInit {
+export class ExamResultComponent implements OnInit {
+private questionType = eQuestionType;
 
   test: Test;
   questions: Question[]
@@ -32,11 +33,19 @@ export class ExamFinishComponent implements OnInit {
       this.q = this.questions[this.index];
       this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
       this.userId = parseInt(params.get('userId'));
-      this.allAnswers.forEach(a => {
-        if (a.Selected && a.CorrectAnswer) {
-          this.numberOfRightAnswers++;
+      for (let index = 0; index < this.questions.length; index++) {
+      this.answers = this.allAnswers.filter(a => a.QuestionId == this.questions[index].ID);
+      this.answers.forEach(answer => {
+        if (this.questions[index].QuestionType == eQuestionType.SingleChoice) {
+          if (answer.Selected && answer.CorrectAnswer) {
+            this.numberOfRightAnswers++;
+          }
+        }
+        else{
+          
         }
       });
+      }
       this.calculateGrade();
     })
   }
