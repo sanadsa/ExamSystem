@@ -68,7 +68,6 @@ private questionType = eQuestionType;
     this.q = this.questions[this.index];
     }
     this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
-
   }
 
   nextQuestion() {
@@ -80,7 +79,5 @@ private questionType = eQuestionType;
     }
     this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
   }
-
-
 
 }

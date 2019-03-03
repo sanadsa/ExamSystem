@@ -36,16 +36,11 @@ export class ExamineeFormComponent implements OnInit {
   }
 
   public addUser() {
-    let userToAdd = {
-      firstName: this.userForm.firstName.value,
-      lastName: this.userForm.lastName.value,
-      email: this.userForm.email.value,
-      phone: this.userForm.phone.value
-    }
-    this.userService.addUser(userToAdd).subscribe(res => {
+    this.userService.addUser(this.loginUserForm.value).subscribe(res => {
+      if (res) {
+        this.navToExam();
+      }
     }, err => console.log(err));
-
-    this.navToExam();
   }
 
   private navToExam() {
@@ -55,5 +50,5 @@ export class ExamineeFormComponent implements OnInit {
   get userForm() {
     return this.loginUserForm.controls;
   }
-  
+
 }

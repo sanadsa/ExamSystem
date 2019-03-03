@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row question">
-    <div (click)="test($event,this.question)" class="col-md-10">
+    <div [ngStyle]="{'background-color': question.IsInTest == 1 ? '#00ff00' : ''}"
+     (click)="test($event,this.question)" class="col-md-10">
       {{question.Title}}
       <br>
       {{question.tags}}
