@@ -11,6 +11,6 @@ export class UserService {
 
   public addUser(user: any): Observable<any> {
     debugger;
-    return this.http.post('http://localhost:8000/api/User/createUser', user);
+    return this.http.post('http://localhost:8000/api/User/createUser/', user);
   }
 }

@@ -83,31 +83,24 @@
                 <div class="orange">
                     Select the Questions that you want to include in the test
                 </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <!-- <div>
-            Filter by tags : <input [(ngModel)]="filterBy" name="filterBy" type="text" (ngModelChange)="filterByTags()">
-        </div> -->
+                <div class="content-between">
                     <div>
                         <button type="button" class="btn btn-outline-secondary mr-2"
                             (click)="selectAllFiltered()">Select All Questions</button>
                     </div>
                 </div>
                 <div *ngFor="let question of questionsFilteredList">
-                    <div [ngStyle]="{'background-color': question.IsInTest == 1 ? '#00ff00' : ''}">
+                    <div>
                         <question [question]="question" (onSelectQuestion)="addQuestion($event)"></question>
                         <hr>
                     </div>
                 </div>
-                <!-- <div>
-        <button type="button" class="btn btn-outline-secondary mr-2" (click)="getmoreQuestions()">Show more
-            Questions</button>
-    </div> -->
-                <div style="display: flex; justify-content: center;">
+                <div class="content-center">
                     The test will include {{selectedQuestionsId.length}} questions
                 </div>
                 <br>
                 <hr>
-                <div style="display: flex; justify-content: center;">
+                <div class="content-center">
                     <button class="btn btn-outline-secondary mr-2" type="submit">Save</button>
                     <button class="btn btn-outline-secondary mr-2" (click)="navToTestsList()">Cancel</button>
                 </div>

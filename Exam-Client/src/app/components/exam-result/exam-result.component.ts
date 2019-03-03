@@ -5,11 +5,11 @@ import { Question } from 'src/app/models/question';
 import { ExamService } from 'src/app/services/exam.service';
 
 @Component({
-  selector: 'app-exam-finish',
-  templateUrl: './exam-finish.component.html',
-  styleUrls: ['./exam-finish.component.css']
+  selector: 'app-exam-result',
+  templateUrl: './exam-result.component.html',
+  styleUrls: ['./exam-result.component.css']
 })
-export class ExamFinishComponent implements OnInit {
+export class ExamResultComponent implements OnInit {
 
   test: Test;
   questions: Question[]
@@ -59,7 +59,6 @@ export class ExamFinishComponent implements OnInit {
     this.q = this.questions[this.index];
     }
     this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
-
   }
 
   nextQuestion() {
@@ -71,7 +70,5 @@ export class ExamFinishComponent implements OnInit {
     }
     this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
   }
-
-
 
 }

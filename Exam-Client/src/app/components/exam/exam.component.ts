@@ -134,7 +134,7 @@ export class ExamComponent implements OnInit {
   }
 
   onFinish() {
-    this.router.navigate(['/examFinish',
+    this.router.navigate(['/examResult',
       {
         test: JSON.stringify(this.test),
         questions: JSON.stringify(this.questions),

@@ -27,7 +27,7 @@ export class ChooseExamComponent implements OnInit {
   }
 
   goToUserLogin(examId: number, field: string) {
-    this.router.navigate(["/userLogin", { examId: examId, field: field }]);
+    this.router.navigate(["/examineeForm", { examId: examId, field: field }]);
   }
 
 }

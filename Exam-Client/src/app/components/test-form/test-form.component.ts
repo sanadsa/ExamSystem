@@ -5,6 +5,7 @@ import { QuestionService } from 'src/app/services/question.service';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, AbstractControl } from '@angular/forms';
 import { TestService } from 'src/app/services/test.service';
 import { Test } from 'src/app/models/test';
+import { disableDebugTools } from '@angular/platform-browser';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class TestFormComponent implements OnInit {
   selectedQuestionsId: number[] = [];
   filterBy: string;
   test: Test = {};
+  isAllQuestionsSelected: boolean = false;
 
   constructor(private route: ActivatedRoute,
     private questionService: QuestionService,
@@ -80,7 +82,8 @@ export class TestFormComponent implements OnInit {
   }
 
   public addQuestion(data) {
-    var dataExist = this.selectedQuestionsId.find(ID => ID == data.ID);
+    debugger;
+    let dataExist = this.selectedQuestionsId.find(ID => ID == data.ID);
     if (!dataExist) {
       this.selectedQuestionsId.push(data.ID);
     } else {
@@ -89,10 +92,32 @@ export class TestFormComponent implements OnInit {
     }
   }
 
+  private addNotSelectedQuestion(question) {
+    let questinInSelectedList = this.selectedQuestionsId.find(ID => ID == question.ID);
+    if (!questinInSelectedList) {
+      this.selectedQuestionsId.push(question.ID);
+    }  
+  }
+
+  private removeQuesiotn(question) {
+    const indexOfQuestion = this.selectedQuestionsId.findIndex(ID => ID == question.ID);
+    this.selectedQuestionsId.splice(indexOfQuestion, 1);
+  }
+
   public selectAllFiltered() {
-    this.questionsFilteredList.forEach(q => {
-      this.addQuestion(q);
-    });
+    if (this.isAllQuestionsSelected) {
+      this.questionsFilteredList.forEach(q => {
+        this.removeQuesiotn(q);
+        q.IsInTest = false;
+      });  
+      this.isAllQuestionsSelected = false;
+    } else {
+      this.questionsFilteredList.forEach(q => {
+        this.addNotSelectedQuestion(q);
+        q.IsInTest = true;
+      });
+      this.isAllQuestionsSelected = true;
+    }
   }
 
   public createTest() {

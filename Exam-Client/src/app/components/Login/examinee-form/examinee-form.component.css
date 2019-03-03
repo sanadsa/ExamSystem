@@ -1,0 +1,10 @@
+.second-div {
+    margin-top: 20px;
+}
+
+.mainDiv {
+    background-color: whitesmoke;
+    border: 2px solid #bbb;
+    box-shadow: 1px 1px 1px 1px #ccc;
+    padding: 50px; 
+}

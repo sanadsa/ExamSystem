@@ -8,7 +8,7 @@ router.post('/createUser', function (req, res) {
         if (err) {
             res.status(400).send(err);
         } else {
-            res.status(200).send(result.returnValue.toString());
+            res.status(200).send(result);
         }
     });
 });
