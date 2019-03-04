@@ -14,15 +14,19 @@ export class MainMenuComponent implements OnInit {
   ngOnInit() {
   }
 
-  routeToManageTest(field) {
+  routeToManageTest(field: string): void {
     this.router.navigate(['/testsList', { field: field }]);
   }
 
-  routeToQuestions(field) {
+  routeToQuestions(field: string): void {
     this.router.navigate(['/questionList', { field: field }]);
   }
 
-  routeToExams(field: string) {
+  routeToReports(field: string): void {
+    this.router.navigate(['/examReport', { field: field }]);
+  }
+
+  routeToExams(field: string): void {
     this.router.navigate(['/chooseExam', { field: field }]);
   }
 }

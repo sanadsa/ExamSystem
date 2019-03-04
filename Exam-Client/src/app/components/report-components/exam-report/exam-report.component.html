@@ -1,0 +1,44 @@
+<div class="title-center">
+  <h3 class="title">Exam Report For</h3>
+  <h3 class="orange">{{field}}</h3>
+</div>
+<div class="container">
+  <div class="row second-div">
+    <div class="offset-2 col-md-8 mainDiv">
+      <div>
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-secondary orange" id="dropdownBasic1" ngbDropdownToggle>Choose Exam</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button class="dropdown-item" *ngFor="let exam of exams" (click)="chooseExam(exam)">
+                {{exam.ID}} - {{exam.TestName}}</button>
+            </div>
+            {{chosenExam.TestName}}
+          </div>
+        </div>
+        <div>
+            <p>Date Range</p>
+
+            <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+            </ngb-datepicker>
+            
+            <ng-template #t let-date let-focused="focused">
+              <span class="custom-day"
+                    [class.focused]="focused"
+                    [class.range]="isRange(date)"
+                    [class.faded]="isHovered(date) || isInside(date)"
+                    (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null">
+                {{ date.day }}
+              </span>
+            </ng-template>
+            
+            <hr>
+            
+            <pre>From: {{ fromDate.year }},{{fromDate.month}} </pre>
+            <pre>To: {{ toDate | json }} </pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

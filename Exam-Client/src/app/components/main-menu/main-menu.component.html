@@ -12,18 +12,25 @@
 <div class="buttonsDiv">
     <div>
         <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;"
-                (click)="routeToQuestions(field.value)">Manage Questions</button>
+            (click)="routeToQuestions(field.value)">
+            Manage Questions
+        </button>
     </div>
     <div>
         <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;"
-                (click)="routeToManageTest(field.value)">Manage Tests</button>
+            (click)="routeToManageTest(field.value)">
+            Manage Tests
+        </button>
     </div>
     <div>
-        <button class="btn btn-outline-secondary mr-2">Reports</button>
+        <button (click)="routeToReports(field.value)" class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;">
+            Reports
+        </button>
     </div>
     <div>
-        <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;"
-            (click)="routeToExams(field.value)">Exams</button>
+        <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;" (click)="routeToExams(field.value)">
+            Exams
+        </button>
     </div>
     <router-outlet></router-outlet>
 </div>
