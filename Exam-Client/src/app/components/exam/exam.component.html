@@ -39,7 +39,7 @@
               {{ans.Info}}
               <input type="radio" (click)="setAnswer(ans)" checked="{{ans.Selected? 'checked':''}}"
                 *ngIf="q.QuestionType.toString() === 'SingleChoice'"  name="single">
-              <input *ngIf="q.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
+              <input checked="{{ans.Selected? 'checked':''}}" (click)="setAnswer(ans)" *ngIf="q.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
             </div>
           </div>
         </div>

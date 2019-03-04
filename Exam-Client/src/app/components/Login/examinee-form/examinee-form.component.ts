@@ -30,7 +30,7 @@ export class ExamineeFormComponent implements OnInit {
     this.loginUserForm = this.fb.group({
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
-      email: ["", Validators.compose([Validators.required, Validators.email])],
+      email: ["", Validators.compose([Validators.required, Validators.email, ])],
       phone: ["", Validators.compose([Validators.required, Validators.maxLength(10)])]
     });
   }
