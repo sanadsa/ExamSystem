@@ -52,13 +52,14 @@ export class QuestionFormComponent implements OnInit {
 
     this.questionForm = this.fb.group({
       question: this.fb.group({
-        questionType: [this.question.QuestionType || '', Validators.required],
+        questionType: [this.question.QuestionType || 'SingleChoice', Validators.required],
         questionText: [this.question.Title || '', Validators.required],
         belowQuestion: [this.question.QuestionContent || '', Validators.required],
         tags: [this.question.tags || '', Validators.required],
         layout: [this.question.Layout || '', Validators.required]
       })
     })
+    console.log(this.questionFormGroup('questionType'));
   }
 
   get answersFormArray() {

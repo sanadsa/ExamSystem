@@ -26,6 +26,9 @@ import { ExamResultComponent } from './components/exam-result/exam-result.compon
 import { ExamTimerComponent } from './components/exam-timer/exam-timer.component';
 import { ChooseExamComponent } from './components/exams-components/choose-exam/choose-exam.component';
 import { ExamineeFormComponent } from './components/Login/examinee-form/examinee-form.component';
+import { ExamReportMenuComponent } from './components/report-components/exam-report-menu/exam-report-menu.component';
+import { ReportsComponent } from './components/report-components/reports/reports.component';
+import { ExamReportComponent } from './components/report-components/exam-report/exam-report.component';
 
 @NgModule({
   declarations: [
@@ -48,8 +51,10 @@ import { ExamineeFormComponent } from './components/Login/examinee-form/examinee
     ExamResultComponent,
     ExamTimerComponent,
     ChooseExamComponent,
-    ExamineeFormComponent
-    
+    ExamineeFormComponent,
+    ExamReportMenuComponent,
+    ReportsComponent,
+    ExamReportComponent
   ],
   imports: [
     BrowserModule,

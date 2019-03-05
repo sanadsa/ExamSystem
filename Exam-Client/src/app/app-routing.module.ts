@@ -13,6 +13,9 @@ import { ExamComponent } from './components/exam/exam.component';
 import { ChooseExamComponent } from './components/exams-components/choose-exam/choose-exam.component';
 import { ExamineeFormComponent } from './components/Login/examinee-form/examinee-form.component';
 import { ExamResultComponent } from './components/exam-result/exam-result.component';
+import { ExamReportMenuComponent } from './components/report-components/exam-report-menu/exam-report-menu.component';
+import { ReportsComponent } from './components/report-components/reports/reports.component';
+import { ExamReportComponent } from './components/report-components/exam-report/exam-report.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterAdminComponent },
@@ -28,6 +31,9 @@ const routes: Routes = [
   { path: 'examResult', component: ExamResultComponent },
   { path: 'chooseExam', component: ChooseExamComponent },
   { path: 'examineeForm', component: ExamineeFormComponent },
+  { path: 'examReport', component: ExamReportMenuComponent },
+  { path: 'reports', component: ReportsComponent },
+  { path: 'examReportDetails', component: ExamReportComponent },
 
   { path: '**', redirectTo: '' }
 

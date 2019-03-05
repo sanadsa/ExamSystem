@@ -49,7 +49,7 @@
                   <input formControlName="IsCorrect"
                     *ngIf="questionFormGroup('questionType').value == 'MultipleSelection'" type="checkbox"
                     name="IsCorrect" class="check-answer">
-                  <input formControlName="IsCorrect" *ngIf="questionFormGroup('questionType').value == 'SingleChoice'"
+                  <input formControlName="IsCorrect" *ngIf="questionFormGroup('questionType').value == 'SingleChoice' "
                     type="radio" name="IsCorrect" class="check-answer" (click)="checkCorrectAnswer(i)">
                 </div>
               </div>
