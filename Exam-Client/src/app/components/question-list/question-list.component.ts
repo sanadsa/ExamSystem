@@ -56,7 +56,7 @@ export class QuestionListComponent implements OnInit {
   public navToAddQuestion() {
     const question: Question = {
       Field: this.field,
-      QuestionType: eQuestionType.SingleChoice,
+      QuestionType: null,
       Title: '',
       QuestionContent: '',
       Active: false,

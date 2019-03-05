@@ -2,35 +2,43 @@
     <div style="color:gray">Main Menu</div>
 </nav>
 <div class="menuDiv">
-    <div>
-        Choose a field of study
+    <div class="title-center">
+        <h3 class="title">Choose a field of study</h3>
         <select #field>
             <option selected="field" *ngFor="let field of studyFields">{{field}}</option>
         </select>
     </div>
 </div>
-<div class="buttonsDiv">
-    <div>
-        <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;"
-            (click)="routeToQuestions(field.value)">
-            Manage Questions
-        </button>
+<div class="container">
+    <div class="row second-div">
+        <div class="offset-2 col-md-8 mainDiv">
+            <div class="buttonsDiv">
+                <div>
+                    <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;"
+                        (click)="routeToQuestions(field.value)">
+                        Manage Questions
+                    </button>
+                </div>
+                <div>
+                    <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;"
+                        (click)="routeToManageTest(field.value)">
+                        Manage Tests
+                    </button>
+                </div>
+                <div>
+                    <button (click)="routeToReports(field.value)" class="btn btn-outline-secondary mr-2"
+                        style="margin-bottom: 10px;">
+                        Reports
+                    </button>
+                </div>
+                <div>
+                    <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;"
+                        (click)="routeToExams(field.value)">
+                        Exams
+                    </button>
+                </div>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </div>
-    <div>
-        <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;"
-            (click)="routeToManageTest(field.value)">
-            Manage Tests
-        </button>
-    </div>
-    <div>
-        <button (click)="routeToReports(field.value)" class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;">
-            Reports
-        </button>
-    </div>
-    <div>
-        <button class="btn btn-outline-secondary mr-2" style="margin-bottom: 10px;" (click)="routeToExams(field.value)">
-            Exams
-        </button>
-    </div>
-    <router-outlet></router-outlet>
 </div>

@@ -23,7 +23,7 @@ export class MainMenuComponent implements OnInit {
   }
 
   routeToReports(field: string): void {
-    this.router.navigate(['/examReport', { field: field }]);
+    this.router.navigate(['/reports', { field: field }]);
   }
 
   routeToExams(field: string): void {

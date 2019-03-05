@@ -11,7 +11,7 @@
           <div class="formGroup">
             <label for="questionType">Question Type: </label>
             <select formControlName="questionType" id="questionType" class="form-control">
-              <option *ngFor="let type of questionType" >{{type}}</option>
+              <option *ngFor="let type of questionType" [value]="type">{{type}}</option>
             </select>
             <div *ngIf="questionFormGroup('questionType').touched && questionFormGroup('questionType').invalid"
               class="alert alert-danger">Type is required
@@ -49,7 +49,7 @@
                   <input formControlName="IsCorrect"
                     *ngIf="questionFormGroup('questionType').value == 'MultipleSelection'" type="checkbox"
                     name="IsCorrect" class="check-answer">
-                  <input formControlName="IsCorrect" *ngIf="questionFormGroup('questionType').value != 'MultipleSelection'"
+                  <input formControlName="IsCorrect" *ngIf="questionFormGroup('questionType').value == 'SingleChoice' "
                     type="radio" name="IsCorrect" class="check-answer" (click)="checkCorrectAnswer(i)">
                 </div>
               </div>

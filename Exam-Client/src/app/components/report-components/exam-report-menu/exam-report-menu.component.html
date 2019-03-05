@@ -1,0 +1,47 @@
+<div class="title-center">
+  <h3 class="title">Exam Report For</h3>
+  <h3 class="orange">{{field}}</h3>
+</div>
+<div class="container">
+  <div class="row second-div">
+    <div class="offset-2 col-md-8 mainDiv">
+      <div>
+        <div class="offset-1 col my-2">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-secondary orange" id="dropdownBasic1" ngbDropdownToggle>Select Exam</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button class="dropdown-item" *ngFor="let exam of exams" (click)="chooseExam(exam)">
+                {{exam.ID}} - {{exam.TestName}}</button>
+            </div>
+            <p class="font-weight-bold">
+              {{chosenExam.TestName}}
+            </p>
+            <hr>
+          </div>
+        </div>
+        <div class="offset-1 col-md-6">
+          <p class="orange">Date Range: </p>
+          <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+            outsideDays="hidden">
+          </ngb-datepicker>
+          <ng-template #t let-date let-focused="focused">
+            <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+              [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+              (mouseleave)="hoveredDate = null">
+              {{ date.day }}
+            </span>
+          </ng-template>
+          <hr>
+          <div class="content-around">
+            <pre>From: {{ fromDateRegular | date }} </pre>
+            <pre>To: {{ toDateRegular | date }} </pre>
+          </div>
+        </div>
+        <div class="content-between">
+          <button class="btn btn-outline-secondary" (click)="navToReports()">Back</button>
+          <button class="btn btn-outline-secondary" (click)="navToExamReport()">Generate Report</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
