@@ -1,45 +1,80 @@
-<p>
-  Exam Finished
-</p>
-<div>
-  Your grade: {{grade}}
-</div>
-<div [ngStyle]="{'color':grade > test.PassingGrade ? 'green' : 'red' }">
-  Status: {{status}}
-</div>
-<div>
-  Summary: You answered {{numberOfRightAnswers}} questions correctly, out of {{questions.length}} questions in total.
-</div>
-<div>
-  Passing Grade : The minimum grade to pass this test is {{test.PassingGrade}}
-</div>
-<div *ngIf="test.ReviewAnswers">
-  <div class="center">
-    Question #{{index+1}}
-  </div>
-  <div *ngIf="q">
-    <div class="center">
-      {{q.Title}}
-      <br>
+<div class="mainDiv">
+  <nav class="navbar main-nav">
+    <div>
+      {{test.TestName}}
     </div>
-    <div class="center">
-      <label for="questionContent">{{q.QuestionContent}}</label>
-    </div>
-    <div [ngClass]="{'horizontal': q.Layout.toString() === 'Horizontal'}">
-      <div  class="center" *ngFor="let ans of answers; let i=index">
-        <label [ngClass]="{'correct': ans.CorrectAnswer}">
-        {{ans.Info}}
-        </label>
-        <input  type="radio" (click)="setAnswer(ans)" checked="{{ans.Selected? 'checked':''}}" *ngIf="q.QuestionType.toString() === 'SingleChoice'"
-          name="single">
-        <input *ngIf="q.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
+  </nav>
+
+
+  <div class="resultDetails">
+    <h5>
+      {{test.TestName}} - Results
+    </h5>
+    <table>
+      <tr>
+        <td class="titleTd">
+          Your grade:
+        </td>
+        <td class="resultTd">
+          {{grade}}
+        </td>
+      </tr>
+      <tr>
+        <td class="titleTd">
+          Status:
+        </td>
+        <td [ngStyle]="{'color':grade > test.PassingGrade ? 'green' : 'red' }" class="resultTd">
+          {{status}}
+        </td>
+      </tr>
+      <tr>
+        <td class="titleTd">
+          Summary:
+        </td>
+        <td class="resultTd">
+          You answered {{numberOfRightAnswers}} questions correctly, out of {{questions.length}} questions in total.
+        </td>
+      </tr>
+      <tr>
+        <td class="titleTd">
+          Passing Grade:
+        </td>
+        <td class="resultTd">
+          The minimum grade to pass this test is {{test.PassingGrade}}
+        </td>
+      </tr>
+    </table>
+
+    <hr>
+    <div class="question-view" *ngIf="test.ReviewAnswers">
+      <div class="questionNumber">
+        Question #{{index+1}}
+      </div>
+      <div *ngIf="question">
+        <div class="center">
+          {{question.Title}}
+          <br>
+        </div>
+        <div class="center">
+          <label for="questionContent">{{question.QuestionContent}}</label>
+        </div>
+        <div [ngClass]="{'horizontal': question.Layout.toString() === 'Horizontal'}">
+          <div class="center" *ngFor="let answer of answers; let i=index">
+            <label [ngClass]="{'correct': answer.CorrectAnswer}">
+              {{answer.Info}}
+            </label>
+            <input type="radio" (click)="setAnswer(answer)" checked="{{answer.Selected? 'checked':''}}" *ngIf="question.QuestionType.toString() === 'SingleChoice'"
+              name="single">
+            <input checked="{{answer.Selected? 'checked':''}}" *ngIf="question.QuestionType.toString() === 'MultipleSelection'"
+              type="checkbox">
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="content-between">
+      <button *ngIf="index > 0" class="btn btn-outline-secondary mr-2" (click)="previousQuestion()">Previous Question</button>
+      <button class="btn btn-outline-secondary mr-2" (click)="nextQuestion()">Next Question</button>
+    </div>
 
-  <div class="content-between">
-    <button *ngIf="index > 0" class="btn btn-outline-secondary mr-2" (click)="previousQuestion()">Previous Question</button>
-    <button class="btn btn-outline-secondary mr-2" (click)="nextQuestion()">Next Question</button>
   </div>
-
 </div>

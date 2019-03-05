@@ -2,8 +2,39 @@
     background-color: green;
 }
 
-.center{
+/* .center{
     display: flex;
     justify-content: center;
     align-items: center;
+} */
+
+.resultDetails{
+    text-align: -webkit-center;
+}
+
+
+.titleTd{
+    font: italic bold 18px/30px Georgia, serif;
+}
+
+.resultTd{
+    font: italic;
+}
+
+h5{
+    margin-bottom: 15px;
+}
+
+.questionNumber{
+    color: darkblue;
+    font: italic bold 18px/30px Georgia, serif;
+}
+
+hr{
+    width: 60%;
+    border: 1px solid;
+}
+
+.question-view{
+    margin: 20px 0px 50px 0px;
 }

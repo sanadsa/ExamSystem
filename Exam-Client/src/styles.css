@@ -46,3 +46,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     display: flex;
     justify-content: center;
 }
+
+.main-nav{
+background-color: darkblue;
+margin: 0px 0px 50px 0px;
+}
+
+.main-nav >div{
+color:white;
+}
