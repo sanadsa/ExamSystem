@@ -221,6 +221,21 @@ class DBContext {
         });
     }
 
+    /**
+     * get question from db by id
+     */
+    getQuestionById(id, callback) {
+        var request = dbPool.request();
+        request.input('QuestionId', sql.Int, id);
+        request.execute('spQuestion_GetById').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Execution error calling 'spQuestion_GetById'" })
+            } else {
+                callback(req.recordsets);
+            }
+        });
+    }
+
     saveAnswer(answer, callback) {
         var request = dbPool.request();
         request.input('QuestionId', sql.Int, answer.questionID);

@@ -5,6 +5,68 @@
 <div class="container">
   <div class="row second-div">
     <div class="offset-2 col-md-8 mainDiv">
+      <p>Summary</p>
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <td class="font-weight-bold">Test name</td>
+            <td>{{exam.TestName}}</td>
+            <td class="font-weight-bold">Date range</td>
+            <td>Test type</td>
+          </tr>
+          <tr>
+            <td class="font-weight-bold">Test code</td>
+            <td>7</td>
+            <td class="font-weight-bold"># of submissions</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="font-weight-bold">Test ID</td>
+            <td>{{exam.ID}}</td>
+            <td class="font-weight-bold"># of respondents passed</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="font-weight-bold">Test type</td>
+            <td>Predefined</td>
+            <td class="font-weight-bold">Passing percentage</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="font-weight-bold"># of questions</td>
+            <td>{{selectedQuestionsId.length}}</td>
+            <td class="font-weight-bold">Average grade</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="font-weight-bold">Passing grade</td>
+            <td>{{exam.PassingGrade}}</td>
+            <td class="font-weight-bold">Median grade</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="table table-striped">
+        <thead class="head">
+          <tr>
+            <th >ID</th>
+            <th >Respondent</th>
+            <th>Submitted</th>
+            <th># of Questions Answered</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+          <tbody>
+            <tr>
+              <td>Test name</td>
+              <td>{{exam.TestName}}</td>
+              <td>Date range</td>
+              <td>Test type</td>
+              <td>Test type</td>
+            </tr>
+          </tbody>
+        </table>
     </div>
   </div>
 </div>
