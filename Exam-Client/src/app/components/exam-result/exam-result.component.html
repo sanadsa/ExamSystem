@@ -73,7 +73,7 @@
     </div>
     <div class="content-between">
       <button *ngIf="index > 0" class="btn btn-outline-secondary mr-2" (click)="previousQuestion()">Previous Question</button>
-      <button class="btn btn-outline-secondary mr-2" (click)="nextQuestion()">Next Question</button>
+      <button *ngIf="index < questions.length - 1" class="btn btn-outline-secondary mr-2" (click)="nextQuestion()">Next Question</button>
     </div>
 
   </div>

@@ -82,6 +82,17 @@ router.get('/getQuestions/:field/:min/:max', function (req, res) {
     });
 });
 
+router.get('/getQuestionById/:quesId', function (req, res) {
+    const quesID = req.params['quesId'];
+    mainDB.getQuestionById(quesID, function (result, error) {
+        if (result) {
+            res.status(200).send(result);
+        } else if (error) {
+            res.status(400).send(error);
+        }
+    })
+});
+
 router.get('/getAnswers/:questionId', function (req, res) {
     const questionId = req.params['questionId'];
     mainDB.getAnswers(questionId, function (result, err) {

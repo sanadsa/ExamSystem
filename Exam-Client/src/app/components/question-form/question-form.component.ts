@@ -15,6 +15,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class QuestionFormComponent implements OnInit {
   question: Question;
   questionForm: FormGroup;
+  quesId: number;
+  field: string;
   answerForm = new FormGroup({
     answers: new FormArray([])
   });
@@ -35,22 +37,32 @@ export class QuestionFormComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      let questionObj: any = JSON.parse(params.get('question'));
-      this.question = <Question>questionObj;
-      if (this.question.ID != undefined) {
-        this.questionService.getAnswers(this.question.ID).subscribe(response => {
-          this.answers = response;
-          this.answers.forEach(element => {
-            this.answersFormArray.push(this.initAnswer(element.Info, element.CorrectAnswer, element.ID));
+      this.quesId = +params.get('questionId');
+      this.field = params.get('field');
+      if (this.quesId != 0) {
+        this.questionService.getQuestionById(this.quesId).subscribe(question => {
+          debugger;
+          this.question = question[0][0];
+          this.questionForm = this.initQuesForm();
+          this.questionService.getAnswers(this.quesId).subscribe(response => {
+            this.answers = response;
+            this.answers.forEach(element => {
+              this.answersFormArray.push(this.initAnswer(element.Info, element.CorrectAnswer, element.ID));
+            });
           });
         });
       } else {
         this.answersFormArray.push(this.initEmptyAnswer());
         this.answersFormArray.push(this.initEmptyAnswer());
+        this.questionForm = this.initEmptyQuesForm();
       }
     });
 
-    this.questionForm = this.fb.group({
+    this.questionForm = this.initEmptyQuesForm();
+  }
+
+  private initQuesForm() {
+    return this.fb.group({
       question: this.fb.group({
         questionType: [this.question.QuestionType || 'SingleChoice', Validators.required],
         questionText: [this.question.Title || '', Validators.required],
@@ -58,8 +70,19 @@ export class QuestionFormComponent implements OnInit {
         tags: [this.question.tags || '', Validators.required],
         layout: [this.question.Layout || '', Validators.required]
       })
+    })  
+  }
+
+  private initEmptyQuesForm() {
+    return this.fb.group({
+      question: this.fb.group({
+        questionType: ['SingleChoice', Validators.required],
+        questionText: ['', Validators.required],
+        belowQuestion: ['', Validators.required],
+        tags: ['', Validators.required],
+        layout: ['', Validators.required]
+      })
     })
-    console.log(this.questionFormGroup('questionType'));
   }
 
   get answersFormArray() {
@@ -108,7 +131,7 @@ export class QuestionFormComponent implements OnInit {
       Active: false,
       PossibleAnswers: null,
       LastUpdate: new Date(),
-      Field: this.question.Field,
+      Field: this.field,
       Layout: this.questionFormGroup('layout').value,
       tags: this.questionFormGroup('tags').value,
       NumOfTests: 0
@@ -120,7 +143,7 @@ export class QuestionFormComponent implements OnInit {
   public createQuestion() {
     let questionToAdd = this.getQuestionObj();
 
-    if (this.question.ID != undefined) {
+    if (this.quesId != 0) {
       questionToAdd.ID = this.question.ID;
       this.editQuestion(questionToAdd);
     } else {
@@ -159,7 +182,7 @@ export class QuestionFormComponent implements OnInit {
   }
 
   private navToQuestionsList() {
-    this.router.navigate([this.constantFields.questionsListRoute, { field: this.question.Field }]);
+    this.router.navigate([this.constantFields.questionsListRoute, { field: this.field }]);
   }
 
   public checkCorrectAnswer(index: number) {

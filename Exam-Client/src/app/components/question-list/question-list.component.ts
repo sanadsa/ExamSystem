@@ -66,11 +66,11 @@ export class QuestionListComponent implements OnInit {
       tags: '',
       NumOfTests: 0
     }
-    this.router.navigate([this.constFields.questionFormRoute, { question: JSON.stringify(question) }]);
+    this.router.navigate([this.constFields.questionFormRoute, { questionId: 0, field: this.field }]);
   }
 
-  public navToEdit(question) {
-    this.router.navigate([this.constFields.questionFormRoute, { question: JSON.stringify(question) }]);
+  public navToEdit(questionId) {
+    this.router.navigate([this.constFields.questionFormRoute, { questionId: questionId, field: this.field }]);
   }
 
   public deleteQuestion(id: number) {

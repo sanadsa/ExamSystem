@@ -38,7 +38,7 @@
               <div class="space">
                 <question-modal [question]="question"></question-modal>
                 <button class="btn btn-outline-secondary mr-2" *ngIf="!isTestform"
-                  (click)="navToEdit(question)">Edit</button>
+                  (click)="navToEdit(question.ID)">Edit</button>
                 <es-delete-modal [questionId]="question.ID" (onDeleteQuestion)="deleteQuestion($event)">
                 </es-delete-modal>
               </div>

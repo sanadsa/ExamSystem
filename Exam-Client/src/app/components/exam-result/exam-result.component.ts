@@ -25,6 +25,7 @@ export class ExamResultComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.test = JSON.parse(params.get('test'));
+      debugger;
       this.questions = JSON.parse(params.get('questions'));
       this.allAnswers = JSON.parse(params.get('answers'));
       this.question = this.questions[this.index];

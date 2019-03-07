@@ -13,6 +13,7 @@ export class ExamReportComponent implements OnInit {
   field: string;
   questionsFilteredList: any[] = [];
   selectedQuestionsId: number[] = [];
+  numOfQuestions: number;
 
   constructor(private route: ActivatedRoute,
     private examService: TestService) { }

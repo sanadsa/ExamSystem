@@ -11,6 +11,8 @@ import { ConstantFields } from '../helpers/common-constants';
 })
 export class QuestionService {
   constFields: ConstantFields;
+  prefixURL: string = 'http://localhost:8000/api/Question/';
+
   constructor(private http: HttpClient) {
     this.constFields = new ConstantFields();
   }
@@ -47,6 +49,10 @@ export class QuestionService {
 
   public getQuestions(field, min, max): Observable<any> {
     return this.http.get(this.constFields.getQuestions + field + '/' + min + '/' + max);
+  }
+
+  public getQuestionById(quesId: number) {
+    return this.http.get(this.prefixURL + 'getQuestionById/' + quesId);
   }
 
   public addAnswer(ans) {
