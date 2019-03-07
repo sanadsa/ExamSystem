@@ -1,0 +1,15 @@
+button{
+    margin-left:10px;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 8px;
+    border:1px orange solid ;
+    font-weight: bold;
+    color: darkblue;
+}
+
+button:hover{
+    border: 1px darkblue solid;
+    color: orange;
+    font-weight: bold;
+}

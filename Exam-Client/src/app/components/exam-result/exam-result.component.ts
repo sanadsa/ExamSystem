@@ -12,7 +12,7 @@ import { TestResult } from 'src/app/models/test-result';
 export class ExamResultComponent implements OnInit {
   test: Test;
   testReuslts: TestResult[] = []
-  questions: Question[]
+  questions: Question[] = []
   allAnswers: any[]
   answers: any[]
   question: Question

@@ -1,0 +1,3 @@
+<div *ngIf="questions">
+  <button *ngFor="let question of questions; index as i" (click)="getQuestion(i);">{{i +1}}</button>
+</div>

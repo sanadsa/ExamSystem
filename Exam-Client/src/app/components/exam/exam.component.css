@@ -1,7 +1,12 @@
-.center{
+/* .center{
     display: flex;
     justify-content: center;
     align-items: center;
+} */
+
+.questionNumber{
+    color: darkblue;
+    font: italic bold 18px/30px Georgia, serif;
 }
 
 .horizontal {
@@ -11,4 +16,23 @@
 
 .second-div {
     margin-top: 20px;
+}
+
+/* .question-answers{
+    text-align: -webkit-center;
+} */
+
+.resultDetails{
+    text-align: -webkit-center;
+}
+
+
+.instructions{
+    display:flex;
+    justify-content:space-around;
+    margin: 30px 0px 100px opx;
+}
+
+.disabled{
+    
 }

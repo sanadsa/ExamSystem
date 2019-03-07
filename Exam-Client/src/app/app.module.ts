@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {TabModule} from 'angular-tabs-component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,7 @@ import { ExamineeFormComponent } from './components/Login/examinee-form/examinee
 import { ExamReportMenuComponent } from './components/report-components/exam-report-menu/exam-report-menu.component';
 import { ReportsComponent } from './components/report-components/reports/reports.component';
 import { ExamReportComponent } from './components/report-components/exam-report/exam-report.component';
+import { ExamTabControlComponent } from './components/exam-tab-control/exam-tab-control.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,8 @@ import { ExamReportComponent } from './components/report-components/exam-report/
     ExamineeFormComponent,
     ExamReportMenuComponent,
     ReportsComponent,
-    ExamReportComponent
+    ExamReportComponent,
+    ExamTabControlComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ import { ExamReportComponent } from './components/report-components/exam-report/
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    TabModule
   ],
   providers: [
     DecimalPipe

@@ -1,9 +1,72 @@
-<nav class="navbar" style="background-color:darkblue">
-  <div style="color:gray">
-    Test
+<div class="mainDiv">
+
+  <nav class="navbar main-nav">
+    <div>
+      {{test.TestName}}
+    </div>
+  </nav>
+
+
+  <div class="resultDetails">
+    <div class="instructions">
+      <div>
+        Instructions : {{test.Instructions}}
+      </div>
+      <div>
+        Time :
+        <es-exam-timer [totalMinutes]="test.Time"></es-exam-timer>
+      </div>
+    </div>
+    <div *ngIf="test.ReviewAnswers">
+      <div class="questionNumber">
+        Question #{{index+1}}
+      </div>
+      <div *ngIf="question">
+        <div>
+          {{question.Title}}
+          <br>
+        </div>
+        <div>
+          <label for="questionContent">{{question.QuestionContent}}</label>
+        </div>
+        <table [ngClass]="{'horizontal': question.Layout.toString() === 'Horizontal'}">
+          <tr *ngFor="let ans of answers">
+            <td>
+              <input type="radio" (click)="setAnswer(ans)" checked="{{ans.Selected? 'checked':''}}" *ngIf="question.QuestionType.toString() === 'SingleChoice'"
+                name="single">
+              <input checked="{{ans.Selected? 'checked':''}}" (click)="setAnswer(ans)" *ngIf="question.QuestionType.toString() === 'MultipleSelection'"
+                type="checkbox">
+            </td>
+            <td>
+              {{ans.Info}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="content-between">
+      <button [disabled]=" index > 0 ? false:true"  class="btn btn-outline-secondary mr-2" (click)="previousQuestion()">Previous Question</button>
+      <button class="btn btn-outline-secondary mr-2" (click)="nextQuestion()"> {{ index == questions.length -1? 'Finish Test':'Next Question'  }}</button>
+    </div>
+    <div>
+        <app-exam-tab-control (onSelectTab)="showQuestionByIndex($event)" [questions]="questions"></app-exam-tab-control>
+      </div>
+    <hr>
+    <br>
+    <div *ngIf="questions" style="display:flex;justify-content: flex-end;">
+      <button  class="btn btn-outline-secondary mr-2" (click)="finishTest(content)">
+        Finish Test</button>
+    </div>
+    <ng-template #content let-modal>
+      <app-confirm-modal (onFinish)="onFinish($event)"></app-confirm-modal>
+    </ng-template>
+  
   </div>
-</nav>
-<div class="container">
+</div>
+
+
+<!-- <div class="container">
   <div class="row second-div">
     <div class="offset-2 col-md-8 mainDiv">
       <div class="row">
@@ -16,8 +79,7 @@
           </div>
         </div>
         <div>
-          Time :
-          <es-exam-timer [totalMinutes]="test.Time"></es-exam-timer>
+
         </div>
       </div>
       <br>
@@ -26,7 +88,7 @@
         <div class="center">
           Question #{{index+1}}
         </div>
-        <div *ngIf="q">
+        <div class="question-answers" *ngIf="q">
           <div class="center">
             {{q.Title}}
             <br>
@@ -34,29 +96,30 @@
           <div class="center">
             <label for="questionContent">{{q.QuestionContent}}</label>
           </div>
-          <div [ngClass]="{'horizontal': q.Layout.toString() === 'Horizontal'}">
+          <table [ngClass]="{'horizontal': q.Layout.toString() === 'Horizontal'}">
+            <tr *ngFor="let ans of answers">
+              <td>
+                  <input   type="radio" (click)="setAnswer(ans)" checked="{{ans.Selected? 'checked':''}}"
+                  *ngIf="q.QuestionType.toString() === 'SingleChoice'"  name="single">
+                  <input checked="{{ans.Selected? 'checked':''}}" (click)="setAnswer(ans)" *ngIf="q.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
+              </td>
+              <td>
+                  {{ans.Info}}
+              </td>
+            </tr>
+          </table>
+          <!-- <div  >
             <div class="center" *ngFor="let ans of answers; let i=index">
-              {{ans.Info}}
-              <input type="radio" (click)="setAnswer(ans)" checked="{{ans.Selected? 'checked':''}}"
-                *ngIf="q.QuestionType.toString() === 'SingleChoice'"  name="single">
+              <input   type="radio" (click)="setAnswer(ans)" checked="{{ans.Selected? 'checked':''}}"
+              *ngIf="q.QuestionType.toString() === 'SingleChoice'"  name="single">
               <input checked="{{ans.Selected? 'checked':''}}" (click)="setAnswer(ans)" *ngIf="q.QuestionType.toString() === 'MultipleSelection'" type="checkbox">
+              {{ans.Info}}
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="content-between">
-        <button *ngIf="index > 0" class="btn btn-outline-secondary mr-2" (click)="previousQuestion()">Previous Question</button>
-        <button class="btn btn-outline-secondary mr-2" (click)="nextQuestion()">Next Question</button>
-      </div>
-      <hr>
-      <br>
-      <div style="display:flex;justify-content: flex-end;">
-        <button class="btn btn-outline-secondary mr-2" (click)="finishTest(content)"> Finish Test</button>
-      </div>
-      <ng-template #content let-modal>
-        <app-confirm-modal (onFinish)="onFinish($event)"></app-confirm-modal>
-      </ng-template>
-  
-    </div>
+          </div> -->
+<!-- </div>
+      </div> -->
+
+
+<!-- </div>
   </div>
-</div>
+</div> -->

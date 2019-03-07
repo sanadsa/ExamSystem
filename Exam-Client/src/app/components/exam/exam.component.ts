@@ -18,7 +18,7 @@ export class ExamComponent implements OnInit {
   questions: Question[];
   allAnswers: any[];
   answers: any[] = [];
-  q: Question
+  question: Question
   index: number = 0;
   selectedAnswerId: number;
   examId: string;
@@ -35,9 +35,9 @@ export class ExamComponent implements OnInit {
         this.test = result[0][0];
         this.questions = result[1];
         this.allAnswers = result[2];
-        this.q = this.questions[0];
+        this.question = this.questions[0];
         debugger;
-        this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
+        this.answers = this.allAnswers.filter(a => a.QuestionId == this.question.ID);
         this.answers.forEach(a => {
           a.Selected = false;
         })
@@ -49,33 +49,33 @@ export class ExamComponent implements OnInit {
     const selectValue = this.answers.find(a => a.Selected);
     if (!selectValue) {
       this.index++;
-      this.q = this.questions[this.index];
-      if (!this.q) {
+      this.question = this.questions[this.index];
+      if (!this.question) {
         this.index--;
-        this.q = this.questions[this.index];
+        this.question = this.questions[this.index];
         this.modalService.open(this.content);
         return;
       }
-      this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
+      this.answers = this.allAnswers.filter(a => a.QuestionId == this.question.ID);
       return;
     }
 
     const answer = {
-      questionID: this.q.ID,
+      questionID: this.question.ID,
       userID: this.userId,
       answerID: selectValue.ID
     }
     this.index++;
-    this.q = this.questions[this.index];
-    if (!this.q) {
+    this.question = this.questions[this.index];
+    if (!this.question) {
       this.examService.saveAnswer(answer).subscribe(result => {
       }, err => console.log(err));
       this.index--;
-      this.q = this.questions[this.index];
+      this.question = this.questions[this.index];
       this.modalService.open(this.content);
       return;
     }
-    this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
+    this.answers = this.allAnswers.filter(a => a.QuestionId == this.question.ID);
     this.examService.saveAnswer(answer).subscribe(result => {
     }, err => console.log(err));
     this.selectedAnswerId = 0;
@@ -83,7 +83,7 @@ export class ExamComponent implements OnInit {
 
   setAnswer(ans) {
     debugger;
-    if (this.q.QuestionType.toString() == 'SingleChoice') {
+    if (this.question.QuestionType.toString() == 'SingleChoice') {
       this.answers.forEach(r => {
         r.Selected = false;
       });
@@ -103,33 +103,33 @@ export class ExamComponent implements OnInit {
     const selectValue = this.answers.find(a => a.Selected);
     if (!selectValue) {
       this.index--;
-      this.q = this.questions[this.index];
-      if (!this.q) {
+      this.question = this.questions[this.index];
+      if (!this.question) {
         this.index++;
-        this.q = this.questions[this.index];
+        this.question = this.questions[this.index];
         this.modalService.open(this.content);
         return;
       }
-      this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
+      this.answers = this.allAnswers.filter(a => a.QuestionId == this.question.ID);
       return;
     }
 
     const answer = {
-      questionID: this.q.ID,
+      questionID: this.question.ID,
       userID: this.userId,
       answerID: selectValue.ID
     }
     this.index--;
-    this.q = this.questions[this.index];
-    if (!this.q) {
+    this.question = this.questions[this.index];
+    if (!this.question) {
       this.examService.saveAnswer(answer).subscribe(result => {
       }, err => console.log(err));
       this.index++;
-      this.q = this.questions[this.index];
+      this.question = this.questions[this.index];
       this.modalService.open(this.content);
       return;
     }
-    this.answers = this.allAnswers.filter(a => a.QuestionId == this.q.ID);
+    this.answers = this.allAnswers.filter(a => a.QuestionId == this.question.ID);
     this.examService.saveAnswer(answer).subscribe(result => {
     }, err => console.log(err));
     this.selectedAnswerId = 0;
@@ -150,6 +150,25 @@ export class ExamComponent implements OnInit {
       }
     ]);
     this.modalService.dismissAll();
+  }
+
+  showQuestionByIndex(index){
+    const selectValue = this.answers.find(a => a.Selected);
+    if (!selectValue) {
+      this.index= index;
+      this.question = this.questions[this.index];
+      this.answers = this.allAnswers.filter(a => a.QuestionId == this.question.ID);
+    }
+    const answer = {
+      questionID: this.question.ID,
+      userID: this.userId,
+      answerID: selectValue.ID
+    }
+    this.index= index;
+    this.question = this.questions[this.index];
+    this.answers = this.allAnswers.filter(a => a.QuestionId == this.question.ID);
+    this.examService.saveAnswer(answer).subscribe(result => {
+    }, err => console.log(err));
   }
 
 
