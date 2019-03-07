@@ -1,3 +1,6 @@
+import { eAnswerLayout } from './../enums/answerlayout';
+import { eQuestionType } from './../enums/questiontype';
+
 export interface Question {
     ID?: number;
     Field?: String;
@@ -10,14 +13,4 @@ export interface Question {
     Layout?: eAnswerLayout;
     tags?: String;
     NumOfTests: number
-}
-
-export enum eQuestionType {
-    MultipleSelection,
-    SingleChoice
-}
-
-export enum eAnswerLayout {
-    Vertical,
-    Horizontal
 }

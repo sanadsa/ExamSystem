@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from './../../services/question.service';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question';
+import { Question } from 'src/app/models/question';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

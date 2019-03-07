@@ -39,7 +39,8 @@
         </div>
         <div class="content-between">
           <button class="btn btn-outline-secondary" (click)="navToReports()">Back</button>
-          <button class="btn btn-outline-secondary" (click)="navToExamReport()">Generate Report</button>
+          <button class="btn btn-outline-secondary" (click)="navToExamReport()"
+            [disabled]="toDateRegular == null && chosenExam">Generate Report</button>
         </div>
       </div>
     </div>

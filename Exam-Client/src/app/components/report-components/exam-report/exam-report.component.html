@@ -5,68 +5,85 @@
 <div class="container">
   <div class="row second-div">
     <div class="offset-2 col-md-8 mainDiv">
-      <p>Summary</p>
-      <table class="table table-striped">
-        <tbody>
-          <tr>
-            <td class="font-weight-bold">Test name</td>
-            <td>{{exam.TestName}}</td>
-            <td class="font-weight-bold">Date range</td>
-            <td>Test type</td>
-          </tr>
-          <tr>
-            <td class="font-weight-bold">Test code</td>
-            <td>7</td>
-            <td class="font-weight-bold"># of submissions</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="font-weight-bold">Test ID</td>
-            <td>{{exam.ID}}</td>
-            <td class="font-weight-bold"># of respondents passed</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="font-weight-bold">Test type</td>
-            <td>Predefined</td>
-            <td class="font-weight-bold">Passing percentage</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="font-weight-bold"># of questions</td>
-            <td>{{selectedQuestionsId.length}}</td>
-            <td class="font-weight-bold">Average grade</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="font-weight-bold">Passing grade</td>
-            <td>{{exam.PassingGrade}}</td>
-            <td class="font-weight-bold">Median grade</td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-
+      <p class="font-weight-bold">Summary</p>
+      <div class="content-around" *ngIf="exam">
+        <div>
+          <div class="flex">
+            <div class="mr-2">Test name: </div>
+            <div class="font-weight-bold mr-2">{{exam.TestName}}</div>
+          </div>
+          <div class="flex">
+            <div class="mr-2">Test code: </div>
+            <div class="font-weight-bold mr-2">7</div>
+          </div>
+          <div class="flex">
+            <div class="mr-2">Test ID: </div>
+            <div class="font-weight-bold mr-2">{{exam.ID}}</div>
+          </div>
+          <div class="flex">
+            <div class="mr-2">Test Type: </div>
+            <div class="font-weight-bold mr-2">Predefined</div>
+          </div>
+          <div class="flex">
+            <div class="mr-2"># of Questions: </div>
+            <div class="font-weight-bold mr-2">{{selectedQuestionsId.length}}</div>
+          </div>
+          <div class="flex">
+            <div class="mr-2">Passing Grade: </div>
+            <div class="font-weight-bold mr-2">{{exam.PassingGrade}}</div>
+          </div>
+        </div>
+        <div>
+          <div class="flex">
+            <div class="mr-2">Date range:</div>
+            <div class="font-weight-bold mr-2">{{fromDate | date:'yyyy-MM-dd'}} - {{toDate | date:'yyyy-MM-dd'}}</div>
+          </div>
+          <div class="flex">
+            <div class="mr-2"># of submissions:</div>
+            <div class="font-weight-bold mr-2">7</div>
+          </div>
+          <div class="flex">
+            <div class="mr-2"># of respondents passed:</div>
+            <div class="font-weight-bold mr-2"></div>
+          </div>
+          <div class="flex">
+            <div class="mr-2">Passing percentage:</div>
+            <div class="font-weight-bold mr-2"></div>
+          </div>
+          <div class="flex">
+            <div class="mr-2">Average grade: </div>
+            <div class="font-weight-bold mr-2"></div>
+          </div>
+          <div class="flex">
+            <div class="mr-2">Median grade: </div>
+            <div class="font-weight-bold mr-2"></div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div>
+        <h5>Respondent Grades and Answers</h5>
+      </div>
       <table class="table table-striped">
         <thead class="head">
           <tr>
-            <th >ID</th>
-            <th >Respondent</th>
+            <th>ID</th>
+            <th>Respondent</th>
             <th>Submitted</th>
             <th># of Questions Answered</th>
             <th>Grade</th>
           </tr>
         </thead>
-          <tbody>
-            <tr>
-              <td>Test name</td>
-              <td>{{exam.TestName}}</td>
-              <td>Date range</td>
-              <td>Test type</td>
-              <td>Test type</td>
-            </tr>
-          </tbody>
-        </table>
+        <tbody>
+          <tr *ngFor="let report of reports">
+            <td>{{report.ID}}</td>
+            <td>{{report.FirstName}} {{report.LastName}}</td>
+            <td>{{report.DeliveryDate | date:'yyyy-MM-dd'}}</td>
+            <td>{{report.NumOfAnswered}}</td>
+            <td>{{report.Grade}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

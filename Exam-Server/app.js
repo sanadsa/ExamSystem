@@ -3,6 +3,7 @@ var questionRouter = require('./routes/questionRoutes');
 var authenticationRouter = require('./routes/authenticationRoutes');
 var testRouter = require('./routes/testRoutes');
 var userRouter = require('./routes/userRoutes');
+var reportRouter = require('./routes/reportRoutes');
 
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -27,3 +28,4 @@ app.use('/api/Question', questionRouter);
 app.use('/api/Authentication', authenticationRouter);
 app.use('/api/Tests', testRouter);
 app.use('/api/User', userRouter);
+app.use('/api/Report', reportRouter);

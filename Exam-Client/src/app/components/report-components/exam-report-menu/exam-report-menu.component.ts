@@ -73,7 +73,12 @@ export class ExamReportMenuComponent implements OnInit {
   }
 
   public navToExamReport() {
-    this.router.navigate(['/examReportDetails', { examId: this.chosenExam.ID, field: this.field }])
+    this.router.navigate(['/examReportDetails', {
+      examId: this.chosenExam.ID,
+      field: this.field,
+      fromDate: this.fromDateRegular.toString(),
+      toDate: this.toDateRegular.toString()
+    }])
   }
 
 }
