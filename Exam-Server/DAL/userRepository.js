@@ -25,7 +25,7 @@ class DBContext {
             if (err) {
                 callback(null, { message: "Execution error calling '[spUsers_Insert]'" })
             } else {
-                callback(req);
+                callback(req.recordset[0]);
             }
         });
     }

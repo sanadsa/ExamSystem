@@ -13,7 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ExamComponent implements OnInit {
   @ViewChild('content') content: any;
-  userId: number = 3;
+  userId: number;
   test: Test = {};
   questions: Question[];
   allAnswers: any[];
@@ -31,6 +31,7 @@ export class ExamComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.examId = params.get("examId");
+      this.userId = parseInt(params.get("userId"));
       this.examService.getExam(this.examId).subscribe(result => {
         this.test = result[0][0];
         this.questions = result[1];

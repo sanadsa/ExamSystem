@@ -14,7 +14,7 @@ export class ExamineeFormComponent implements OnInit {
   examId: string;
   field: string;
   loginUserForm: FormGroup;
-
+  userId:number;
   constructor(private route: ActivatedRoute,
     private router: Router,
     private testService: TestService,
@@ -38,13 +38,14 @@ export class ExamineeFormComponent implements OnInit {
   public addUser() {
     this.userService.addUser(this.loginUserForm.value).subscribe(res => {
       if (res) {
+        this.userId = res.UserID;
         this.navToExam();
       }
     }, err => console.log(err));
   }
 
   private navToExam() {
-    this.router.navigate(["/exam", { examId: this.examId }]);
+    this.router.navigate(["/exam", { examId: this.examId,userId:this.userId }]);
   }
 
   get userForm() {

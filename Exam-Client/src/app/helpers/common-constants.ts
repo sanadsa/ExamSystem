@@ -19,6 +19,24 @@ export class ConstantFields {
     questionFormRoute: string;
     mainMenu: string;
 
+    // authentication service
+    restorePassword: string;
+    updatePassword: string;
+    login: string;
+    register: string;
+    // exam service
+    getExam:string;
+    saveAnswer:string;
+    generateReport:string;
+     // test service
+     addTest:string;
+     getTestsByField:string;
+     getTestById:string;
+
+     // user service
+     createUser:string;
+
+
     constructor() {
         // words
         this.SingleChoice = 'SingleChoice';
@@ -39,5 +57,22 @@ export class ConstantFields {
         this.questionsListRoute = '/questionList';
         this.questionFormRoute = '/questionForm';
         this.mainMenu = '/mainmenu';
+        //authentication service
+        this.restorePassword = 'http://localhost:8000/api/Authentication/restorePassword/';
+        this.updateAnswer = 'http://localhost:8000/api/Authentication/updatePassword/';
+        this.login = 'http://localhost:8000/api/Authentication/login/';
+        this.register = 'http://localhost:8000/api/Authentication/register';
+        // exam service
+        this.getExam = 'http://localhost:8000/api/Tests/getExam/';
+        this.saveAnswer = 'http://localhost:8000/api/Tests/saveAnswer/';
+        this.generateReport = 'http://localhost:8000/api/Tests/generateReport/';
+        // test service
+        this.addTest = 'http://localhost:8000/api/Tests/createTest';
+        this.getTestsByField = 'http://localhost:8000/api/Tests/getTestsByField/';
+        this.getTestById = 'http://localhost:8000/api/Tests/getTestById/';
+        // user service
+        this.createUser = 'http://localhost:8000/api/User/createUser/';
+
+
     }
 }

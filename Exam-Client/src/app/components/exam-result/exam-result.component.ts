@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Test } from 'src/app/models/test';
 import { Question } from 'src/app/models/question';
 import { TestResult } from 'src/app/models/test-result';
+import { ExamService } from 'src/app/services/exam.service';
 
 @Component({
   selector: 'app-exam-result',
@@ -20,7 +21,8 @@ export class ExamResultComponent implements OnInit {
   numberOfRightAnswers: number;
   grade: number;
   status: string;
-  constructor(private route: ActivatedRoute) { }
+  userId: number;
+  constructor(private route: ActivatedRoute, private examService: ExamService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -28,6 +30,8 @@ export class ExamResultComponent implements OnInit {
       debugger;
       this.questions = JSON.parse(params.get('questions'));
       this.allAnswers = JSON.parse(params.get('answers'));
+      this.userId = JSON.parse(params.get('userId'));
+
       this.question = this.questions[this.index];
       this.answers = this.allAnswers.filter(a => a.QuestionId == this.question.ID);
       this.checkTestReult();
@@ -66,6 +70,15 @@ export class ExamResultComponent implements OnInit {
     } else {
       this.status = 'Failed';
     }
+    const report = {
+      TestId: this.test.ID,
+      UserId: this.userId,
+      DeliveryDate: new Date(),
+      QuestionsSent: this.numberOfRightAnswers,
+      Grade: this.grade
+    }
+    this.examService.generateReport(report).subscribe(report => {
+    }, err => console.log(err));
   }
 
   previousQuestion() {

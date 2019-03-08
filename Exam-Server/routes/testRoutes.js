@@ -69,6 +69,15 @@ router.post('/saveAnswer/', function (req, res) {
     })
 });
 
+router.post('/generateReport/', function (req, res) {
+    mainDB.generateReport(req.body,function (result, error) {
+        if (result) {
+            res.status(200).send(result);
+        } else if (error) {
+            res.status(400).send(error);
+        }
+    })
+});
 
 
 router.get('/getExamResult/:userID', function (req, res) {

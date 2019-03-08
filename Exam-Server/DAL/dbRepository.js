@@ -176,7 +176,7 @@ class DBContext {
         });
     }
 
-    getExamResult(userId,callback){
+    getExamResult(userId, callback) {
         var request = dbPool.request();
         request.input('UserID', sql.Int, userId);
         request.execute('spExams_GetExamResult').then(function (req, err) {
@@ -236,6 +236,22 @@ class DBContext {
         });
     }
 
+    generateReport(report, callback) {
+        var request = dbPool.request();
+        request.input('TestId', sql.Int, report.TestId);
+        request.input('UserId', sql.Int, report.UserId);
+        request.input('DeliveryDate', sql.Date, report.DeliveryDate);
+        request.input('QuestionsSent', sql.Int, report.QuestionsSent);
+        request.input('Grade', sql.Int, report.Grade);
+        request.execute('spReports_Insert').then(function (req, err) {
+            if (err) {
+                callback(null, { message: "Execution error calling 'spReports_Insert" })
+            } else {
+                callback(req);
+            }
+        });
+    }
+
     saveAnswer(answer, callback) {
         var request = dbPool.request();
         request.input('QuestionId', sql.Int, answer.questionID);
@@ -246,7 +262,7 @@ class DBContext {
                 callback(null, { message: "Execution error calling 'spExams_SaveAnswer" })
             } else {
                 console.log(req);
-                
+
                 callback(req);
             }
         });

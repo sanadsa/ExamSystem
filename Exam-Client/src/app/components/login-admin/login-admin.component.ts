@@ -32,16 +32,12 @@ export class LoginAdminComponent implements OnInit {
       return;
     }
     this.authenticationService.login(this.loginForm.value.email, this.loginForm.value.password).pipe(first()).subscribe(data => {
-      debugger;
       this.router.navigate(['/mainmenu']);
     }, err => alert('email or the password is not correct'));
   }
 
   restorePassword(email) {
-    debugger;
     this.authenticationService.restorePassword(email).subscribe(res => {
-      debugger;
-      console.log(res);
     }, err => console.log(err));
   }
 }

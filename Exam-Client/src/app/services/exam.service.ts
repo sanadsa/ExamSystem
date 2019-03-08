@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ConstantFields } from '../helpers/common-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExamService {
 
+  constFields: ConstantFields = new ConstantFields();
   constructor(private http:HttpClient) { }
 
   getExam(id){
-    return this.http.get('http://localhost:8000/api/Tests/getExam/' + id);
+    return this.http.get(this.constFields.getExam + id);
   }
 
   saveAnswer(answer){
-    return this.http.post('http://localhost:8000/api/Tests/saveAnswer/',answer);
+    return this.http.post(this.constFields.saveAnswer,answer);
   }
 
-  getExamResult(userID){
-    return this.http.get('http://localhost:8000/api/Tests/getExamResult/' + userID);
+  generateReport(report){
+    return this.http.post(this.constFields.generateReport,report);
   }
 }

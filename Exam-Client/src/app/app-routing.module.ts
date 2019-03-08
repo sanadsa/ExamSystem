@@ -8,7 +8,6 @@ import { LoginAdminComponent } from './components/login-admin/login-admin.compon
 import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
 import { TestListComponent } from './components/test-list/test-list.component';
 import { TestFormComponent } from './components/test-form/test-form.component';
-import { ExaminedComponent } from './components/examined/examined.component';
 import { ExamComponent } from './components/exam/exam.component';
 import { ChooseExamComponent } from './components/exams-components/choose-exam/choose-exam.component';
 import { ExamineeFormComponent } from './components/Login/examinee-form/examinee-form.component';
@@ -26,7 +25,6 @@ const routes: Routes = [
   { path: 'testsList', component: TestListComponent },
   { path: 'testForm', component: TestFormComponent },
   { path: 'questionForm', component: QuestionFormComponent },
-  { path: 'examined', component: ExaminedComponent },
   { path: 'exam', component: ExamComponent },
   { path: 'examResult', component: ExamResultComponent },
   { path: 'chooseExam', component: ChooseExamComponent },
