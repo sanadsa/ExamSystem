@@ -1,9 +1,10 @@
 import { QuestionService } from 'src/app/services/question.service';
 import { ConstantFields } from './../../helpers/common-constants';
-import { Question, eAnswerLayout } from './../../models/question';
+import { Question } from './../../models/question';
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Answer } from 'src/app/models/answer';
+import { eAnswerLayout } from 'src/app/enums/answerlayout';
 
 @Component({
   selector: 'question-modal',

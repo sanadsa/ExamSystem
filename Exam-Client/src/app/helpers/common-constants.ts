@@ -18,7 +18,6 @@ export class ConstantFields {
     questionsListRoute: string;
     questionFormRoute: string;
     mainMenu: string;
-
     // authentication service
     restorePassword: string;
     updatePassword: string;
@@ -32,10 +31,8 @@ export class ConstantFields {
      addTest:string;
      getTestsByField:string;
      getTestById:string;
-
      // user service
      createUser:string;
-
 
     constructor() {
         // words
@@ -59,7 +56,7 @@ export class ConstantFields {
         this.mainMenu = '/mainmenu';
         //authentication service
         this.restorePassword = 'http://localhost:8000/api/Authentication/restorePassword/';
-        this.updateAnswer = 'http://localhost:8000/api/Authentication/updatePassword/';
+        this.updatePassword = 'http://localhost:8000/api/Authentication/updatePassword/';
         this.login = 'http://localhost:8000/api/Authentication/login/';
         this.register = 'http://localhost:8000/api/Authentication/register';
         // exam service
@@ -72,7 +69,5 @@ export class ConstantFields {
         this.getTestById = 'http://localhost:8000/api/Tests/getTestById/';
         // user service
         this.createUser = 'http://localhost:8000/api/User/createUser/';
-
-
     }
 }

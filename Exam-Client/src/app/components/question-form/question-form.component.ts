@@ -163,6 +163,7 @@ export class QuestionFormComponent implements OnInit {
   }
 
   private createAnswers(questionId) {
+    debugger;
     for (let ansControl of this.answersFormArray['controls']) {
       let answer: Answer = {
         QuestionId: questionId,
