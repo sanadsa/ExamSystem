@@ -1,6 +1,6 @@
 import { QuestionService } from './../../services/question.service';
 import { Component, OnInit, Input, EventEmitter, Output, ViewChildren, QueryList, Directive, PipeTransform } from '@angular/core';
-import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question';
+import { Question } from 'src/app/models/question';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConstantFields } from 'src/app/helpers/common-constants';
 import { FormControl } from '@angular/forms';

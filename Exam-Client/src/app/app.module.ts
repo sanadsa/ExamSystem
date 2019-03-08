@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {TabModule} from 'angular-tabs-component';
+// import {TabModule} from 'angular-tabs-component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -63,8 +63,7 @@ import { ExamTabControlComponent } from './components/exam-tab-control/exam-tab-
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule,
-    TabModule
+    NgbModule
   ],
   providers: [
     DecimalPipe
