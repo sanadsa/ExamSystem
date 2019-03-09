@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Question, eQuestionType, eAnswerLayout } from 'src/app/models/question';
+import { Question } from 'src/app/models/question';
 import { QuestionService } from 'src/app/services/question.service';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, AbstractControl } from '@angular/forms';
 import { TestService } from 'src/app/services/test.service';
