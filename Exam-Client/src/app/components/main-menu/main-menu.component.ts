@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class MainMenuComponent implements OnInit {
   @ViewChild('field') field: ElementRef;
   studyFields: any[] = ['Development', 'QA', 'Automation', 'Web', 'Cyber'];
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authenticationService:AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -28,5 +29,10 @@ export class MainMenuComponent implements OnInit {
 
   routeToExams(field: string): void {
     this.router.navigate(['/chooseExam', { field: field }]);
+  }
+  
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 }

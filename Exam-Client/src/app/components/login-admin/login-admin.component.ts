@@ -13,11 +13,16 @@ export class LoginAdminComponent implements OnInit {
 
   loginForm: FormGroup
   submitted: boolean;
-
+  currentUser:any;
 
   constructor(private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
-    private router: Router) { }
+    private router: Router) { 
+    this.currentUser = localStorage.getItem('currentUser');
+      if (this.currentUser) {
+        this.router.navigate(['/mainmenu']);
+      }
+    }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

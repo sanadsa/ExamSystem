@@ -8,13 +8,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private authenticationService: AuthenticationService,
-    private router: Router) {
+  constructor() {
   }
-
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['/login']);
-  }
-
 }
