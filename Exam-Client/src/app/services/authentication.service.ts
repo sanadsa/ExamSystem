@@ -27,7 +27,7 @@ export class AuthenticationService {
   }
 
   updatePassword(user: any) {
-    return this.http.post(this.constFields.updateAnswer, user);
+    return this.http.post(this.constFields.updatePassword, user);
   }
 
   login(email: string, password: string) {

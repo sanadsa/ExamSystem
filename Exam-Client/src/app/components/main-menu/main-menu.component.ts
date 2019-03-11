@@ -13,6 +13,10 @@ export class MainMenuComponent implements OnInit {
   constructor(private router: Router, private authenticationService:AuthenticationService) { }
 
   ngOnInit() {
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) {
+      this.router.navigate(['/login']);
+    }
   }
 
   routeToManageTest(field: string): void {

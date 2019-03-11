@@ -33,7 +33,7 @@ export class QuestionListComponent implements OnInit {
       this.field = params.get(this.constFields.category);
     })
     this.service.getQuestions(this.field, 0, 10).subscribe(response => {
-      this.questionsList = response;
+      this.questionsList = response.reverse();
       this.filteredQuestionsList = this.filter.valueChanges.pipe(
         startWith(''),
         map(text => this.search(text))
