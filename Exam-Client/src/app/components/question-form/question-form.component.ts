@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./question-form.component.css']
 })
 export class QuestionFormComponent implements OnInit {
-  question: Question;
+question: Question;
   questionForm: FormGroup;
   quesId: number;
   field: string;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService, IAuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
@@ -13,16 +13,17 @@ export class LoginAdminComponent implements OnInit {
 
   loginForm: FormGroup
   submitted: boolean;
-  currentUser:any;
+  currentUser: any;
+  authenticationService: IAuthenticationService;
 
   constructor(private formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService,
-    private router: Router) { 
+    authenticationService: AuthenticationService,
+    private router: Router) {
     this.currentUser = localStorage.getItem('currentUser');
-      if (this.currentUser) {
-        this.router.navigate(['/mainmenu']);
-      }
+    if (this.currentUser) {
+      this.router.navigate(['/mainmenu']);
     }
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
