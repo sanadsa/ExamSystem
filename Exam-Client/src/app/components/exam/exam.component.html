@@ -1,44 +1,52 @@
 <div class="mainDiv">
-
   <nav class="navbar main-nav">
     <div>
-      {{test.TestName}}
+      {{ test.TestName }}
     </div>
   </nav>
-
+  <h1>test</h1>
 
   <div class="resultDetails">
     <div class="instructions">
-      <div>
-        Instructions : {{test.Instructions}}
-      </div>
+      <div>Instructions : {{ test.Instructions }}</div>
       <div>
         Time :
         <es-exam-timer [totalMinutes]="test.Time"></es-exam-timer>
       </div>
     </div>
     <div *ngIf="test.ReviewAnswers">
-      <div class="questionNumber">
-        Question #{{index+1}}
-      </div>
+      <div class="questionNumber">Question #{{ index + 1 }}</div>
       <div *ngIf="question">
         <div>
-          {{question.Title}}
-          <br>
+          {{ question.Title }}
+          <br />
         </div>
         <div>
-          <label for="questionContent">{{question.QuestionContent}}</label>
+          <label for="questionContent">{{ question.QuestionContent }}</label>
         </div>
-        <table [ngClass]="{'horizontal': question.Layout.toString() === 'Horizontal'}">
+        <table
+          [ngClass]="{
+            horizontal: question.Layout.toString() === 'Horizontal'
+          }"
+        >
           <tr *ngFor="let ans of answers">
             <td>
-              <input type="radio" (click)="setAnswer(ans)" checked="{{ans.Selected? 'checked':''}}" *ngIf="question.QuestionType.toString() === 'SingleChoice'"
-                name="single">
-              <input checked="{{ans.Selected? 'checked':''}}" (click)="setAnswer(ans)" *ngIf="question.QuestionType.toString() === 'MultipleSelection'"
-                type="checkbox">
+              <input
+                type="radio"
+                (click)="setAnswer(ans)"
+                checked="{{ ans.Selected ? 'checked' : '' }}"
+                *ngIf="question.QuestionType.toString() === 'SingleChoice'"
+                name="single"
+              />
+              <input
+                checked="{{ ans.Selected ? 'checked' : '' }}"
+                (click)="setAnswer(ans)"
+                *ngIf="question.QuestionType.toString() === 'MultipleSelection'"
+                type="checkbox"
+              />
             </td>
             <td>
-              {{ans.Info}}
+              {{ ans.Info }}
             </td>
           </tr>
         </table>
@@ -46,21 +54,39 @@
     </div>
 
     <div class="content-between">
-      <button [disabled]=" index > 0 ? false:true"  class="btn btn-outline-secondary mr-2" (click)="previousQuestion()">Previous Question</button>
-      <button *ngIf="questions" class="btn btn-outline-secondary mr-2" (click)="nextQuestion()"> {{ index == questions.length -1? 'Finish Test':'Next Question'  }}</button>
+      <button
+        [disabled]="index > 0 ? false : true"
+        class="btn btn-outline-secondary mr-2"
+        (click)="previousQuestion()"
+      >
+        Previous Question
+      </button>
+      <button
+        *ngIf="questions"
+        class="btn btn-outline-secondary mr-2"
+        (click)="nextQuestion()"
+      >
+        {{ index == questions.length - 1 ? "Finish Test" : "Next Question" }}
+      </button>
     </div>
     <div>
-        <app-exam-tab-control (onSelectTab)="showQuestionByIndex($event)" [questions]="questions"></app-exam-tab-control>
-      </div>
-    <hr>
-    <br>
-    <div *ngIf="questions" style="display:flex;justify-content: flex-end;">
-      <button  class="btn btn-outline-secondary mr-2" (click)="finishTest(content)">
-        Finish Test</button>
+      <app-exam-tab-control
+        (onSelectTab)="showQuestionByIndex($event)"
+        [questions]="questions"
+      ></app-exam-tab-control>
+    </div>
+    <hr />
+    <br />
+    <div *ngIf="questions" style="display: flex; justify-content: flex-end;">
+      <button
+        class="btn btn-outline-secondary mr-2"
+        (click)="finishTest(content)"
+      >
+        Finish Test
+      </button>
     </div>
     <ng-template #content let-modal>
       <app-confirm-modal (onFinish)="onFinish($event)"></app-confirm-modal>
     </ng-template>
-  
   </div>
 </div>
