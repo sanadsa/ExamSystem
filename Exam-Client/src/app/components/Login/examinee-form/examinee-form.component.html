@@ -1,5 +1,5 @@
 <div class="title-center">
-  <h4 class="title">Please complete the following form to begin: </h4>
+  <h4 class="title">Please complete the following form to begin:</h4>
 </div>
 <div class="container">
   <div class="row second-div">
@@ -7,31 +7,82 @@
       <form [formGroup]="loginUserForm" (ngSubmit)="addUser()">
         <div class="formGroup">
           <label for="firstName">First Name:</label>
-          <input type="text" id="firstName" class="form-control" formControlName="firstName"
-            [ngClass]="{ 'is-invalid': userForm.firstName.invalid && userForm.firstName.touched }">
-          <div *ngIf="userForm.firstName.invalid && userForm.firstName.touched" class="invalid-feedback">
+          <input
+            type="text"
+            id="firstName"
+            class="form-control"
+            formControlName="firstName"
+            [ngClass]="{
+              'is-invalid':
+                userForm.firstName.invalid && userForm.firstName.touched
+            }"
+          />
+          <div
+            *ngIf="userForm.firstName.invalid && userForm.firstName.touched"
+            class="invalid-feedback"
+          >
             First Name required
           </div>
         </div>
         <div class="formGroup">
           <label>Last Name:</label>
-          <input type="text" class="form-control" formControlName="lastName"
-          [ngClass]="{ 'is-invalid': userForm.lastName.invalid && userForm.lastName.touched }">
-          <div class="invalid-feedback" *ngIf="userForm.lastName.invalid && userForm.lastName.touched">Last Name required</div>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="lastName"
+            [ngClass]="{
+              'is-invalid':
+                userForm.lastName.invalid && userForm.lastName.touched
+            }"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="userForm.lastName.invalid && userForm.lastName.touched"
+          >
+            Last Name required
+          </div>
         </div>
         <div class="formGroup">
           <label>Email:</label>
-          <input type="text" class="form-control" formControlName="email"
-          [ngClass]="{ 'is-invalid': userForm.email.invalid && userForm.email.touched }">
-          <div class="invalid-feedback" *ngIf="userForm.email.invalid && userForm.email.touched">invalid email</div>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="email"
+            [ngClass]="{
+              'is-invalid': userForm.email.invalid && userForm.email.touched
+            }"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="userForm.email.invalid && userForm.email.touched"
+          >
+            invalid email
+          </div>
         </div>
         <div class="formGroup">
           <label>Phone:</label>
-          <input type="text" class="form-control" formControlName="phone"
-          [ngClass]="{ 'is-invalid': userForm.phone.invalid && userForm.phone.touched }">
-          <div class="invalid-feedback" *ngIf="userForm.phone.invalid && userForm.phone.touched">invalid phone</div>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="phone"
+            [ngClass]="{
+              'is-invalid': userForm.phone.invalid && userForm.phone.touched
+            }"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="userForm.phone.invalid && userForm.phone.touched"
+          >
+            invalid phone
+          </div>
         </div>
-        <button [disabled]="!loginUserForm.valid" class="btn btn-primary my-2" type="submit">Submit</button>
+        <button
+          [disabled]="!loginUserForm.valid"
+          class="btn btn-primary my-2"
+          type="submit"
+        >
+          Submit
+        </button>
       </form>
     </div>
   </div>

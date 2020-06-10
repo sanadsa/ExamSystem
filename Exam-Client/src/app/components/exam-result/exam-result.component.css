@@ -1,35 +1,33 @@
-.correct{
-    background-color: green;
+.correct {
+  background-color: green;
 }
 
-
-.resultDetails{
-    text-align: -webkit-center;
+.resultDetails {
+  text-align: -webkit-center;
 }
 
-
-.titleTd{
-    font: italic bold 18px/30px Georgia, serif;
+.titleTd {
+  font: italic bold 18px/30px Georgia, serif;
 }
 
-.resultTd{
-    font: italic;
+.resultTd {
+  font: italic;
 }
 
-h5{
-    margin-bottom: 15px;
+h5 {
+  margin-bottom: 15px;
 }
 
-.questionNumber{
-    color: darkblue;
-    font: italic bold 18px/30px Georgia, serif;
+.questionNumber {
+  color: darkblue;
+  font: italic bold 18px/30px Georgia, serif;
 }
 
-hr{
-    width: 60%;
-    border: 1px solid;
+hr {
+  width: 60%;
+  border: 1px solid;
 }
 
-.question-view{
-    margin: 20px 0px 50px 0px;
+.question-view {
+  margin: 20px 0px 50px 0px;
 }

@@ -1,10 +1,15 @@
 <div class="container">
   <div class="row question">
-    <div [ngStyle]="{'background-color': question.IsInTest == 1 ? '#00ff00' : ''}"
-     (click)="test($event,this.question)" class="col-md-10">
-      {{question.Title}}
-      <br>
-      {{question.tags}}
+    <div
+      [ngStyle]="{
+        'background-color': question.IsInTest == 1 ? '#00ff00' : ''
+      }"
+      (click)="test($event, this.question)"
+      class="col-md-10"
+    >
+      {{ question.Title }}
+      <br />
+      {{ question.tags }}
     </div>
     <question-modal [question]="question"></question-modal>
   </div>

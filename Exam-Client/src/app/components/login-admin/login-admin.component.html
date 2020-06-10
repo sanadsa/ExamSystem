@@ -7,21 +7,44 @@
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <div class="fadeIn first">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoZaBtYMekhYsOAly-QdWx7cvpS53NvqwWJ8CWbkAU5dsmcLYK"
-          id="icon" alt="User Icon" />
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoZaBtYMekhYsOAly-QdWx7cvpS53NvqwWJ8CWbkAU5dsmcLYK"
+          id="icon"
+          alt="User Icon"
+        />
       </div>
       <h3>Exams System</h3>
-      <form [formGroup]="loginForm" (ngSubmit)="login()" accept-charset="UTF-8" role="form">
-        <input #email type="text" formControlName="email" class="fadeIn second" placeholder="email">
-        <input type="password" class="fadeIn third" formControlName="password" placeholder="password">
-        <input type="submit" class="fadeIn fourth" value="Sign In">
-        <a class="underlineHover" href="#" (click)="restorePassword(email.value)">Forgot you password?</a>
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="login()"
+        accept-charset="UTF-8"
+        role="form"
+      >
+        <input
+          #email
+          type="text"
+          formControlName="email"
+          class="fadeIn second"
+          placeholder="email"
+        />
+        <input
+          type="password"
+          class="fadeIn third"
+          formControlName="password"
+          placeholder="password"
+        />
+        <input type="submit" class="fadeIn fourth" value="Sign In" />
+        <a
+          class="underlineHover"
+          href="#"
+          (click)="restorePassword(email.value)"
+          >Forgot you password?</a
+        >
       </form>
 
       <div id="formFooter">
         <a class="underlineHover" [routerLink]="['/register']">Register</a>
       </div>
-
     </div>
   </div>
 </div>

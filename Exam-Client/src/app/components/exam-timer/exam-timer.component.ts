@@ -1,18 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
-  selector: 'es-exam-timer',
-  templateUrl: './exam-timer.component.html',
-  styleUrls: ['./exam-timer.component.css']
+  selector: "es-exam-timer",
+  templateUrl: "./exam-timer.component.html",
+  styleUrls: ["./exam-timer.component.css"],
 })
 export class ExamTimerComponent implements OnInit {
   @Input() totalMinutes: number;
   sec: number = 0;
   isExamStarted: boolean = true;
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges() {
     if (this.isExamStarted) {
@@ -32,5 +31,4 @@ export class ExamTimerComponent implements OnInit {
       }
     }, 1000);
   }
-
 }

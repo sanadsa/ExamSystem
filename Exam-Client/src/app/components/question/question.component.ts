@@ -1,13 +1,13 @@
-import { ConstantFields } from 'src/app/helpers/common-constants';
-import { QuestionService } from './../../services/question.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Question } from 'src/app/models/question';
-import { Router } from '@angular/router';
+import { ConstantFields } from "src/app/helpers/common-constants";
+import { QuestionService } from "./../../services/question.service";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Question } from "src/app/models/question";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'question',
-  templateUrl: './question.component.html',
-  styleUrls: ['./question.component.css']
+  selector: "question",
+  templateUrl: "./question.component.html",
+  styleUrls: ["./question.component.css"],
 })
 export class QuestionComponent implements OnInit {
   @Input() question: Question;
@@ -17,15 +17,20 @@ export class QuestionComponent implements OnInit {
   constructor(private router: Router) {
     this.constFields = new ConstantFields();
   }
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   public navToEdit() {
-    this.router.navigate([this.constFields.questionFormRoute, { question: JSON.stringify(this.question) }]);
+    this.router.navigate([
+      this.constFields.questionFormRoute,
+      { question: JSON.stringify(this.question) },
+    ]);
   }
 
   public navToQuestionList() {
-    this.router.navigate([this.constFields.questionsListRoute, { field: this.question.Field }])
+    this.router.navigate([
+      this.constFields.questionsListRoute,
+      { field: this.question.Field },
+    ]);
   }
 
   public deleteQuestion(questionId) {
@@ -33,12 +38,11 @@ export class QuestionComponent implements OnInit {
   }
 
   public test(event, question) {
-    if (event.target.style.backgroundColor == '') {
-      event.target.style.backgroundColor = '#00ff00';
+    if (event.target.style.backgroundColor == "") {
+      event.target.style.backgroundColor = "#00ff00";
     } else {
-      event.target.style.backgroundColor = '';
+      event.target.style.backgroundColor = "";
     }
     this.onSelectQuestion.emit(question);
   }
-
 }

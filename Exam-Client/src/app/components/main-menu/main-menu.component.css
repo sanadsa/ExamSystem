@@ -1,18 +1,18 @@
-.menuDiv{
-    display: flex;
-    justify-content: center;
-    padding: 80px;
+.menuDiv {
+  display: flex;
+  justify-content: center;
+  padding: 80px;
 }
 
-.buttonsDiv{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.buttonsDiv {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.logOut{
-    border-radius: 10px;
-    border: 1px solid peru;
-    cursor: pointer;
-    background-color: orange;
+.logOut {
+  border-radius: 10px;
+  border: 1px solid peru;
+  cursor: pointer;
+  background-color: orange;
 }
